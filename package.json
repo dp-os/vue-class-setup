@@ -1,0 +1,17 @@
+{
+  "name": "vue-class-setup",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:fmfe/vue-class-setup.git",
+  "author": "<1340641314@qq.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^3.0.3",
+    "vite-plugin-dts": "^1.4.0"
+  }
+}
