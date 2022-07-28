@@ -23,15 +23,17 @@ import { Setup, Hook } from './class-setup';
 @Setup
 class Count {
     public value = 100;
+    // computed
     public get text() {
         return String(this.value);
     }
+    // computed
     public  get time() {
         return Date.now()
     }
     @Hook('onMounted')
-    public init() { 
-        console.log('>>>> 哈哈');
+    public init() {
+        
     }
     public add() {
         this.value++;
