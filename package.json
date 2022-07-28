@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:publish": "yarn build && npm publish --registry=https://registry.npmjs.org"
   },
   "dependencies": {
     "vue-demi": "^0.13.6"
