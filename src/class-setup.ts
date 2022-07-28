@@ -1,8 +1,36 @@
-import { reactive, computed, onActivated, onBeforeMount, onBeforeUnmount, onBeforeUpdate, onDeactivated, onErrorCaptured, onMounted, onRenderTracked, onRenderTriggered, onScopeDispose, onServerPrefetch, onUnmounted, onUpdated } from 'vue-demi';
+import {
+    reactive, 
+    computed, 
+    onActivated, 
+    onBeforeMount, 
+    onBeforeUnmount, 
+    onBeforeUpdate, 
+    onDeactivated, 
+    onErrorCaptured, 
+    onMounted, 
+    onRenderTracked, 
+    onRenderTriggered, 
+    onScopeDispose, 
+    onServerPrefetch, 
+    onUnmounted, 
+    onUpdated
+} from 'vue-demi';
 
 
 
-type HookType = 'onActivated' | 'onBeforeMount' | 'onBeforeUnmount' | 'onBeforeUpdate' | 'onDeactivated' | 'onErrorCaptured' | 'onMounted' | 'onRenderTracked' | 'onRenderTriggered' | 'onScopeDispose' | 'onServerPrefetch' | 'onUnmounted' | 'onUpdated'
+type HookType = 'onActivated'
+    | 'onBeforeMount'
+    | 'onBeforeUnmount'
+    | 'onBeforeUpdate'
+    | 'onDeactivated'
+    | 'onErrorCaptured'
+    | 'onMounted'
+    | 'onRenderTracked'
+    | 'onRenderTriggered'
+    | 'onScopeDispose'
+    | 'onServerPrefetch'
+    | 'onUnmounted'
+    | 'onUpdated'
 
 type Target = { new(...args: any[]): {} };
 type Name = string | symbol;
