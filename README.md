@@ -18,7 +18,7 @@ yarn add vue-class-setup
 </template>
 
 <script lang="ts" setup>
-import { Setup, Hook } from './class-setup';
+import { Setup, Hook } from 'vue-class-setup';
 
 @Setup
 class Count {
