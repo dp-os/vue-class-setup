@@ -1,17 +1,26 @@
 {
   "name": "vue-class-setup",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
   "repository": "git@github.com:fmfe/vue-class-setup.git",
   "author": "<1340641314@qq.com>",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "vue-demi": "^0.13.6"
+  },
+  "peerDependencies": {
+    "vue": "2.7.8 || >=3.0.0"
+  },
   "devDependencies": {
+    "@vitejs/plugin-vue2": "^1.1.2",
     "vite": "^3.0.3",
-    "vite-plugin-dts": "^1.4.0"
+    "vite-plugin-dts": "^1.4.0",
+    "vue": "^2.7.8",
+    "vue-tsc": "^0.39.2"
   }
 }
