@@ -1,18 +1,18 @@
 import {
-    reactive, 
-    computed, 
-    onActivated, 
-    onBeforeMount, 
-    onBeforeUnmount, 
-    onBeforeUpdate, 
-    onDeactivated, 
-    onErrorCaptured, 
-    onMounted, 
-    onRenderTracked, 
-    onRenderTriggered, 
-    onScopeDispose, 
-    onServerPrefetch, 
-    onUnmounted, 
+    reactive,
+    computed,
+    onActivated,
+    onBeforeMount,
+    onBeforeUnmount,
+    onBeforeUpdate,
+    onDeactivated,
+    onErrorCaptured,
+    onMounted,
+    onRenderTracked,
+    onRenderTriggered,
+    onScopeDispose,
+    onServerPrefetch,
+    onUnmounted,
     onUpdated
 } from 'vue';
 
@@ -39,6 +39,7 @@ type Callback = (...args: any[]) => any;
 
 
 const SETUP_OPTIONS_NAME = 'setupOptions';
+const SETUP_NAME = 'setup';
 const HOOK: Record<string, HookInit> = {
     computed(target: any, name: Name) {
         const descriptor = getDescriptor(target, name)!;
@@ -103,13 +104,7 @@ function initHook(target: object) {
     reactive(target);
 }
 
-function setOptions(Target: any, hook: string, name: Name) {
-    const options = getOptions(Target);
-    const arr: Name[] = options[hook] = options[hook] || [];
-    if (!arr.includes(name)) {
-        arr.push(name);
-    }
-}
+let currentOptions: Partial<Record<HookType, string[]>> = {};
 
 function getOptions(Target: any): Record<HookType, string[]> {
     let options = Target[SETUP_OPTIONS_NAME];
@@ -120,11 +115,42 @@ function getOptions(Target: any): Record<HookType, string[]> {
     return options;
 }
 
+function setOptions(hook: string, name: Name) {
+    const arr: Name[] = currentOptions[hook] = currentOptions[hook] || [];
+    if (!arr.includes(name)) {
+        arr.push(name);
+    }
+}
+
+function getSetupOptions(Target: any) {
+    const options = getOptions(Target);
+    const temp = currentOptions;
+    Object.keys(options).forEach(k => {
+        if (Array.isArray(temp[k])) {
+            temp[k] = [...options[k], ...temp[k]];
+        } else {
+            temp[k] = [...options[k]];
+        }
+    })
+    currentOptions = {}
+
+    return temp;
+}
+
+
+
 function Setup<T extends Target>(Target: T) {
     const descriptors = Object.getOwnPropertyDescriptors(Target.prototype);
 
+    Object.keys(descriptors).filter(k => {
+        const descriptor = descriptors[k];
+        if (descriptor.get) {
+            setOptions('computed', k);
+        }
+    });
     class Setup extends Target {
-        public static [SETUP_OPTIONS_NAME] = getOptions(Target);
+        public static [SETUP_OPTIONS_NAME] = getSetupOptions(Target);
+        public static [SETUP_NAME] = true;
         public constructor(...args: any[]) {
             super(...args);
             if (!this[INIT_SETUP]) {
@@ -138,19 +164,15 @@ function Setup<T extends Target>(Target: T) {
         }
     }
 
-    Object.keys(descriptors).filter(k => {
-        const descriptor = descriptors[k];
-        if (descriptor.get) {
-            setOptions(Target, 'computed', k);
-        }
-    });
+
+
     return Setup
 }
 
 function Hook(hook: HookType) {
     return function (target: object, name: Name, descriptor: PropertyDescriptor) {
         if (typeof descriptor.value === 'function') {
-            setOptions(target.constructor, hook, name);
+            setOptions(hook, name);
         } else {
             throw new TypeError('Hooks can only be functions')
         }

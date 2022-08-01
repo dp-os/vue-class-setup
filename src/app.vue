@@ -10,14 +10,18 @@ import { Setup, Hook } from 'vue-class-setup';
 @Setup
 class Count {
     public value = 100;
+    // computed
     public get text() {
         return String(this.value);
     }
+    // computed
     public  get time() {
         return Date.now()
     }
     @Hook('onMounted')
-    public init() {}
+    public init() {
+        
+    }
     public add() {
         this.value++;
     }

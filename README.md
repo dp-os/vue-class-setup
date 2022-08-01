@@ -46,18 +46,18 @@ const count = new Count();
 ```
 
 ## Support
-- [x] computed
-- [x] onActivated
-- [x] onBeforeMount
-- [x] onBeforeUnmount
-- [x] onBeforeUpdate
-- [x] onDeactivated
-- [x] onErrorCaptured
-- [x] onMounted
-- [x] onRenderTracked
-- [x] onRenderTriggered
-- [x] onScopeDispose
-- [x] onServerPrefetch
-- [x] onUnmounted
-- [x] onUpdated
+- `computed`
+- `onActivated`
+- `onBeforeMount`
+- `onBeforeUnmount`
+- `onBeforeUpdate`
+- `onDeactivated`
+- `onErrorCaptured`
+- `onMounted`
+- `onRenderTracked`
+- `onRenderTriggered`
+- `onScopeDispose`
+- `onServerPrefetch`
+- `onUnmounted`
+- `onUpdated`
 
