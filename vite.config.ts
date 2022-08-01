@@ -20,5 +20,10 @@ export default defineConfig({
     },
     optimizeDeps: {
         exclude: ['vue-demi']
-     }
+    },
+    resolve: {
+        alias: {
+            'vue-class-setup': resolve('./src/vue-class-setup')
+        }
+    }
 });

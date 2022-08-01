@@ -59,8 +59,8 @@ function getDescriptor(target: object, name: Name): PropertyDescriptor | null {
     if (descriptor) {
         return descriptor;
     }
-    const t = Object.getPrototypeOf(target);
-    return getDescriptor(t, name);
+    const next = Object.getPrototypeOf(target);
+    return getDescriptor(next, name);
 }
 
 function registerHook(name: string, fn: Callback) {

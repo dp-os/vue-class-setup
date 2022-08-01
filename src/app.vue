@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Setup, Hook } from './class-setup';
+import { Setup, Hook } from 'vue-class-setup';
 
 @Setup
 class Count {
@@ -22,6 +22,8 @@ class Count {
         this.value++;
     }
 }
+
+console.dir(Count);
 
 const count = new Count();
 </script>
