@@ -17,9 +17,7 @@ class Count {
         return Date.now()
     }
     @Hook('onMounted')
-    public init() { 
-        console.log('>>>> 哈哈');
-    }
+    public init() {}
     public add() {
         this.value++;
     }

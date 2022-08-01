@@ -11,17 +11,15 @@
     "preview": "vite preview",
     "build:publish": "yarn build && npm publish --registry=https://registry.npmjs.org"
   },
-  "dependencies": {
-    "vue-demi": "^0.13.6"
-  },
   "peerDependencies": {
-    "vue": "2.7.8 || >=3.0.0"
+    "vue": ">=2.7.8 || >=3.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue2": "^1.1.2",
+    "typescript": "^4.7.4",
     "vite": "^3.0.3",
     "vite-plugin-dts": "^1.4.0",
     "vue": "^2.7.8",
-    "vue-tsc": "^0.39.2"
+    "vue-tsc": "^0.39.4"
   }
 }

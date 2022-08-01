@@ -1,8 +1,12 @@
-import { createApp } from 'vue-demi';
+import Vue from 'vue';
 import App from './app.vue';
 
 
-const app = createApp(App);
+const app = new Vue({
+    render (h) {
+        return h(App);
+    }
+});
 
-app.mount('#app');
+app.$mount('#app');
 

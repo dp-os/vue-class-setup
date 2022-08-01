@@ -14,7 +14,7 @@ import {
     onServerPrefetch, 
     onUnmounted, 
     onUpdated
-} from 'vue-demi';
+} from 'vue';
 
 
 
