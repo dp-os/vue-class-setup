@@ -9,17 +9,13 @@ export default defineConfig({
     build: {
         lib: {
             formats: ['cjs', 'es'],
-            entry: resolve(__dirname, 'src/class-setup'),
-            name: 'VueClassSetup',
+            entry: resolve(__dirname, 'src/vue-class-setup'),
             fileName: (format) => `vue-class-setup.${format}.js`
         },
         minify: false,
         rollupOptions: {
             external: ['vue']
         }
-    },
-    optimizeDeps: {
-        exclude: ['vue-demi']
     },
     resolve: {
         alias: {

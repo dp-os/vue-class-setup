@@ -23,7 +23,5 @@ class Count {
     }
 }
 
-console.dir(Count);
-
 const count = new Count();
 </script>
