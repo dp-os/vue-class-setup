@@ -103,11 +103,6 @@ function initHook(target: object) {
     reactive(target);
 }
 
-
-
-
-
-
 function setOptions(Target: any, hook: string, name: Name) {
     const options = getOptions(Target);
     const arr: Name[] = options[hook] = options[hook] || [];
