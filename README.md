@@ -46,6 +46,8 @@ export default defineComponent({
 ## How to use watch?
 Watch parameters are complex, so decorators are not supported, but setup hooks are provided
 ```ts
+import { watch } from 'vue';
+import { Setup, Hook } from 'vue-class-setup';
 @Setup
 class Count {
     public value = 0;
