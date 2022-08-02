@@ -13,7 +13,10 @@ import {
     onScopeDispose,
     onServerPrefetch,
     onUnmounted,
-    onUpdated
+    onUpdated,
+    watchEffect,
+    watchPostEffect,
+    watchSyncEffect
 } from 'vue';
 
 
@@ -39,10 +42,16 @@ const HOOK = {
     serverPrefetch: _registerHook(onServerPrefetch),
     unmounted: _registerHook(onUnmounted),
     updated: _registerHook(onUpdated),
+    watchPreEffect: _registerHook(watchEffect),
+    watchPostEffect: _registerHook(watchPostEffect),
+    watchSyncEffect: _registerHook(watchSyncEffect),
     computed(target: any, name: Name) {
         const descriptor = getDescriptor(target, name)!;
         compute(target, name, descriptor, 'get');
         compute(target, name, descriptor, 'value');
+    },
+    setup(target: any, name: Name) {
+        target[name]();
     }
 } as const
 
@@ -170,13 +179,9 @@ function Setup<T extends Target>(Target: T) {
 
 function Hook<T extends HookType>(hook: T) {
     return function (target: object, name: Name, descriptor: PropertyDescriptor) {
-        if (typeof descriptor.value === 'function') {
-            setOptions(hook, name);
-        } else {
-            throw new TypeError('Hooks can only be functions')
-        }
+        setOptions(hook, name);
     }
 }
 
 
-export { Setup, Hook, registerHook }
+export { Setup, Hook, type HookType, registerHook }
