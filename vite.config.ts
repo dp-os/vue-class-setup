@@ -9,7 +9,6 @@ export default defineConfig({
     // @ts-ignore
     test: {
         globals: true,
-        setupFiles: ['./vitest.setup.ts'],
         environment: 'happy-dom',
         coverage: {
             reporter: ['lcov', 'html'],
