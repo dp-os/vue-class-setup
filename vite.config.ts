@@ -1,15 +1,22 @@
+/// <reference types="vitest" />
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import vue2 from '@vitejs/plugin-vue2';
+import vue2 from '@vitejs/plugin-vue';
 
 
 export default defineConfig({
+    // @ts-ignore
+    test: {
+        globals: true,
+        setupFiles: ['./vitest.setup.ts'],
+        environment: 'happy-dom'
+    },
     plugins: [vue2(), dts()],
     build: {
         lib: {
             formats: ['cjs', 'es'],
-            entry: resolve(__dirname, 'src/vue-class-setup'),
+            entry: resolve(__dirname, 'src/index'),
             fileName: (format) => `vue-class-setup.${format}.js`
         },
         minify: false,
@@ -19,7 +26,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            'vue-class-setup': resolve('./src/vue-class-setup')
+            'vue-class-setup': resolve('./src/index')
         }
     }
 });

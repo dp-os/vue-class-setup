@@ -6,7 +6,10 @@
   "author": "<1340641314@qq.com>",
   "license": "MIT",
   "description": "Write setup using class",
-  "keywords": ["vue-class", "vue-class-component"],
+  "keywords": [
+    "vue-class",
+    "vue-class-component"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -19,13 +22,15 @@
     "vue": ">=2.7.8 || >=3.0.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue2": "^1.1.2",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "@vue/test-utils": "^2.0.2",
     "c8": "^7.12.0",
+    "happy-dom": "^6.0.4",
     "typescript": "^4.7.4",
     "vite": "^3.0.3",
     "vite-plugin-dts": "^1.4.0",
-    "vue": "^2.7.8",
     "vitest": "^0.20.2",
+    "vue": "^3.2.37",
     "vue-tsc": "^0.39.4"
   }
 }

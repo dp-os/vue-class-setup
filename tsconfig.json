@@ -15,7 +15,7 @@
     "skipLibCheck": true,
     "paths": {
       "vue-class-setup": [
-        "./src/vue-class-setup"
+        "./src/index.ts"
       ]
     }
   }
