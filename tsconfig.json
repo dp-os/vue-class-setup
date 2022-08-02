@@ -18,5 +18,6 @@
         "./src/index.ts"
       ]
     }
-  }
+  },
+  "exclude": ["coverage/**"]
 }
