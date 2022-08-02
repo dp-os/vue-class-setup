@@ -69,7 +69,7 @@ import { Setup, Hook } from 'vue-class-setup';
 class Count {
     @Hook('setup')
     public setup() {
-
+        // Your code
     }
 }
 ```
