@@ -10,7 +10,8 @@
   "description": "Write setup using class",
   "keywords": [
     "vue-class",
-    "vue-class-component"
+    "vue-class-component",
+    "vue-property-decorator"
   ],
   "scripts": {
     "dev": "vite",
