@@ -61,6 +61,18 @@ class Count {
     }
 }
 ```
+## Custom setup
+```ts
+import { Setup, Hook } from 'vue-class-setup';
+
+@Setup
+class Count {
+    @Hook('setup')
+    public setup() {
+
+    }
+}
+```
 ## How to use watch?
 Watch parameters are complex, so decorators are not supported, but `setup` hooks are provided
 ```ts
