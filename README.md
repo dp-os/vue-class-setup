@@ -47,7 +47,7 @@ export default defineComponent({
 ## Computed
 Using the get accessor and `computed` hook, it will be converted to `computed`
 ```ts
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { Setup, Hook } from 'vue-class-setup';
 
 @Setup
