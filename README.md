@@ -48,6 +48,7 @@ Watch parameters are complex, so decorators are not supported, but setup hooks a
 ```ts
 import { watch } from 'vue';
 import { Setup, Hook } from 'vue-class-setup';
+
 @Setup
 class Count {
     public value = 0;
