@@ -1,5 +1,5 @@
 [![Build Status](https://github.com/fmfe/vue-class-setup/workflows/CI/badge.svg)](https://github.com/fmfe/vue-class-setup/actions)
-[![Coverage Status](https://coveralls.io/repos/github/fmfe/vue-class-setup/badge.svg?branch=master)](https://coveralls.io/github/fmfe/vue-class-setup?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/fmfe/vue-class-setup/badge.svg?branch=main)](https://coveralls.io/github/fmfe/vue-class-setup?branch=main)
 [![npm](https://img.shields.io/npm/v/vue-class-setup.svg)](https://www.npmjs.com/package/vue-class-setup) 
 [![npm](https://img.shields.io/npm/dm/vue-class-setup.svg)](https://www.npmjs.com/package/vue-class-setup)
 [![npm](https://img.shields.io/npm/dt/vue-class-setup.svg)](https://www.npmjs.com/package/vue-class-setup)
