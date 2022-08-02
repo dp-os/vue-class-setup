@@ -27,4 +27,4 @@ jobs:
       #   node-version: ${{ matrix.node-version }}
       #   cache: 'npm'
     # - run: yarn build
-    - run: yarn coverage
+    - run: npm run coverage
