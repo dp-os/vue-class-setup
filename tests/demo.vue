@@ -1,17 +1,3 @@
-# vue-class-setup
-Write setup using class
-
-## Install
-```bash
-npm install vue-class-setup
-```
-or
-```bash
-yarn add vue-class-setup
-```
-
-## Usage
-```vue
 <template>
     <p>{{ count.text }}</p>
 </template>
@@ -39,4 +25,3 @@ export default defineComponent({
     }
 })
 </script>
-```
