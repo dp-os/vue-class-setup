@@ -10,7 +10,10 @@ export default defineConfig({
     test: {
         globals: true,
         setupFiles: ['./vitest.setup.ts'],
-        environment: 'happy-dom'
+        environment: 'happy-dom',
+        coverage: {
+            reporter: ['lcov', 'html'],
+        }
     },
     plugins: [vue2(), dts()],
     build: {
