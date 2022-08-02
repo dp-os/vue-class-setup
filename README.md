@@ -4,7 +4,8 @@
 [![npm](https://img.shields.io/npm/dm/vue-class-setup.svg)](https://www.npmjs.com/package/vue-class-setup)
 [![npm](https://img.shields.io/npm/dt/vue-class-setup.svg)](https://www.npmjs.com/package/vue-class-setup)
 # vue-class-setup
-Use class to write setup, and support vue2 and vue3
+Use class to write setup, and support vue2 and vue3    
+Only 1.34 KiB after gzip compression
 
 ## Install
 ```bash
