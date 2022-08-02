@@ -4,6 +4,7 @@
         <p class="text">{{count.text}}</p>
         <p class="ready">{{count.ready}}</p>
         <time class="time">{{ count.time }}</time>
+        <time class="get-time">{{ count.getTime() }}</time>
         <button class="button" @click="count.add">Add</button>
     </div>
 </template>
@@ -19,6 +20,10 @@ class Count {
         return `value:${this.value}`;
     }
     public get time() {
+        return Date.now();
+    }
+    @Hook('computed')
+    public getTime() {
         return Date.now();
     }
     public add() {

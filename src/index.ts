@@ -17,42 +17,50 @@ import {
 } from 'vue';
 
 
-
-type HookType = 'activated'
-    | 'beforeMount'
-    | 'beforeUnmount'
-    | 'beforeUpdate'
-    | 'deactivated'
-    | 'errorCaptured'
-    | 'mounted'
-    | 'renderTracked'
-    | 'renderTriggered'
-    | 'scopeDispose'
-    | 'serverPrefetch'
-    | 'unmounted'
-    | 'updated'
-
 type Target = { new(...args: any[]): {} };
 type Name = string | symbol;
-type HookInit = (target: any, name: Name) => any;
 type Callback = (...args: any[]) => any;
+
 
 
 const SETUP_OPTIONS_NAME = 'setupOptions';
 const SETUP_NAME = 'setup';
-const HOOK: Record<string, HookInit> = {
+const HOOK = {
+    activated: _registerHook(onActivated),
+    beforeMount: _registerHook(onBeforeMount),
+    beforeUnmount: _registerHook(onBeforeUnmount),
+    beforeUpdate: _registerHook(onBeforeUpdate),
+    deactivated: _registerHook(onDeactivated),
+    errorCaptured: _registerHook(onErrorCaptured),
+    mounted: _registerHook(onMounted),
+    renderTracked: _registerHook(onRenderTracked),
+    renderTriggered: _registerHook(onRenderTriggered),
+    scopeDispose: _registerHook(onScopeDispose),
+    serverPrefetch: _registerHook(onServerPrefetch),
+    unmounted: _registerHook(onUnmounted),
+    updated: _registerHook(onUpdated),
     computed(target: any, name: Name) {
         const descriptor = getDescriptor(target, name)!;
-        const get = descriptor.get!.bind(target)
-        const c = computed(get);
-        Object.defineProperty(target, name, {
-            ...descriptor,
-            get() {
-                return c.value;
-            }
-        })
+        compute(target, name, descriptor, 'get');
+        compute(target, name, descriptor, 'value');
     }
-};
+} as const
+
+type HookType = keyof typeof HOOK;
+
+function compute(target: any, name: Name, descriptor: PropertyDescriptor, type: 'get' | 'value') {
+    if (typeof descriptor[type] !== 'function') return;
+
+    const value = descriptor[type].bind(target);
+    const compute = computed(value);
+    Object.defineProperty(target, name, {
+        ...descriptor,
+        [type]() {
+            return compute.value;
+        }
+    })
+}
+
 
 function getDescriptor(target: object, name: Name): PropertyDescriptor | null {
     if (!target) return null;
@@ -64,24 +72,15 @@ function getDescriptor(target: object, name: Name): PropertyDescriptor | null {
     return getDescriptor(next, name);
 }
 
-function registerHook(name: string, fn: Callback) {
-    HOOK[name] = (target: any, name: Name) => {
+function _registerHook(fn: Callback) {
+    return (target: any, name: Name) => {
         fn(target[name]);
     }
 }
-registerHook('activated', onActivated)
-registerHook('beforeMount', onBeforeMount)
-registerHook('beforeUnmount', onBeforeUnmount)
-registerHook('beforeUpdate', onBeforeUpdate)
-registerHook('deactivated', onDeactivated)
-registerHook('errorCaptured', onErrorCaptured)
-registerHook('mounted', onMounted)
-registerHook('renderTracked', onRenderTracked)
-registerHook('renderTriggered', onRenderTriggered)
-registerHook('scopeDispose', onScopeDispose)
-registerHook('serverPrefetch', onServerPrefetch)
-registerHook('unmounted', onUnmounted)
-registerHook('updated', onUpdated)
+
+function registerHook(name: string, fn: Callback) {
+    HOOK[name] = _registerHook(fn);
+}
 
 const INIT_SETUP = '__initSetup'
 
@@ -166,12 +165,10 @@ function Setup<T extends Target>(Target: T) {
         }
     }
 
-
-
     return Setup
 }
 
-function Hook(hook: HookType) {
+function Hook<T extends HookType>(hook: T) {
     return function (target: object, name: Name, descriptor: PropertyDescriptor) {
         if (typeof descriptor.value === 'function') {
             setOptions(hook, name);
