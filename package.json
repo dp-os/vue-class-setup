@@ -1,6 +1,6 @@
 {
   "name": "vue-class-setup",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "main": "dist/vue-class-setup.cjs.js",
   "module": "vue-class-setup.es.js",
   "types": "dist/index.d.ts",
