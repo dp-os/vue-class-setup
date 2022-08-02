@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/fmfe/vue-class-setup.svg?branch=master)](https://travis-ci.org/fmfe/vue-class-setup)
+[![Build Status](https://travis-ci.com/fmfe/vue-class-setup.svg?branch=master)](https://travis-ci.com/fmfe/vue-class-setup)
 [![Coverage Status](https://coveralls.io/repos/github/fmfe/vue-class-setup/badge.svg?branch=master)](https://coveralls.io/github/fmfe/vue-class-setup?branch=master)
 [![npm](https://img.shields.io/npm/v/vue-class-setup.svg)](https://www.npmjs.com/package/vue-class-setup) 
 [![npm](https://img.shields.io/npm/dm/vue-class-setup.svg)](https://www.npmjs.com/package/vue-class-setup)
