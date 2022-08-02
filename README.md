@@ -43,8 +43,26 @@ export default defineComponent({
 })
 </script>
 ```
+
+## Computed
+Using the get accessor and `computed` hook, it will be converted to `computed`
+```ts
+import { defineComponent, ref } from 'vue';
+import { Setup, Hook } from 'vue-class-setup';
+
+@Setup
+class Count {
+    public get time() {
+        return Date.now();
+    }
+    @Hook('computed')
+    public getTime() {
+        return Date.now();
+    }
+}
+```
 ## How to use watch?
-Watch parameters are complex, so decorators are not supported, but setup hooks are provided
+Watch parameters are complex, so decorators are not supported, but `setup` hooks are provided
 ```ts
 import { watch } from 'vue';
 import { Setup, Hook } from 'vue-class-setup';
