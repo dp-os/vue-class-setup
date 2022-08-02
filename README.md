@@ -9,9 +9,7 @@ Write setup using class
 ## Install
 ```bash
 npm install vue-class-setup
-```
-or
-```bash
+# or
 yarn add vue-class-setup
 ```
 
