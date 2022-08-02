@@ -72,7 +72,6 @@ function compute(target: any, name: Name, descriptor: PropertyDescriptor, type: 
 
 
 function getDescriptor(target: object, name: Name): PropertyDescriptor | null {
-    if (!target) return null;
     const descriptor = Object.getOwnPropertyDescriptor(target, name);
     if (descriptor) {
         return descriptor;
