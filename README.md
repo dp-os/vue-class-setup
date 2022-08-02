@@ -43,3 +43,17 @@ export default defineComponent({
 })
 </script>
 ```
+## How to use watch?
+Watch parameters are complex, so decorators are not supported, but setup hooks are provided
+```ts
+@Setup
+class Count {
+    public value = 0;
+    @Hook('setup')
+    public setup() {
+        watch(() => this.value, (value) => {
+            // Your code
+        })
+    }
+}
+```
