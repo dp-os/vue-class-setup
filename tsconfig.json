@@ -19,5 +19,5 @@
       ]
     }
   },
-  "exclude": ["coverage/**", "tests/**", "node_modules/**"]
+  "exclude": ["coverage/**", "node_modules/**"]
 }

@@ -23,39 +23,42 @@ import {
 type Target = { new(...args: any[]): {} };
 type Name = string | symbol;
 type Callback = (...args: any[]) => any;
+type HookCallback = (target: object, name: Name) => void;
 
 
 
 const SETUP_OPTIONS_NAME = 'setupOptions';
 const SETUP_NAME = 'setup';
-const HOOK = {
-    activated: _registerHook(onActivated),
-    beforeMount: _registerHook(onBeforeMount),
-    beforeUnmount: _registerHook(onBeforeUnmount),
-    beforeUpdate: _registerHook(onBeforeUpdate),
-    deactivated: _registerHook(onDeactivated),
-    errorCaptured: _registerHook(onErrorCaptured),
-    mounted: _registerHook(onMounted),
-    renderTracked: _registerHook(onRenderTracked),
-    renderTriggered: _registerHook(onRenderTriggered),
-    scopeDispose: _registerHook(onScopeDispose),
-    serverPrefetch: _registerHook(onServerPrefetch),
-    unmounted: _registerHook(onUnmounted),
-    updated: _registerHook(onUpdated),
-    watchPreEffect: _registerHook(watchEffect),
-    watchPostEffect: _registerHook(watchPostEffect),
-    watchSyncEffect: _registerHook(watchSyncEffect),
+
+class Hooks {
+    activated = _registerHook(onActivated)
+    beforeMount= _registerHook(onBeforeMount)
+    beforeUnmount= _registerHook(onBeforeUnmount)
+    beforeUpdate= _registerHook(onBeforeUpdate)
+    deactivated= _registerHook(onDeactivated)
+    errorCaptured= _registerHook(onErrorCaptured)
+    mounted= _registerHook(onMounted)
+    renderTracked= _registerHook(onRenderTracked)
+    renderTriggered= _registerHook(onRenderTriggered)
+    scopeDispose= _registerHook(onScopeDispose)
+    serverPrefetch= _registerHook(onServerPrefetch)
+    unmounted= _registerHook(onUnmounted)
+    updated= _registerHook(onUpdated)
+    watchPreEffect= _registerHook(watchEffect)
+    watchPostEffect= _registerHook(watchPostEffect)
+    watchSyncEffect= _registerHook(watchSyncEffect)
     computed(target: any, name: Name) {
         const descriptor = getDescriptor(target, name)!;
         compute(target, name, descriptor, 'get');
         compute(target, name, descriptor, 'value');
-    },
+    }
     setup(target: any, name: Name) {
         target[name]();
     }
-} as const
+}
+const HOOK = new Hooks();
 
-type HookType = keyof typeof HOOK;
+type HookType = keyof Hooks;
 
 function compute(target: any, name: Name, descriptor: PropertyDescriptor, type: 'get' | 'value') {
     if (typeof descriptor[type] !== 'function') return;
@@ -86,8 +89,8 @@ function _registerHook(fn: Callback) {
     }
 }
 
-function registerHook(name: string, fn: Callback) {
-    HOOK[name] = _registerHook(fn);
+function registerHook(name: HookType, fn: HookCallback) {
+    HOOK[name] = fn;
 }
 
 const INIT_SETUP = '__initSetup'
@@ -132,8 +135,9 @@ function getSetupOptions(Target: any) {
     const options = getOptions(Target);
     const temp = currentOptions;
     Object.keys(options).forEach(k => {
-        if (Array.isArray(temp[k])) {
-            temp[k] = [...options[k], ...temp[k]];
+        const value = temp[k];
+        if (Array.isArray(value)) {
+            temp[k] = [...options[k], ...value];
         } else {
             temp[k] = [...options[k]];
         }
@@ -183,4 +187,4 @@ function Hook<T extends HookType>(hook: T) {
 }
 
 
-export { Setup, Hook, type HookType, registerHook }
+export { Setup, Hook, type Hooks, type HookType, type HookCallback, registerHook }

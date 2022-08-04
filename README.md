@@ -90,3 +90,23 @@ class Count {
     }
 }
 ```
+## Register hook
+```ts
+import { registerHook, Setup, Hook, HookCallback } from 'vue-class-setup'
+registerHook('my', (target: object, name: string | symbol) => {
+    // Your code
+})
+@Setup
+class Count {
+    public value = 100;
+    @Hook('my')
+    public add() {
+        this.value++;
+    }
+}
+declare module 'vue-class-setup' {
+    interface Hooks {
+        my: HookCallback;
+    }
+}
+```
