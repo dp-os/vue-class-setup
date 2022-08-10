@@ -1,6 +1,3 @@
-<template>
-    <p>{{ count.text }}</p>
-</template>
 <script lang="ts">
 import { Setup, Hook } from 'vue-class-setup';
 
@@ -20,3 +17,6 @@ class Count {
 <script setup lang="ts">
 const count = new Count();
 </script>
+<template>
+    <p>{{ count.text }}</p>
+</template>

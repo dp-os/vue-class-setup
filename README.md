@@ -16,9 +16,6 @@ yarn add vue-class-setup
 
 ## Usage
 ```vue
-<template>
-    <p>{{ count.text }}</p>
-</template>
 <script lang="ts">
 import { Setup, Hook } from 'vue-class-setup';
 
@@ -39,6 +36,9 @@ class Count {
 // Use the class you write in setup
 const count = new Count();
 </script>
+<template>
+    <p>{{ count.text }}</p>
+</template>
 ```
 
 ## Computed

@@ -1,7 +1,3 @@
-<template>
-    <p class="left">{{ left.text }}</p>
-    <p class="right">{{ right.text }}</p>
-</template>
 <script lang="ts">
 import { Setup, Hook } from 'vue-class-setup';
 
@@ -51,3 +47,7 @@ class Right extends Base {
 const left = new Left();
 const right = new Right()
 </script>
+<template>
+    <p class="left">{{ left.text }}</p>
+    <p class="right">{{ right.text }}</p>
+</template>

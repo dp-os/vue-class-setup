@@ -1,13 +1,3 @@
-<template>
-    <div>
-        <p class="value">{{ count.value }}</p>
-        <p class="text">{{ count.text }}</p>
-        <p class="ready">{{ count.ready }}</p>
-        <time class="time">{{ count.time }}</time>
-        <time class="get-time">{{ count.getTime() }}</time>
-        <button class="button" @click="count.add">Add</button>
-    </div>
-</template>
 <script lang="ts">
 import { Setup, Hook } from 'vue-class-setup';
 
@@ -39,3 +29,13 @@ class Count {
 <script setup lang="ts">
 const count = new Count();
 </script>
+<template>
+    <div>
+        <p class="value">{{ count.value }}</p>
+        <p class="text">{{ count.text }}</p>
+        <p class="ready">{{ count.ready }}</p>
+        <time class="time">{{ count.time }}</time>
+        <time class="get-time">{{ count.getTime() }}</time>
+        <button class="button" @click="count.add">Add</button>
+    </div>
+</template>

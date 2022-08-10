@@ -1,10 +1,3 @@
-<template>
-    <div>
-        <p class="parent-text">{{ count.value }}</p>
-        <p class="name">{{ NAME }}</p>
-        <Child :count="count" @add="count.add()" />
-    </div>
-</template>
 <script lang="ts">
 import { Setup } from 'vue-class-setup';
 import Child from './props-child.vue'
@@ -23,3 +16,10 @@ export class Count {
 <script lang="ts" setup>
 const count = new Count();
 </script>
+<template>
+    <div>
+        <p class="parent-text">{{ count.value }}</p>
+        <p class="name">{{ NAME }}</p>
+        <Child :count="count" @add="count.add()" />
+    </div>
+</template>

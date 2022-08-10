@@ -1,7 +1,3 @@
-<template>
-    <p class="value">{{ count.value }}</p>
-    <button @click="count.add()">Add</button>
-</template>
 <script lang="ts">
 import { watch } from 'vue';
 import { Setup, Hook } from 'vue-class-setup';
@@ -31,3 +27,7 @@ class Count {
 const count = new Count();
 defineExpose<{ count: Count }>()
 </script>
+<template>
+    <p class="value">{{ count.value }}</p>
+    <button @click="count.add()">Add</button>
+</template>
