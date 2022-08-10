@@ -48,8 +48,10 @@ import { Setup, Hook } from 'vue-class-setup';
 
 @Setup
 class Count {
-    public get time() {
-        return Date.now();
+    public value = 0;
+    // computed
+    public get text() {
+        return String(this.value);
     }
     @Hook('computed')
     public getTime() {
