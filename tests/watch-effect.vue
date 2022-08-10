@@ -45,4 +45,5 @@ class Count {
 </script>
 <script setup lang="ts">
 const count = new Count();
+defineExpose<{ count: Count }>()
 </script>
