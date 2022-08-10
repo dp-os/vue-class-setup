@@ -3,7 +3,7 @@
     <button @click="count.add()">Add</button>
 </template>
 <script lang="ts">
-import { defineComponent, watch } from 'vue';
+import { watch } from 'vue';
 import { Setup, Hook } from 'vue-class-setup';
 
 
@@ -26,11 +26,7 @@ class Count {
     }
 }
 
-export default defineComponent({
-    setup() {
-        return {
-            count: new Count()
-        }
-    }
-});
+</script>
+<script setup lang="ts">
+const count = new Count();
 </script>

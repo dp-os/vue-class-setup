@@ -42,11 +42,7 @@ class Count {
     }
 }
 
-export default defineComponent({
-    setup() {
-        return {
-            count: new Count()
-        };
-    }
-})
+</script>
+<script setup lang="ts">
+const count = new Count();
 </script>

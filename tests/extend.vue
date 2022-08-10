@@ -3,7 +3,6 @@
     <p class="right">{{ right.text }}</p>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { Setup, Hook } from 'vue-class-setup';
 
 @Setup
@@ -47,12 +46,8 @@ class Right extends Base {
     }
 }
 
-export default defineComponent({
-    setup() {
-        return {
-            left: new Left(),
-            right: new Right()
-        }
-    }
-});
+</script>
+<script setup lang="ts">
+const left = new Left();
+const right = new Right()
 </script>
