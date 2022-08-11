@@ -1,8 +1,8 @@
 {
   "name": "vue-class-setup",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "dist/vue-class-setup.cjs.js",
-  "module": "vue-class-setup.es.js",
+  "module": "dist/vue-class-setup.es.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:fmfe/vue-class-setup.git",
   "author": "<1340641314@qq.com>",
