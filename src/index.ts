@@ -147,7 +147,7 @@ function getSetupOptions(Target: any) {
     return temp;
 }
 
-
+let count = 0;
 
 function Setup<T extends Target>(Target: T) {
     const descriptors = Object.getOwnPropertyDescriptors(Target.prototype);
@@ -162,15 +162,17 @@ function Setup<T extends Target>(Target: T) {
         public static [SETUP_OPTIONS_NAME] = getSetupOptions(Target);
         public static [SETUP_NAME] = true;
         public constructor(...args: any[]) {
+            count++;
             super(...args);
-            if (!this[INIT_SETUP]) {
+            count--
+            if (count === 0) {
                 const target = reactive(this);
                 initHook(target);
                 Object.defineProperty(this, INIT_SETUP, {
                     value: true,
                     writable: false,
                     enumerable: false
-                })
+                });
                 // Vue3 needs to return, vue2 does not need to return
                 return target;
             }

@@ -1,2 +1,4 @@
+## 0.1.3
+- fix: Initialization hook sequence error
 ## 0.0.9
 - feat: `registerHook` api
