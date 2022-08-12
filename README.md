@@ -66,7 +66,7 @@ import { Setup, Hook } from 'vue-class-setup';
 @Setup
 class Count {
     @Hook('setup')
-    public setup() {
+    private setup() {
         // Your code
     }
 }
