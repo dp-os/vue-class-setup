@@ -50,9 +50,9 @@ const count = new Count();
 </template>
 ```
 
-## Custom setup
+## PassOnTo
 
-If `PassOnTo` does not pass in the processing function, this method will be executed immediately after the class instance is ready. You can safely execute your code here
+If `PassOnTo` does not pass in a handler, it will execute after the `reactive` and `computed` are ready
 
 ```ts
 import { Watch } from 'vue';
