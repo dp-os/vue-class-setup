@@ -67,6 +67,7 @@ If `PassOnTo` does not pass in a handler, it is called after `reactive` and `com
 
 ```ts
 import { Watch } from 'vue';
+
 @Setup
 class Count {
     public value = 0;
