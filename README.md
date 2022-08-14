@@ -53,11 +53,11 @@ const count = new Count();
 ## Custom setup
 
 ```ts
-import { Setup, Hook, onSetup } from 'vue-class-setup';
+import { Setup, PassOnTo } from 'vue-class-setup';
 
 @Setup
 class Count {
-    @PassOnTo(onSetup)
+    @PassOnTo()
     private setup() {
         // Your code
     }
