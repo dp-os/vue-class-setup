@@ -12,7 +12,7 @@ function compute(target: Target, name: TargetName, descriptor: PropertyDescripto
         [type]() {
             return compute.value;
         }
-    })
+    });
 }
 
 
@@ -30,5 +30,4 @@ export function onComputed() {
     const { target, name } = getCurrentHookContext();
     const descriptor = getDescriptor(target, name)!;
     compute(target, name, descriptor, 'get');
-    compute(target, name, descriptor, 'value');
 }

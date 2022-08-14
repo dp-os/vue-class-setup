@@ -20,3 +20,4 @@ test('Watch', async () => {
     assert.equal(wrapper.find('.value').text(), '100');
 
 });
+

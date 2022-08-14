@@ -14,9 +14,10 @@ npm install vue-class-setup
 yarn add vue-class-setup
 ```
 
-## Usage
+## Quick start
 ```vue
 <script lang="ts">
+import { onMounted } from 'vue';
 import { Setup, Hook } from 'vue-class-setup';
 
 @Setup
@@ -25,7 +26,7 @@ class Count {
     public get text() {
         return String(this.value);
     }
-    @Hook('mounted')
+    @Hook(onMounted)
     public init() {
         this.value++;
     }
@@ -40,71 +41,14 @@ const count = new Count();
     <p>{{ count.text }}</p>
 </template>
 ```
-
-## Computed
-Using the get accessor or `computed` hook, it will be converted to `computed`
+Same as
 ```ts
-import { Setup, Hook } from 'vue-class-setup';
+const compute = computed(() => String(count.value));
+Object.defineProperty(count, 'text', {
+    get () {
+        return compute.count;
+    }
+});
 
-@Setup
-class Count {
-    public value = 0;
-    // computed
-    public get text() {
-        return String(this.value);
-    }
-    @Hook('computed')
-    public getTime() {
-        return Date.now();
-    }
-}
-```
-## Custom setup
-```ts
-import { Setup, Hook } from 'vue-class-setup';
-
-@Setup
-class Count {
-    @Hook('setup')
-    private setup() {
-        // Your code
-    }
-}
-```
-## How to use watch?
-Watch parameters are complex, so decorators are not supported, but `setup` hooks are provided
-```ts
-import { watch } from 'vue';
-import { Setup, Hook } from 'vue-class-setup';
-
-@Setup
-class Count {
-    public value = 0;
-    @Hook('setup')
-    public setup() {
-        watch(() => this.value, (value) => {
-            // Your code
-        })
-    }
-}
-```
-## Register hook
-```ts
-import { registerHook, Setup, Hook, HookCallback } from 'vue-class-setup'
-registerHook('my', (target: object, name: string | symbol) => {
-    // Your code
-})
-@Setup
-class Count {
-    public value = 100;
-    @Hook('my')
-    public add() {
-        this.value++;
-    }
-}
-declare module 'vue-class-setup' {
-    interface Hooks {
-        my: HookCallback;
-    }
-}
+onMounted(() => count.init());
 ```
