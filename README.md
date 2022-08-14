@@ -59,6 +59,7 @@ class Test {
 }
 
 function myFunc (callback: (name: string) => void) {
+    // ...
 }
 ```
 
