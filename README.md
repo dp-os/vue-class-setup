@@ -43,6 +43,8 @@ const count = new Count();
 ```
 Through `Setup`, it will be converted into the following execution logic
 ```ts
+import { onMounted, computed } from 'vue';
+
 const compute = computed(() => String(count.value));
 Object.defineProperty(count, 'text', {
     get () {
