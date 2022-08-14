@@ -52,7 +52,7 @@ const count = new Count();
 
 ## PassOnTo
 
-If `PassOnTo` does not pass in a handler, it will execute after the `reactive` and `computed` are ready
+If `PassOnTo` does not pass in a handler, it is called after `reactive` and `computed` execution are completed
 
 ```ts
 import { Watch } from 'vue';
