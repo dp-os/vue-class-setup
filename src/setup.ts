@@ -5,9 +5,7 @@ import {
     SETUP_OPTIONS_NAME, SETUP_NAME
 } from './config';
 import { onComputed } from './on-computed';
-import { getCurrentOptions, resetCurrentOptions } from './options';
-
-
+import { getOptions, getSetupOptions, setOptions } from './options';
 
 function initHook<T extends object>(target: T) {
 
@@ -29,48 +27,6 @@ function initHook<T extends object>(target: T) {
 
     return target;
 }
-
-
-function getOptions(Target: any): TargetConstructorOptions {
-    let options: TargetConstructorOptions = Target[SETUP_OPTIONS_NAME];
-    if (!options) {
-        options = new Map();
-        Target[SETUP_OPTIONS_NAME] = options;
-    }
-    return options;
-}
-
-function setOptions(hook: PassOnToCallback, name: TargetName) {
-    const currentOptions = getCurrentOptions();
-    const arr = currentOptions.get(hook);
-    if (!arr) {
-        currentOptions.set(hook, [name]);
-    } else if (!arr.includes(name)) {
-        arr.push(name);
-    }
-}
-
-function getSetupOptions(Target: any) {
-    const currentOptions = getCurrentOptions();
-    const options = getOptions(Target);
-    const temp = currentOptions;
-    options.forEach((names, hook) => {
-        const newNames = [...names];
-        const tempName = temp.get(hook);
-        if (tempName) {
-            tempName.forEach(name => {
-                if (!newNames.includes(name)) {
-                    newNames.push(name);
-                }
-            });
-        }
-        temp.set(hook, newNames);
-    });
-    resetCurrentOptions()
-
-    return temp;
-}
-
 
 let count = 0;
 
@@ -100,11 +56,4 @@ function Setup<T extends TargetConstructor>(Target: T) {
     return Setup
 }
 
-function PassOnTo(cb: PassOnToCallback) {
-    return function (target: object, name: TargetName, descriptor: PropertyDescriptor) {
-        setOptions(cb, name);
-    }
-}
-
-
-export { Setup, PassOnTo }
+export { Setup }
