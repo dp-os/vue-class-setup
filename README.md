@@ -41,7 +41,7 @@ const count = new Count();
     <p>{{ count.text }}</p>
 </template>
 ```
-Same as
+Through `Setup`, it will be converted into the following execution logic
 ```ts
 const compute = computed(() => String(count.value));
 Object.defineProperty(count, 'text', {
