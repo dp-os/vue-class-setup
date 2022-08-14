@@ -1,6 +1,6 @@
 <script lang="ts">
 import { watch } from 'vue';
-import { Setup, Hook, onSetup } from 'vue-class-setup';
+import { Setup, PassOnTo, onSetup } from 'vue-class-setup';
 
 
 @Setup
@@ -12,7 +12,7 @@ class Count {
     public setValue(value: number) {
         this.value = value;
     }
-    @Hook(onSetup)
+    @PassOnTo(onSetup)
     public setup() {
         watch(() => this.value, (value) => {
             if (value > 100) {

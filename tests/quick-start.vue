@@ -1,6 +1,6 @@
 <script lang="ts">
 import { onMounted } from 'vue';
-import { Setup, Hook } from 'vue-class-setup';
+import { Setup, PassOnTo } from 'vue-class-setup';
 
 @Setup
 class Count {
@@ -11,7 +11,7 @@ class Count {
     public set text(text) {
         this.value = Number(text);
     }
-    @Hook(onMounted)
+    @PassOnTo(onMounted)
     public init() {
         this.value++;
     }

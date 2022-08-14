@@ -1,6 +1,6 @@
 <script lang="ts">
 import { watchEffect, watchSyncEffect, watchPostEffect, onUpdated, onBeforeMount, onBeforeUpdate } from 'vue';
-import { Setup, Hook } from 'vue-class-setup';
+import { Setup, PassOnTo } from 'vue-class-setup';
 
 @Setup
 class Count {
@@ -10,27 +10,27 @@ class Count {
         this.hooks = [];
         this.value++;
     }
-    @Hook(watchEffect)
+    @PassOnTo(watchEffect)
     public watchPreEffect() {
         this.hooks.push('watchPreEffect');
     }
-    @Hook(watchSyncEffect)
+    @PassOnTo(watchSyncEffect)
     public watchSyncEffect() {
         this.hooks.push('watchSyncEffect');
     }
-    @Hook(onBeforeMount)
+    @PassOnTo(onBeforeMount)
     public beforeMount() {
         this.hooks.push('beforeMount');
     }
-    @Hook(onBeforeUpdate)
+    @PassOnTo(onBeforeUpdate)
     public beforeUpdate() {
         this.hooks.push('beforeUpdate');
     }
-    @Hook(watchPostEffect)
+    @PassOnTo(watchPostEffect)
     public watchPostEffect() {
         this.hooks.push('watchPostEffect');
     }
-    @Hook(onUpdated)
+    @PassOnTo(onUpdated)
     public updated() {
         this.hooks.push('updated');
     }

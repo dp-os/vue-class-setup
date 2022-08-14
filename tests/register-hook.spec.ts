@@ -1,7 +1,7 @@
 import { assert, test } from 'vitest';
-import { Setup, Hook, getCurrentHookContext } from 'vue-class-setup'
+import { Setup, PassOnTo, getCurrentHookContext } from 'vue-class-setup'
 
-function myHook() {
+function myFunc() {
     const { target, name } = getCurrentHookContext();
     target[name]();
 }
@@ -10,7 +10,7 @@ test('Register hook', () => {
     @Setup
     class Count {
         public value = 100;
-        @Hook(myHook)
+        @PassOnTo(myFunc)
         public add() {
             this.value++;
         }

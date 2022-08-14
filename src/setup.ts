@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { TargetName, TargetConstructor, HookCallback, TargetConstructorOptions } from './types';
+import { TargetName, TargetConstructor, PassOnToCallback, TargetConstructorOptions } from './types';
 import { setCurrentHookName, setCurrentHookTarget } from './context';
 import {
     SETUP_OPTIONS_NAME, SETUP_NAME
@@ -40,7 +40,7 @@ function getOptions(Target: any): TargetConstructorOptions {
     return options;
 }
 
-function setOptions(hook: HookCallback, name: TargetName) {
+function setOptions(hook: PassOnToCallback, name: TargetName) {
     const currentOptions = getCurrentOptions();
     const arr = currentOptions.get(hook);
     if (!arr) {
@@ -100,11 +100,11 @@ function Setup<T extends TargetConstructor>(Target: T) {
     return Setup
 }
 
-function Hook(hook: HookCallback) {
+function PassOnTo(cb: PassOnToCallback) {
     return function (target: object, name: TargetName, descriptor: PropertyDescriptor) {
-        setOptions(hook, name);
+        setOptions(cb, name);
     }
 }
 
 
-export { Setup, Hook }
+export { Setup, PassOnTo }

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { onBeforeMount, onMounted } from 'vue';
-import { Setup, Hook } from 'vue-class-setup';
+import { Setup, PassOnTo } from 'vue-class-setup';
 
 @Setup
 class Base {
@@ -8,7 +8,7 @@ class Base {
     public get text () {
         return String(this.value);
     }
-    @Hook(onBeforeMount)
+    @PassOnTo(onBeforeMount)
     public init() {
         this.value++;
     }
@@ -24,7 +24,7 @@ class Left extends Base {
         super.init();
         this.value++;
     }
-    @Hook(onMounted)
+    @PassOnTo(onMounted)
     public initLeft() {
         this.left++;
     }
@@ -37,7 +37,7 @@ class Right extends Base {
         super.init();
         this.value++;
     }
-    @Hook(onMounted)
+    @PassOnTo(onMounted)
     public initLeft() {
         this.right++;
     }

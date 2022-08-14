@@ -32,7 +32,7 @@ class Count {
     public set text(text) {
         this.value = Number(text);
     }
-    @Hook(onMounted)
+    @PassOnTo(onMounted)
     public init() {
         this.value++;
     }

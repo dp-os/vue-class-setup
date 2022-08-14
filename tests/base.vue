@@ -1,6 +1,6 @@
 <script lang="ts">
 import { onMounted } from 'vue';
-import { Setup, Hook } from 'vue-class-setup';
+import { Setup, PassOnTo } from 'vue-class-setup';
 
 
 @Setup
@@ -16,7 +16,7 @@ class Count {
     public add() {
         this.value++;
     }
-    @Hook(onMounted)
+    @PassOnTo(onMounted)
     public onReady() {
         this.ready = true;
     }
