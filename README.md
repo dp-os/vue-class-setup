@@ -4,8 +4,7 @@
 [![npm](https://img.shields.io/npm/dm/vue-class-setup.svg)](https://www.npmjs.com/package/vue-class-setup)
 [![npm](https://img.shields.io/npm/dt/vue-class-setup.svg)](https://www.npmjs.com/package/vue-class-setup)
 # vue-class-setup
-Use class to write setup, and support vue2 and vue3    
-Only 1.34 KiB after gzip compression
+Using class can help you avoid `ref`, `reactive` and `computed`, and significantly reduce your mental burden and better organize your code. It supports vue2 and vue3 at the same time. After gzip compression, it is only 1KB
 
 ## Install
 ```bash
@@ -45,21 +44,4 @@ const count = new Count();
     <p>{{ count.text }}</p>
     <input type="number" v-model="count.text" />
 </template>
-```
-
-Through `Setup`, it will be converted into the following execution logic
-```ts
-import { onMounted, computed } from 'vue';
-
-const compute = computed(() => String(count.value));
-Object.defineProperty(count, 'text', {
-    get () {
-        return compute.value;
-    },
-    set(text) {
-        compute.value = Number(text);
-    }
-});
-
-onMounted(() => count.init());
 ```
