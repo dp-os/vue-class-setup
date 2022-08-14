@@ -1,10 +1,5 @@
 import { reactive } from 'vue';
-import {
-    Target,
-    TargetName,
-    TargetConstructor,
-    PassOnToCallback,
-} from './types';
+import { TargetName, TargetConstructor, PassOnToCallback } from './types';
 import { setCurrentHookName, setCurrentHookTarget } from './context';
 import { SETUP_OPTIONS_NAME, SETUP_NAME } from './config';
 import { onComputed } from './on-computed';
