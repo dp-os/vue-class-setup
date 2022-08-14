@@ -1,26 +1,23 @@
 import { assert, test } from 'vitest';
-import { registerHook, Setup, Hook, HookCallback } from 'vue-class-setup'
+import { Setup, Hook, getCurrentHookContext } from 'vue-class-setup'
 
-registerHook('my', (target: object, name: string | symbol) => {})
+function myHook() {
+    const { target, name } = getCurrentHookContext();
+    target[name]();
+}
 
 test('Register hook', () => {
     @Setup
     class Count {
         public value = 100;
-        @Hook('my')
+        @Hook(myHook)
         public add() {
             this.value++;
         }
     }
 
     const count = new Count();
-    const { add } =count;
+    const { add } = count;
     add();
-    assert.equal(count.value, 101);
+    assert.equal(count.value, 102);
 });
-
-declare module 'vue-class-setup' {
-    interface Hooks {
-        my: HookCallback;
-    }
-}

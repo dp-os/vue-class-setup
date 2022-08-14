@@ -1,35 +1,36 @@
 <script lang="ts">
-import { Setup, Hook, HookType } from 'vue-class-setup';
+import { watchEffect, watchSyncEffect, watchPostEffect, onUpdated, onBeforeMount, onBeforeUpdate } from 'vue';
+import { Setup, Hook } from 'vue-class-setup';
 
 @Setup
 class Count {
     public value = 0;
-    public hooks: HookType[] = [];
+    public hooks: string[] = [];
     public add() {
         this.hooks = [];
         this.value++;
     }
-    @Hook('watchPreEffect')
+    @Hook(watchEffect)
     public watchPreEffect() {
         this.hooks.push('watchPreEffect');
     }
-    @Hook('watchSyncEffect')
+    @Hook(watchSyncEffect)
     public watchSyncEffect() {
         this.hooks.push('watchSyncEffect');
     }
-    @Hook('beforeMount')
+    @Hook(onBeforeMount)
     public beforeMount() {
         this.hooks.push('beforeMount');
     }
-    @Hook('beforeUpdate')
+    @Hook(onBeforeUpdate)
     public beforeUpdate() {
         this.hooks.push('beforeUpdate');
     }
-    @Hook('watchPostEffect')
+    @Hook(watchPostEffect)
     public watchPostEffect() {
         this.hooks.push('watchPostEffect');
     }
-    @Hook('updated')
+    @Hook(onUpdated)
     public updated() {
         this.hooks.push('updated');
     }

@@ -1,4 +1,5 @@
 <script lang="ts">
+import { onMounted } from 'vue';
 import { Setup, Hook } from 'vue-class-setup';
 
 @Setup
@@ -7,7 +8,7 @@ class Count {
     public get text() {
         return String(this.value);
     }
-    @Hook('mounted')
+    @Hook(onMounted)
     public init() {
         this.value++;
     }

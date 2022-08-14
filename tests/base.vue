@@ -1,4 +1,5 @@
 <script lang="ts">
+import { onMounted } from 'vue';
 import { Setup, Hook } from 'vue-class-setup';
 
 
@@ -12,14 +13,10 @@ class Count {
     public get time() {
         return Date.now();
     }
-    @Hook('computed')
-    public getTime() {
-        return Date.now();
-    }
     public add() {
         this.value++;
     }
-    @Hook('mounted')
+    @Hook(onMounted)
     public onReady() {
         this.ready = true;
     }
@@ -35,7 +32,6 @@ const count = new Count();
         <p class="text">{{ count.text }}</p>
         <p class="ready">{{ count.ready }}</p>
         <time class="time">{{ count.time }}</time>
-        <time class="get-time">{{ count.getTime() }}</time>
         <button class="button" @click="count.add">Add</button>
     </div>
 </template>
