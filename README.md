@@ -19,9 +19,8 @@ yarn add vue-class-setup
 ## Quick start
 ```vue
 <script lang="ts">
-<script lang="ts">
 import { onMounted } from 'vue';
-import { Setup, Hook } from 'vue-class-setup';
+import { Setup, PassOnTo } from 'vue-class-setup';
 
 @Setup
 class Count {
