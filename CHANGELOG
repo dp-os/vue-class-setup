@@ -1,3 +1,5 @@
+## 1.0.1
+- fix: Delete unnecessary judgment
 ## 1.0.0
 - feat: Remove `Hook` and add `PassOnTo`
 - feat: `getCurrentHookContext` method

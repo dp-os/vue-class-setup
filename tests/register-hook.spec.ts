@@ -20,4 +20,11 @@ test('Register hook', () => {
     const { add } = count;
     add();
     assert.equal(count.value, 102);
+    
 });
+
+test('error', () => {
+    assert.Throw(() => {
+        return getCurrentHookContext();
+    }, 'Can only be obtained in hook functions')
+})

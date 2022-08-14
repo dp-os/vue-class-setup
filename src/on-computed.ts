@@ -8,8 +8,6 @@ function compute(
     descriptor: PropertyDescriptor,
     type: 'get' | 'value'
 ) {
-    if (typeof descriptor[type] !== 'function') return;
-
     const value = descriptor[type].bind(target);
     const compute = computed(value);
     Object.defineProperty(target, name, {
