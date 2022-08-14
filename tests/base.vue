@@ -20,6 +20,13 @@ class Count {
         this.ready = true;
     }
 }
+
+class Test {
+    @PassOnTo(myFunc)
+    public init(name: string) {}
+}
+
+function myFunc (cb: (name: string) => void) {}
 </script>
 <script setup lang="ts">
 const count = new Count();

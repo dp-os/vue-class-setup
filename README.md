@@ -51,12 +51,21 @@ const count = new Count();
 ```
 
 ## PassOnTo
+This `callback` will be called back after the `Test class` instantiation is completed, and the decorated function will be passed in`, and the TS can check whether the type is correct
+```ts
+class Test {
+    @PassOnTo(myFunc)
+    public init(name: string) {}
+}
+
+function myFunc (callback: (name: string) => void) {
+}
+```
 
 If `PassOnTo` does not pass in a handler, it is called after `reactive` and `computed` execution are completed
 
 ```ts
 import { Watch } from 'vue';
-import { Setup, PassOnTo } from 'vue-class-setup';
 @Setup
 class Count {
     public value = 0;
