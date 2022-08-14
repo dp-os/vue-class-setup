@@ -3,7 +3,7 @@ import {
     PassOnToCallback,
     TargetName,
 } from './types';
-import { SETUP_NAME, SETUP_OPTIONS_NAME } from './config';
+import { SETUP_OPTIONS_NAME } from './config';
 let currentOptions: TargetConstructorOptions = new Map();
 
 function getCurrentOptions() {

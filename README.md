@@ -52,14 +52,23 @@ const count = new Count();
 
 ## Custom setup
 
-```ts
-import { Setup, PassOnTo } from 'vue-class-setup';
+If `PassOnTo` does not pass in the processing function, this method will be executed immediately after the class instance is ready. You can safely execute your code here
 
+```ts
+import { Watch } from 'vue';
+import { Setup, PassOnTo } from 'vue-class-setup';
 @Setup
 class Count {
+    public value = 0;
     @PassOnTo()
     private setup() {
-        // Your code
+        // Safe Watch
+        watch(
+            () => this.value,
+            (value) => {
+                // ......
+            }
+        );
     }
 }
 ```

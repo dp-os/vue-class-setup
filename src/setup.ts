@@ -1,32 +1,59 @@
 import { reactive } from 'vue';
 import {
+    Target,
     TargetName,
     TargetConstructor,
     PassOnToCallback,
-    TargetConstructorOptions,
 } from './types';
 import { setCurrentHookName, setCurrentHookTarget } from './context';
 import { SETUP_OPTIONS_NAME, SETUP_NAME } from './config';
 import { onComputed } from './on-computed';
 import { getOptions, getSetupOptions, setOptions } from './options';
 
+interface Item {
+    name: TargetName;
+    hook: PassOnToCallback;
+}
+
 function initHook<T extends object>(target: T) {
     setCurrentHookTarget(target);
     const set = new Set<TargetName>();
     const options = getOptions(target.constructor);
+    const special: Item[] = [];
+    const plainArr: Item[] = [];
     options.forEach((names, hook) => {
+        if (hook !== onComputed) {
+            return names.forEach((name) => {
+                plainArr.push({
+                    hook,
+                    name,
+                });
+            });
+        }
         names.forEach((name) => {
-            if (!set.has(name) && typeof target[name] === 'function') {
-                target[name] = target[name].bind(target);
-                set.add(name);
-            }
-            setCurrentHookName(name);
-            hook(target[name]);
-            setCurrentHookName(null);
+            special.push({
+                hook,
+                name,
+            });
         });
+    });
+    special.forEach((item) => {
+        initName(item);
+    });
+    plainArr.forEach((item) => {
+        initName(item);
     });
     setCurrentHookTarget(null);
 
+    function initName({ name, hook }: Item) {
+        if (!set.has(name) && typeof target[name] === 'function') {
+            target[name] = target[name].bind(target);
+            set.add(name);
+        }
+        setCurrentHookName(name);
+        hook(target[name]);
+        setCurrentHookName(null);
+    }
     return target;
 }
 

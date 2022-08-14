@@ -5,6 +5,9 @@ import { Setup, PassOnTo } from 'vue-class-setup';
 @Setup
 class Count {
     public value = 0;
+    public get valueText() {
+        return String(this.value);
+    }
     public add() {
         this.value++;
     }
@@ -14,9 +17,9 @@ class Count {
     @PassOnTo()
     public setup() {
         watch(
-            () => this.value,
-            (value) => {
-                if (value > 100) {
+            () => this.valueText,
+            (text) => {
+                if (this.value > 100) {
                     this.value = 100;
                 }
             }
