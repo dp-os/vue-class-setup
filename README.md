@@ -17,6 +17,7 @@ yarn add vue-class-setup
 ## Quick start
 ```vue
 <script lang="ts">
+<script lang="ts">
 import { onMounted } from 'vue';
 import { Setup, Hook } from 'vue-class-setup';
 
@@ -25,6 +26,9 @@ class Count {
     public value = 0;
     public get text() {
         return String(this.value);
+    }
+    public set text(text) {
+        this.value = Number(text);
     }
     @Hook(onMounted)
     public init() {
@@ -39,8 +43,10 @@ const count = new Count();
 </script>
 <template>
     <p>{{ count.text }}</p>
+    <input type="number" v-model="count.text" />
 </template>
 ```
+
 Through `Setup`, it will be converted into the following execution logic
 ```ts
 import { onMounted, computed } from 'vue';
