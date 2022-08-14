@@ -55,6 +55,9 @@ const compute = computed(() => String(count.value));
 Object.defineProperty(count, 'text', {
     get () {
         return compute.value;
+    },
+    set(text) {
+        compute.value = Number(text);
     }
 });
 
