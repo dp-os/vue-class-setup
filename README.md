@@ -76,7 +76,7 @@ class Count {
         watch(
             () => this.value,
             (value) => {
-                // ......
+                // ...
             }
         );
     }
