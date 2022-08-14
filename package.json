@@ -1,6 +1,6 @@
 {
     "name": "vue-class-setup",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "main": "dist/vue-class-setup.cjs.js",
     "module": "dist/vue-class-setup.es.js",
     "types": "dist/index.d.ts",
@@ -8,6 +8,15 @@
     "author": "<1340641314@qq.com>",
     "license": "MIT",
     "description": "Write setup using class",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/vue-class-setup.es.js",
+            "require": "./dist/vue-class-setup.cjs.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "sideEffects": false,
     "keywords": [
         "vue-class",
         "vue-class-component",
