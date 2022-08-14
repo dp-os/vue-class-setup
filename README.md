@@ -46,7 +46,7 @@ Through `Setup`, it will be converted into the following execution logic
 const compute = computed(() => String(count.value));
 Object.defineProperty(count, 'text', {
     get () {
-        return compute.count;
+        return compute.value;
     }
 });
 
