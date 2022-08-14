@@ -63,7 +63,7 @@ function myFunc (callback: (name: string) => void) {
 }
 ```
 
-If `PassOnTo` does not pass in a handler, it is called after `reactive` and `computed` execution are completed
+If `PassOnTo` does not pass in a handler, it is called after `reactive` and `computed` execution are completed, You should avoid watching in the constructor because it may not have `reactive`
 
 ```ts
 import { Watch } from 'vue';
