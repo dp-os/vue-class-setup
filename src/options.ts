@@ -1,13 +1,17 @@
-import { TargetConstructorOptions, PassOnToCallback, TargetName } from './types';
+import {
+    TargetConstructorOptions,
+    PassOnToCallback,
+    TargetName,
+} from './types';
 import { SETUP_NAME, SETUP_OPTIONS_NAME } from './config';
 let currentOptions: TargetConstructorOptions = new Map();
 
 function getCurrentOptions() {
-    return currentOptions
+    return currentOptions;
 }
 
 function resetCurrentOptions() {
-    currentOptions = new Map()
+    currentOptions = new Map();
 }
 
 export function getOptions(Target: any): TargetConstructorOptions {
@@ -37,7 +41,7 @@ export function getSetupOptions(Target: any) {
         const newNames = [...names];
         const tempName = temp.get(hook);
         if (tempName) {
-            tempName.forEach(name => {
+            tempName.forEach((name) => {
                 if (!newNames.includes(name)) {
                     newNames.push(name);
                 }
@@ -45,7 +49,7 @@ export function getSetupOptions(Target: any) {
         }
         temp.set(hook, newNames);
     });
-    resetCurrentOptions()
+    resetCurrentOptions();
 
     return temp;
 }

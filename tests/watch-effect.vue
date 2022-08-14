@@ -1,6 +1,15 @@
 <script lang="ts">
-import { watchEffect, watchSyncEffect, watchPostEffect, onUpdated, onBeforeMount, onBeforeUpdate } from 'vue';
+import {
+    watchEffect,
+    watchSyncEffect,
+    watchPostEffect,
+    onUpdated,
+    onBeforeMount,
+    onBeforeUpdate,
+} from 'vue';
 import { Setup, PassOnTo } from 'vue-class-setup';
+
+type OnCleanup = (cleanupFn: () => void) => void;
 
 @Setup
 class Count {
@@ -11,11 +20,11 @@ class Count {
         this.value++;
     }
     @PassOnTo(watchEffect)
-    public watchPreEffect() {
+    public watchPreEffect(onCleanup: OnCleanup) {
         this.hooks.push('watchPreEffect');
     }
     @PassOnTo(watchSyncEffect)
-    public watchSyncEffect() {
+    public watchSyncEffect(onCleanup: OnCleanup) {
         this.hooks.push('watchSyncEffect');
     }
     @PassOnTo(onBeforeMount)
@@ -27,7 +36,7 @@ class Count {
         this.hooks.push('beforeUpdate');
     }
     @PassOnTo(watchPostEffect)
-    public watchPostEffect() {
+    public watchPostEffect(onCleanup: OnCleanup) {
         this.hooks.push('watchPostEffect');
     }
     @PassOnTo(onUpdated)
@@ -35,12 +44,10 @@ class Count {
         this.hooks.push('updated');
     }
 }
-
 </script>
 <script setup lang="ts">
 const count = new Count();
-defineExpose<{ count: Count }>()
-
+defineExpose<{ count: Count }>();
 </script>
 <template>
     <div>

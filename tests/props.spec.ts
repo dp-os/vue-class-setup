@@ -1,5 +1,5 @@
 import { assert, test } from 'vitest';
-import { mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils';
 
 import PropsParent from './props-parent.vue';
 
@@ -12,5 +12,4 @@ test('Props parent', async () => {
     await wrapper.find('.child-btn').trigger('click');
     assert.equal(wrapper.find('.parent-text').text(), '1');
     assert.equal(wrapper.find('.child-text').text(), '1');
-
 });

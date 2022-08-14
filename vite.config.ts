@@ -4,7 +4,6 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import vue2 from '@vitejs/plugin-vue';
 
-
 export default defineConfig({
     // @ts-ignore
     test: {
@@ -12,23 +11,23 @@ export default defineConfig({
         environment: 'happy-dom',
         coverage: {
             reporter: ['lcov', 'html'],
-        }
+        },
     },
     plugins: [vue2(), dts()],
     build: {
         lib: {
             formats: ['cjs', 'es'],
             entry: resolve(__dirname, 'src/index'),
-            fileName: (format) => `vue-class-setup.${format}.js`
+            fileName: (format) => `vue-class-setup.${format}.js`,
         },
         minify: false,
         rollupOptions: {
-            external: ['vue']
-        }
+            external: ['vue'],
+        },
     },
     resolve: {
         alias: {
-            'vue-class-setup': resolve('./src/index')
-        }
-    }
+            'vue-class-setup': resolve('./src/index'),
+        },
+    },
 });

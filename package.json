@@ -1,41 +1,43 @@
 {
-  "name": "vue-class-setup",
-  "version": "0.1.4",
-  "main": "dist/vue-class-setup.cjs.js",
-  "module": "dist/vue-class-setup.es.js",
-  "types": "dist/index.d.ts",
-  "repository": "git@github.com:fmfe/vue-class-setup.git",
-  "author": "<1340641314@qq.com>",
-  "license": "MIT",
-  "description": "Write setup using class",
-  "keywords": [
-    "vue-class",
-    "vue-class-component",
-    "vue-property-decorator"
-  ],
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "test": "vitest",
-    "coverage": "vitest run --coverage",
-    "coveralls": "coveralls < coverage/lcov.info",
-    "release": "yarn build && npm publish --registry=https://registry.npmjs.org"
-  },
-  "peerDependencies": {
-    "vue": ">=2.7.8 || >=3.0.0"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^3.0.1",
-    "@vue/test-utils": "^2.0.2",
-    "c8": "^7.12.0",
-    "coveralls": "^3.1.1",
-    "happy-dom": "^6.0.4",
-    "typescript": "^4.7.4",
-    "vite": "^3.0.3",
-    "vite-plugin-dts": "^1.4.0",
-    "vitest": "^0.20.2",
-    "vue": "^3.2.37",
-    "vue-tsc": "^0.39.4"
-  }
+    "name": "vue-class-setup",
+    "version": "0.1.4",
+    "main": "dist/vue-class-setup.cjs.js",
+    "module": "dist/vue-class-setup.es.js",
+    "types": "dist/index.d.ts",
+    "repository": "git@github.com:fmfe/vue-class-setup.git",
+    "author": "<1340641314@qq.com>",
+    "license": "MIT",
+    "description": "Write setup using class",
+    "keywords": [
+        "vue-class",
+        "vue-class-component",
+        "vue-property-decorator"
+    ],
+    "scripts": {
+        "lint": "prettier --write .",
+        "dev": "vite",
+        "build": "vue-tsc --noEmit && vite build",
+        "preview": "vite preview",
+        "test": "vitest",
+        "coverage": "vitest run --coverage",
+        "coveralls": "coveralls < coverage/lcov.info",
+        "release": "yarn build && npm publish --registry=https://registry.npmjs.org"
+    },
+    "peerDependencies": {
+        "vue": ">=2.7.8 || >=3.0.0"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^3.0.1",
+        "@vue/test-utils": "^2.0.2",
+        "c8": "^7.12.0",
+        "coveralls": "^3.1.1",
+        "happy-dom": "^6.0.4",
+        "prettier": "^2.7.1",
+        "typescript": "^4.7.4",
+        "vite": "^3.0.3",
+        "vite-plugin-dts": "^1.4.0",
+        "vitest": "^0.20.2",
+        "vue": "^3.2.37",
+        "vue-tsc": "^0.39.4"
+    }
 }

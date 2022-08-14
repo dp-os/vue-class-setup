@@ -13,7 +13,6 @@ class Count {
         this.value++;
     }
 }
-
 </script>
 <script setup lang="ts">
 const count = new Count();

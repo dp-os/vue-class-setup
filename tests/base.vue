@@ -2,7 +2,6 @@
 import { onMounted } from 'vue';
 import { Setup, PassOnTo } from 'vue-class-setup';
 
-
 @Setup
 class Count {
     public value = 0;
@@ -21,7 +20,6 @@ class Count {
         this.ready = true;
     }
 }
-
 </script>
 <script setup lang="ts">
 const count = new Count();

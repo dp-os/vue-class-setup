@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Setup } from 'vue-class-setup'
+import { Setup } from 'vue-class-setup';
 
 @Setup
 class Base {
@@ -34,7 +34,6 @@ class Home {
         return this.user.count + this.blog.count;
     }
 }
-
 </script>
 <script lang="ts" setup>
 const home = new Home();

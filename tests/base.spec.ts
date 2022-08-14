@@ -1,5 +1,5 @@
 import { assert, test } from 'vitest';
-import { mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils';
 
 import Base from './base.vue';
 
@@ -16,4 +16,4 @@ test('Base', async () => {
     assert.equal(wrapper.find('.text').text(), 'value:1');
     assert.equal(wrapper.find('.ready').text(), 'true');
     assert.equal(wrapper.find('.time').text(), time);
-})
+});

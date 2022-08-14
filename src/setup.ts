@@ -1,19 +1,21 @@
 import { reactive } from 'vue';
-import { TargetName, TargetConstructor, PassOnToCallback, TargetConstructorOptions } from './types';
-import { setCurrentHookName, setCurrentHookTarget } from './context';
 import {
-    SETUP_OPTIONS_NAME, SETUP_NAME
-} from './config';
+    TargetName,
+    TargetConstructor,
+    PassOnToCallback,
+    TargetConstructorOptions,
+} from './types';
+import { setCurrentHookName, setCurrentHookTarget } from './context';
+import { SETUP_OPTIONS_NAME, SETUP_NAME } from './config';
 import { onComputed } from './on-computed';
 import { getOptions, getSetupOptions, setOptions } from './options';
 
 function initHook<T extends object>(target: T) {
-
     setCurrentHookTarget(target);
     const set = new Set<TargetName>();
     const options = getOptions(target.constructor);
     options.forEach((names, hook) => {
-        names.forEach(name => {
+        names.forEach((name) => {
             if (!set.has(name) && typeof target[name] === 'function') {
                 target[name] = target[name].bind(target);
                 set.add(name);
@@ -33,7 +35,7 @@ let count = 0;
 function Setup<T extends TargetConstructor>(Target: T) {
     const descriptors = Object.getOwnPropertyDescriptors(Target.prototype);
 
-    Object.keys(descriptors).filter(k => {
+    Object.keys(descriptors).filter((k) => {
         const descriptor = descriptors[k];
         if (descriptor.get) {
             setOptions(onComputed, k);
@@ -53,7 +55,7 @@ function Setup<T extends TargetConstructor>(Target: T) {
         }
     }
 
-    return Setup
+    return Setup;
 }
 
-export { Setup }
+export { Setup };

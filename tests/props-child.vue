@@ -5,13 +5,12 @@ import { type Count } from './props-parent.vue';
 const { count } = defineProps<{ count: Count }>();
 
 const emit = defineEmits<{
-  (event: 'add'): void
-}>()
-
+    (event: 'add'): void;
+}>();
 </script>
 <template>
-  <div>
-    <p class="child-text">{{ count.value }}</p>
-    <button class="child-btn" @click="emit('add')">Add</button>
-  </div>
+    <div>
+        <p class="child-text">{{ count.value }}</p>
+        <button class="child-btn" @click="emit('add')">Add</button>
+    </div>
 </template>

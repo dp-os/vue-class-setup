@@ -2,7 +2,12 @@ import { computed } from 'vue';
 import { Target, TargetName } from './types';
 import { getCurrentHookContext } from './context';
 
-function compute(target: Target, name: TargetName, descriptor: PropertyDescriptor, type: 'get' | 'value') {
+function compute(
+    target: Target,
+    name: TargetName,
+    descriptor: PropertyDescriptor,
+    type: 'get' | 'value'
+) {
     if (typeof descriptor[type] !== 'function') return;
 
     const value = descriptor[type].bind(target);
@@ -11,12 +16,14 @@ function compute(target: Target, name: TargetName, descriptor: PropertyDescripto
         ...descriptor,
         [type]() {
             return compute.value;
-        }
+        },
     });
 }
 
-
-function getDescriptor(target: object, name: TargetName): PropertyDescriptor | null {
+function getDescriptor(
+    target: object,
+    name: TargetName
+): PropertyDescriptor | null {
     const descriptor = Object.getOwnPropertyDescriptor(target, name);
     if (descriptor) {
         return descriptor;
@@ -24,7 +31,6 @@ function getDescriptor(target: object, name: TargetName): PropertyDescriptor | n
     const next = Object.getPrototypeOf(target);
     return getDescriptor(next, name);
 }
-
 
 export function onComputed() {
     const { target, name } = getCurrentHookContext();

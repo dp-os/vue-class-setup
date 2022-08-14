@@ -1,5 +1,5 @@
 import { assert, test } from 'vitest';
-import { Setup, PassOnTo, getCurrentHookContext } from 'vue-class-setup'
+import { Setup, PassOnTo, getCurrentHookContext } from 'vue-class-setup';
 
 function myFunc() {
     const { target, name } = getCurrentHookContext();

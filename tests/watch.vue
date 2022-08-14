@@ -1,7 +1,6 @@
 <script lang="ts">
 import { watch } from 'vue';
-import { Setup, PassOnTo, onSetup } from 'vue-class-setup';
-
+import { Setup, PassOnTo } from 'vue-class-setup';
 
 @Setup
 class Count {
@@ -12,20 +11,27 @@ class Count {
     public setValue(value: number) {
         this.value = value;
     }
-    @PassOnTo(onSetup)
-    public setup() {
-        watch(() => this.value, (value) => {
-            if (value > 100) {
-                this.value = 100
+    @PassOnTo()
+    public setup(age: number) {
+        watch(
+            () => this.value,
+            (value) => {
+                if (value > 100) {
+                    this.value = 100;
+                }
             }
-        })
+        );
+        return 200;
     }
 }
 
+function onTest(cb: () => number) {
+    return true;
+}
 </script>
 <script setup lang="ts">
 const count = new Count();
-defineExpose<{ count: Count }>()
+defineExpose<{ count: Count }>();
 </script>
 <template>
     <p class="value">{{ count.value }}</p>

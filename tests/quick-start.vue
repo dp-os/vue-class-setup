@@ -16,7 +16,6 @@ class Count {
         this.value++;
     }
 }
-
 </script>
 <script setup lang="ts">
 // Use the class you write in setup

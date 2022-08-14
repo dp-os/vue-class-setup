@@ -1,5 +1,5 @@
 import { assert, test } from 'vitest';
-import { mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils';
 
 import QuickStart from './quick-start.vue';
 
@@ -18,4 +18,4 @@ test('Base', async () => {
     await wrapper.find('input').setValue('');
     assert.equal(wrapper.find('p').text(), '0');
     assert.equal(wrapper.find('input').element.value, '0');
-})
+});

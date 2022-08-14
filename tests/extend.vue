@@ -5,7 +5,7 @@ import { Setup, PassOnTo } from 'vue-class-setup';
 @Setup
 class Base {
     public value = 0;
-    public get text () {
+    public get text() {
         return String(this.value);
     }
     @PassOnTo(onBeforeMount)
@@ -18,7 +18,7 @@ class Base {
 class Left extends Base {
     public left = 0;
     public get text() {
-        return String(`value:${this.value}`)
+        return String(`value:${this.value}`);
     }
     public init() {
         super.init();
@@ -42,11 +42,10 @@ class Right extends Base {
         this.right++;
     }
 }
-
 </script>
 <script setup lang="ts">
 const left = new Left();
-const right = new Right()
+const right = new Right();
 </script>
 <template>
     <p class="left">{{ left.text }}</p>

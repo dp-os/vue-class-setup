@@ -1,5 +1,5 @@
 import { assert, test } from 'vitest';
-import { mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils';
 
 import Watch from './watch.vue';
 
@@ -18,6 +18,4 @@ test('Watch', async () => {
     wrapper.vm.count.setValue(110);
     await wrapper.vm.$nextTick();
     assert.equal(wrapper.find('.value').text(), '100');
-
 });
-

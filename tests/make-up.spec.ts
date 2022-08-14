@@ -1,5 +1,5 @@
 import { assert, test } from 'vitest';
-import { mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils';
 
 import MakeUp from './make-up.vue';
 
@@ -22,7 +22,7 @@ test('Make up', async () => {
     assert.equal(wrapper.find('.blog-text').text(), '1');
     assert.equal(wrapper.find('.user-text2').text(), '0user');
     assert.equal(wrapper.find('.blog-text2').text(), '1blog');
-    
+
     await wrapper.find('.user-add').trigger('click');
 
     assert.equal(wrapper.find('.user-count').text(), '1');
@@ -32,5 +32,4 @@ test('Make up', async () => {
     assert.equal(wrapper.find('.blog-text').text(), '1');
     assert.equal(wrapper.find('.user-text2').text(), '1user');
     assert.equal(wrapper.find('.blog-text2').text(), '1blog');
-
 });

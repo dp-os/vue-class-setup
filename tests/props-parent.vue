@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Setup } from 'vue-class-setup';
-import Child from './props-child.vue'
+import Child from './props-child.vue';
 
 const NAME = 'vue-class-setup';
 
@@ -11,7 +11,6 @@ export class Count {
         this.value++;
     }
 }
-
 </script>
 <script lang="ts" setup>
 const count = new Count();
