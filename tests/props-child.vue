@@ -3,12 +3,12 @@ import { type Count } from './props-parent.vue';
 import { Setup, Define } from 'vue-class-setup'
 
 @Setup
-class App extends Define<Props, Emits> {
+class App extends Define<Props, Emits>() {
     public get value () {
-        return this.props.count.value;
+        return this.count.value;
     }
     public add () {
-        this.emit('add');
+        this.$emit('add');
     }
 }
 
