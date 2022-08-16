@@ -105,6 +105,7 @@ class App extends Define<Props, Emits> {
 
 </script>
 <script lang="ts" setup>
+
 // Props and Emits need to be exported
 export interface Props { value: number }
 
@@ -116,6 +117,7 @@ export interface Emits {
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
+// When creating an app, pass parameters props and emit
 const app = new App(props, emit);
 
 </script>
