@@ -1,3 +1,5 @@
+## 1.0.4
+- feat: Remove execution
 ## 1.0.3
 - feat: Define basic class
 ## 1.0.2

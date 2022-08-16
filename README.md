@@ -93,14 +93,13 @@ If the component defines `props`, writing the `class` in the `setup` will cause 
 <script lang="ts">
 import { Setup, Define } from 'vue-class-setup'
 
-// Pass in 'Props' and 'Emits' through generics, and all props objects are read-only
 @Setup
 class App extends Define<Props, Emits> {
     public get text() {
-        return String(this.props.value);
+        return String(this.value);
     }
     public click(evt: MouseEvent) {
-        this.emit('click', evt);
+        this.$emit('click', evt);
     }
 }
 
@@ -109,7 +108,6 @@ class App extends Define<Props, Emits> {
 
 // Props and Emits need to be exported
 export interface Props { value: number }
-
 export interface Emits {
     (event: 'click', evt: MouseEvent): void;
 }

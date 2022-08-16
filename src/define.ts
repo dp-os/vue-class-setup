@@ -8,8 +8,10 @@ type DeepReadonly<T> = T extends object
     }
     : T;
 
-class InnerDefine<T extends {}, E extends Function> {
-    public readonly $emit!: E;
+type DefineConstructor = new <T extends {}, E extends Function>(props: DeepReadonly<T>, emit: E) => DeepReadonly<T> & { $emit: E };
+
+
+export const Define: DefineConstructor = class Define<T extends {}, E extends Function> {
     public constructor(props: T, emit: E) {
         Object.keys(props).forEach(k => {
             Object.defineProperty(this, k, {
@@ -24,11 +26,4 @@ class InnerDefine<T extends {}, E extends Function> {
             }
         });
     }
-}
-
-type Define<T extends {}, E extends Function> = new (props: T, emit: E) => (DeepReadonly<T> & { readonly $emit: E });
-
-
-export function Define<T extends {}, E extends Function>(): Define<T, E> {
-    return InnerDefine as any;
-}
+} as any

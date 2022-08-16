@@ -2,7 +2,7 @@
 import { Setup, Define } from 'vue-class-setup'
 
 @Setup
-class App extends Define<Props, Emits>() {
+class App extends Define<Props, Emits> {
     public get text() {
         return String(this.value);
     }
