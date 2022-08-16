@@ -93,7 +93,7 @@ If the component defines `props`, writing the `class` in the `setup` will cause 
 <script lang="ts">
 import { Setup, Define } from 'vue-class-setup'
 
-// Pass in generics and 'props' through 'emit', and all 'props' objects are read-only
+// Pass in 'Props' and 'Emits' through generics, and all props objects are read-only
 @Setup
 class App extends Define<Props, Emits> {
     public get text() {
