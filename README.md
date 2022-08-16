@@ -85,7 +85,8 @@ class Count {
 ```
 
 ## Define
-If the component defines `props`, writing the `class` in the `setup` will cause the `setup` function to create a `class` every time it executes, which will add overhead. So we should avoid writing `class` in `setup` and use `Define` basic classes to receive `props` and `emit`. The following examples provide best practices
+If the component defines props, writing the class in the setup will cause the setup function to create a class every time as it executes, which will add costs. So we should avoid writing classes in setup and use Define basic classes to receive props and emit. The following examples provide best practices
+
 ```vue
 <script lang="ts">
 import { Setup, Define } from 'vue-class-setup'
