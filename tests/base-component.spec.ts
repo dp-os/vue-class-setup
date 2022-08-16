@@ -7,8 +7,10 @@ test('Base', async () => {
     const wrapper = mount(BaseComponent);
 
     assert.equal(wrapper.find('.text').text(), '0');
+    assert.equal(wrapper.find('.props-text').text(), '0');
 
     await wrapper.find('.btn').trigger('click');
 
     assert.equal(wrapper.find('.text').text(), '1');
+    assert.equal(wrapper.find('.props-text').text(), '1');
 });

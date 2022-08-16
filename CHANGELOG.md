@@ -1,3 +1,6 @@
+## 1.0.5
+- feat: $props
+- Remove: Remove parameter passing in
 ## 1.0.4
 - feat: Remove execution
 ## 1.0.3

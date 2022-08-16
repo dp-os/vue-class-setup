@@ -21,15 +21,16 @@ export interface Emits {
 }
 
 // Variable reception must be used, otherwise Vue compilation error
-const props = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineProps<Props>();
+defineEmits<Emits>();
 
 // When creating an app, pass parameters props and emit
-const app = new App(props, emit);
+const app = new App();
 
 </script>
 <template>
     <button class="btn" @click="app.click($event)">
         <span class="text">{{ app.text }}</span>
+        <span class="props-text">{{ app.$props.value }}</span>
     </button>
 </template>

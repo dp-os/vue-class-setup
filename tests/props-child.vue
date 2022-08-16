@@ -21,10 +21,10 @@ export interface Emits {
     (event: 'add'): void;
 }
 
-const props = defineProps<Props>();
-const emits = defineEmits<Emits>();
+defineProps<Props>();
+defineEmits<Emits>();
 
-const app = new App(props, emits);
+const app = new App();
 
 </script>
 <template>
