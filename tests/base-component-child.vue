@@ -5,7 +5,7 @@ import { Setup, Define } from 'vue-class-setup';
 class App extends Define<Props, Emit> {
     // 🚀 The default value of the prop can only be initialized in the constructor,
     // 💥 and cannot be modified later. It is only read-only
-    public readonly dest = '222';
+    public readonly dest = '--';
     public get text() {
         return String(this.value);
     }
@@ -39,6 +39,7 @@ const app = new App();
 <template>
     <button class="btn" @click="app.click($event)">
         <span class="text">{{ app.text }}</span>
-        <span class="props-text">{{ app.$props.value }}</span>
+        <span class="props-dest">{{ app.dest }}</span>
+        <span class="props-value">{{ app.$props.value }}</span>
     </button>
 </template>
