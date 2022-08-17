@@ -95,7 +95,8 @@ import { Setup, Define } from 'vue-class-setup';
 
 @Setup
 class App extends Define<Props, Emit> {
-    // 🚀 The default value of the prop can only be initialized in the constructor, and cannot be modified later. It is only read-only
+    // 🚀 The default value of the prop can only be initialized in the constructor,
+    // 💥 and cannot be modified later. It is only read-only
     public readonly dest = '222';
     public get text() {
         return String(this.value);
@@ -133,6 +134,7 @@ const app = new App();
         <span class="props-text">{{ app.$props.value }}</span>
     </button>
 </template>
+
 ```
 
 ## Vue compatible
