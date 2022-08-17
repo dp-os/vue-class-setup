@@ -29,7 +29,6 @@ const app = new App();
 
 // app.$props = defineProps<Props>()
 // app.$emit = defineEmits<Emit>()
-
 </script>
 <template>
     <button class="btn" @click="app.click($event)">

@@ -1,4 +1,4 @@
-import { getCurrentInstance } from 'vue';
+import { getCurrentInstance, type VueInstance } from './vue';
 type DeepReadonly<T> = T extends object
     ? T extends Array<any>
     ? T
@@ -8,35 +8,37 @@ type DeepReadonly<T> = T extends object
         readonly [P in keyof T]: DeepReadonly<T[P]>;
     }
     : T;
-interface App<T, E> { readonly $emit: E, readonly $props: T }
+
+interface DefineInstance<T, E> {
+    readonly $props: T,
+    readonly $emit: E;
+    readonly $vm: VueInstance;
+}
 
 type DefaultEmit = (...args: any[]) => void;
 
-type DefineConstructor = new <T extends {} = {}, E extends DefaultEmit = DefaultEmit>() => DeepReadonly<T> & App<T, E>;
+type DefineConstructor = new <T extends {} = {}, E extends DefaultEmit = DefaultEmit>() => DeepReadonly<T> & DefineInstance<T, E>;
 
 
 export const Define: DefineConstructor = class Define<T extends {} = {}, E extends DefaultEmit = DefaultEmit> {
     public constructor() {
         const vm = getCurrentInstance();
         if (vm) {
-            const { props, emit } = vm;
-            Object.keys(props).forEach(k => {
-                Object.defineProperty(this, k, {
-                    get() {
-                        return props[k]
-                    }
-                })
-            })
-            Object.defineProperty(this, '$props', {
-                get() {
-                    return props;
-                }
+            const { $props, $emit } = vm;
+            
+            Object.keys($props).forEach(k => {
+                defineProperty(this, k, () => $props[k]);
             });
-            Object.defineProperty(this, '$emit', {
-                get() {
-                    return emit;
-                }
-            });
+            defineProperty(this, '$props', () => $props);
+            defineProperty(this, '$emit', () => $emit);
+            defineProperty(this, '$vm', () => vm);
         }
     }
 } as any
+
+
+function defineProperty<T>(o: T, p: PropertyKey, get: () => any) {
+    Object.defineProperty(o, p, {
+        get
+    });
+}

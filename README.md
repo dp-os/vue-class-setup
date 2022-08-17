@@ -131,3 +131,16 @@ const app = new App();
 </template>
 
 ```
+
+## Vue compatible
+- `getCurrentInstance` returns the proxy object by default    
+- `VueInstance` It is not easy to get a Vue instance object type compatible with vue2 and vue3. We make it easy
+
+```ts
+import { isVue2, isVue3, getCurrentInstance, type VueInstance } from 'vue-class-setup';
+
+// isVue2 -> boolean
+// isVue3 -> boolean
+// getCurrentInstance -> VueInstance
+
+```
