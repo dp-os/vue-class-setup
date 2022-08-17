@@ -8,7 +8,7 @@
 
 ## Why?
 
-Using class can help you avoid `ref`, `reactive` and `computed`, and significantly reduce your mental burden and better organize your code. It supports vue2 and vue3 at the same time. After gzip compression, it is only 1KB
+Using class can help you avoid `ref`, `reactive` , `computed` and `withDefaults`, and significantly reduce your mental burden and better organize your code. It supports vue2 and vue3 at the same time. After gzip compression, it is only 1KB
 
 ## Install
 
@@ -95,6 +95,8 @@ import { Setup, Define } from 'vue-class-setup';
 
 @Setup
 class App extends Define<Props, Emit> {
+    // 🚀 The default value of the prop can only be initialized in the constructor, and cannot be modified later. It is only read-only
+    public readonly dest = '222';
     public get text() {
         return String(this.value);
     }
@@ -107,7 +109,7 @@ class App extends Define<Props, Emit> {
 <script lang="ts" setup>
 
 // Props and Emits need to be exported
-export interface Props { value: number }
+export interface Props { value: number, dest?: string }
 export interface Emit {
     (event: 'click', evt: MouseEvent): void;
 }
@@ -116,12 +118,14 @@ export interface Emit {
 defineProps<Props>();
 defineEmits<Emit>();
 
+// ❌ You should define default values directly on the class
+// withDefaults()
+
 // When creating an app, pass parameters props and emit
 const app = new App();
 
 // app.$props = defineProps<Props>()
 // app.$emit = defineEmits<Emit>()
-
 </script>
 <template>
     <button class="btn" @click="app.click($event)">
@@ -129,7 +133,6 @@ const app = new App();
         <span class="props-text">{{ app.$props.value }}</span>
     </button>
 </template>
-
 ```
 
 ## Vue compatible
