@@ -8,11 +8,14 @@ type DeepReadonly<T> = T extends object
         readonly [P in keyof T]: DeepReadonly<T[P]>;
     }
     : T;
+interface App<T, E> { readonly $emit: E, readonly $props: T }
 
-type DefineConstructor = new <T extends {}, E extends Function>() => DeepReadonly<T> & { readonly $emit: E, readonly $props: T };
+type DefaultEmit = (...args: any[]) => void;
+
+type DefineConstructor = new <T extends {} = {}, E extends DefaultEmit = DefaultEmit>() => DeepReadonly<T> & App<T, E>;
 
 
-export const Define: DefineConstructor = class Define<T extends {}, E extends Function> {
+export const Define: DefineConstructor = class Define<T extends {} = {}, E extends DefaultEmit = DefaultEmit> {
     public constructor() {
         const vm = getCurrentInstance();
         if (vm) {

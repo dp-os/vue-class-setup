@@ -94,7 +94,7 @@ If the component defines `props`, writing the `class` in the `setup` will cause 
 import { Setup, Define } from 'vue-class-setup';
 
 @Setup
-class App extends Define<Props, Emits> {
+class App extends Define<Props, Emit> {
     public get text() {
         return String(this.value);
     }
@@ -108,16 +108,19 @@ class App extends Define<Props, Emits> {
 
 // Props and Emits need to be exported
 export interface Props { value: number }
-export interface Emits {
+export interface Emit {
     (event: 'click', evt: MouseEvent): void;
 }
 
 // Variable reception must be used, otherwise Vue compilation error
 defineProps<Props>();
-defineEmits<Emits>();
+defineEmits<Emit>();
 
 // When creating an app, pass parameters props and emit
 const app = new App();
+
+// app.$props = defineProps<Props>()
+// app.$emit = defineEmits<Emit>()
 
 </script>
 <template>
@@ -126,4 +129,5 @@ const app = new App();
         <span class="props-text">{{ app.$props.value }}</span>
     </button>
 </template>
+
 ```

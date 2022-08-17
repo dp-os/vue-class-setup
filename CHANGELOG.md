@@ -1,3 +1,5 @@
+## 1.0.6
+- fix: Define Generic (optional)
 ## 1.0.5
 - feat: $props
 - Remove: Remove parameter passing in
