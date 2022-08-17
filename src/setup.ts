@@ -4,6 +4,7 @@ import { setCurrentHookName, setCurrentHookTarget } from './context';
 import { SETUP_OPTIONS_NAME, SETUP_NAME } from './config';
 import { onComputed } from './on-computed';
 import { getOptions, getSetupOptions, setOptions } from './options';
+import { initProps } from './define';
 
 interface Item {
     name: TargetName;
@@ -32,9 +33,16 @@ function initHook<T extends object>(target: T) {
             });
         });
     });
+
+    // init props
+    initProps(target);
+
+    // init computed
     special.forEach((item) => {
         initName(item);
     });
+
+    // init plain hooks
     plainArr.forEach((item) => {
         initName(item);
     });

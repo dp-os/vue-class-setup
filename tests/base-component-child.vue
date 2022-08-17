@@ -3,6 +3,8 @@ import { Setup, Define } from 'vue-class-setup';
 
 @Setup
 class App extends Define<Props, Emit> {
+    // 🚀 The default value of the prop can only be initialized in the constructor, and cannot be modified later. It is only read-only
+    public readonly dest = '222';
     public get text() {
         return String(this.value);
     }
@@ -15,7 +17,7 @@ class App extends Define<Props, Emit> {
 <script lang="ts" setup>
 
 // Props and Emits need to be exported
-export interface Props { value: number }
+export interface Props { value: number, dest?: string }
 export interface Emit {
     (event: 'click', evt: MouseEvent): void;
 }
@@ -23,6 +25,9 @@ export interface Emit {
 // Variable reception must be used, otherwise Vue compilation error
 defineProps<Props>();
 defineEmits<Emit>();
+
+// ❌ You should define default values directly on the class
+// withDefaults()
 
 // When creating an app, pass parameters props and emit
 const app = new App();

@@ -1,3 +1,5 @@
+## 1.0.8
+- feat: Set default props on class
 ## 1.0.7
 - feat: isVue2, isVue3, getCurrentInstance, VueInstance
 ## 1.0.6

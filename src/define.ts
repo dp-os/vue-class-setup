@@ -25,10 +25,6 @@ export const Define: DefineConstructor = class Define<T extends {} = {}, E exten
         const vm = getCurrentInstance();
         if (vm) {
             const { $props, $emit } = vm;
-            
-            Object.keys($props).forEach(k => {
-                defineProperty(this, k, () => $props[k]);
-            });
             defineProperty(this, '$props', () => $props);
             defineProperty(this, '$emit', () => $emit);
             defineProperty(this, '$vm', () => vm);
@@ -36,6 +32,20 @@ export const Define: DefineConstructor = class Define<T extends {} = {}, E exten
     }
 } as any
 
+
+
+export function initProps(target: object) {
+    const props = target['$props'];
+    if(!props) {
+        return;
+    }
+    Object.keys(props).forEach(k => {
+        let defaultValue = target[k];
+        defineProperty(target, k, () => {
+            return props[k] ?? defaultValue;
+        });
+    });
+}
 
 function defineProperty<T>(o: T, p: PropertyKey, get: () => any) {
     Object.defineProperty(o, p, {
