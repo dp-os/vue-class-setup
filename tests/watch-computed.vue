@@ -1,9 +1,9 @@
 <script lang="ts">
 import { watch } from 'vue';
-import { Setup, PassOnTo } from 'vue-class-setup';
+import { Setup, Define, PassOnTo } from 'vue-class-setup';
 
 @Setup
-class Count {
+class Count extends Define {
     public value = 0;
     public get valueText() {
         return String(this.value);

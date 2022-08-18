@@ -1,8 +1,8 @@
 <script lang="ts">
-import { Setup } from 'vue-class-setup'
+import { Setup, Define } from 'vue-class-setup'
 
 @Setup
-class App {
+class App extends Define {
     public value = 0;
     public dest: string | undefined = undefined;
     public onClick() {
@@ -10,6 +10,7 @@ class App {
         this.dest = 'clicked'
     }
 }
+
 </script>
 <script lang="ts" setup>
 import BaseComponentChild from './base-component-child.vue';

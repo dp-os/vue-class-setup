@@ -7,12 +7,12 @@ import {
     onBeforeMount,
     onBeforeUpdate,
 } from 'vue';
-import { Setup, PassOnTo } from 'vue-class-setup';
+import { Setup, Define, PassOnTo } from 'vue-class-setup';
 
 type OnCleanup = (cleanupFn: () => void) => void;
 
 @Setup
-class Count {
+class Count extends Define {
     public value = 0;
     public hooks: string[] = [];
     public add() {

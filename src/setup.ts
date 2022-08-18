@@ -5,6 +5,7 @@ import { SETUP_OPTIONS_NAME, SETUP_NAME } from './config';
 import { onComputed } from './on-computed';
 import { getOptions, getSetupOptions, setOptions } from './options';
 import { initProps } from './define';
+import { setupReference } from './setup-reference';
 
 interface Item {
     name: TargetName;
@@ -60,8 +61,6 @@ function initHook<T extends object>(target: T) {
     return target;
 }
 
-let count = 0;
-
 function Setup<T extends TargetConstructor>(Target: T) {
     const descriptors = Object.getOwnPropertyDescriptors(Target.prototype);
 
@@ -75,10 +74,9 @@ function Setup<T extends TargetConstructor>(Target: T) {
         public static [SETUP_OPTIONS_NAME] = getSetupOptions(Target);
         public static [SETUP_NAME] = true;
         public constructor(...args: any[]) {
-            count++;
+            setupReference.count();
             super(...args);
-            count--;
-            if (count === 0) {
+            if (setupReference.reduce(this)) {
                 // Vue3 needs to return, vue2 does not need to return
                 return initHook(reactive(this));
             }

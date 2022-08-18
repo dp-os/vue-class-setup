@@ -1,9 +1,9 @@
 <script lang="ts">
 import { onMounted } from 'vue';
-import { Setup, PassOnTo } from 'vue-class-setup';
+import { Setup, Define, PassOnTo } from 'vue-class-setup';
 
 @Setup
-class Count {
+class Count extends Define {
     public value = 0;
     public get text() {
         return String(this.value);

@@ -1,4 +1,6 @@
 import { getCurrentInstance, type VueInstance } from './vue';
+import { setupReference } from './setup-reference';
+
 type DeepReadonly<T> = T extends object
     ? T extends Array<any>
     ? T
@@ -17,10 +19,21 @@ interface DefineInstance<T, E> {
 
 type DefaultEmit = (...args: any[]) => void;
 
-type DefineConstructor = new <T extends {} = {}, E extends DefaultEmit = DefaultEmit>() => DeepReadonly<T> & DefineInstance<T, E>;
-
+export interface DefineConstructor {
+    of(Target: object): void;
+    new <T extends {} = {}, E extends DefaultEmit = DefaultEmit>(...args: unknown[]): DeepReadonly<T> & DefineInstance<T, E>;
+}
 
 export const Define: DefineConstructor = class Define<T extends {} = {}, E extends DefaultEmit = DefaultEmit> {
+    public static of(Target: object) {
+        const p = Object.getPrototypeOf(Target);
+        if (p === Define) {
+            return true;
+        } else if (p === null) {
+            return false
+        }
+        return Define.of(p);
+    }
     public constructor() {
         const vm = getCurrentInstance();
         if (vm) {
@@ -29,14 +42,15 @@ export const Define: DefineConstructor = class Define<T extends {} = {}, E exten
             defineProperty(this, '$emit', () => $emit);
             defineProperty(this, '$vm', () => vm);
         }
+        setupReference.add(this)
     }
-} as any
+} as any;
 
 
 
 export function initProps(target: object) {
     const props = target['$props'];
-    if(!props) {
+    if (!props) {
         return;
     }
     Object.keys(props).forEach(k => {

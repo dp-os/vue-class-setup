@@ -1,8 +1,8 @@
 <script lang="ts">
-import { Setup } from 'vue-class-setup';
+import { Setup, Define } from 'vue-class-setup';
 
 @Setup
-class Base {
+class Base extends Define {
     public count = 0;
     public get text() {
         return String(this.count);
@@ -27,7 +27,7 @@ class Blog extends Base {
 }
 
 @Setup
-class Home {
+class Home extends Define {
     public user = new User();
     public blog = new Blog();
     public get total() {

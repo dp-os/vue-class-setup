@@ -1,12 +1,13 @@
 <script lang="ts">
-import { Setup } from 'vue-class-setup';
+import { Setup, Define } from 'vue-class-setup';
 import Child from './props-child.vue';
 
 const NAME = 'vue-class-setup';
 
 @Setup
-export class Count {
+export class Count extends Define {
     public value = 0;
+    public name = 'props-parent'
     public add() {
         this.value++;
     }

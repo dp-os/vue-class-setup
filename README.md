@@ -23,10 +23,10 @@ yarn add vue-class-setup
 ```vue
 <script lang="ts">
 import { onMounted } from 'vue';
-import { Setup, PassOnTo } from 'vue-class-setup';
+import { Setup, Define, PassOnTo } from 'vue-class-setup';
 
 @Setup
-class Count {
+class App extends Define {
     public value = 0;
     public get text() {
         return String(this.value);
@@ -42,18 +42,20 @@ class Count {
 </script>
 <script setup lang="ts">
 // Use the class you write in setup
-const count = new Count();
+const app = new App();
 </script>
 <template>
-    <p>{{ count.text }}</p>
-    <input type="number" v-model="count.text" />
+    <p>{{ app.text }}</p>
+    <input type="number" v-model="app.text" />
 </template>
+
 ```
 
 ## PassOnTo
 This `callback` will be called back after the `Test class` instantiation is completed, and the decorated function will be passed in, and the TS can check whether the type is correct
 ```ts
-class Test {
+@Setup
+class App extends Define {
     @PassOnTo(myFunc)
     public init(name: string) {}
 }
@@ -69,7 +71,7 @@ If `PassOnTo` does not pass in a handler, it is called after `reactive` and `com
 import { Watch } from 'vue';
 
 @Setup
-class Count {
+class App extends Define {
     public value = 0;
     @PassOnTo()
     private setup() {
@@ -93,11 +95,13 @@ If the component defines `props`, writing the `class` in the `setup` will cause 
 <script lang="ts">
 import { Setup, Define } from 'vue-class-setup';
 
+// You can create multiple setup class, Only one is shown here
 @Setup
 class App extends Define<Props, Emit> {
-    // 🚀 The default value of the prop can only be initialized in the constructor,
-    // 💥 and cannot be modified later. It is only read-only
+    // ✨ The default value of the prop can only be initialized in the constructor,
+    // ✨ and cannot be modified later. It is only read-only
     public readonly dest = '--';
+    // Automatically convert to vue 'computed'
     public get text() {
         return String(this.value);
     }
@@ -116,17 +120,22 @@ export interface Emit {
 }
 
 // Variable reception must be used, otherwise Vue compilation error
-defineProps<Props>();
-defineEmits<Emit>();
+// ❌ const props = defineProps<Props>();
+// ❌ const emit = defineEmits<Emit>();
+defineProps<Props>(); //  ✅ 
+defineEmits<Emit>();  //  ✅ 
 
-// ❌ You should define default values directly on the class
-// withDefaults()
+// You should define default values directly on the class
+// ❌ withDefaults({ dest: '--' });
+// ✅ @Setup
+// ✅ class App extends Define<Props, Emit> {
+// ✅     public readonly dest = '--'
+// ✅ }
 
-// When creating an app, pass parameters props and emit
-const app = new App();
+// Automatic dependency injection and reactive
+// reactive(new App()); // ❌ 
+const app = new App();  // ✅ 
 
-// app.$props = defineProps<Props>()
-// app.$emit = defineEmits<Emit>()
 </script>
 <template>
     <button class="btn" @click="app.click($event)">

@@ -1,9 +1,9 @@
 <script lang="ts">
 import { onMounted } from 'vue';
-import { Setup, PassOnTo } from 'vue-class-setup';
+import { Setup, Define, PassOnTo } from 'vue-class-setup';
 
 @Setup
-class Count {
+class App extends Define {
     public value = 0;
     public get text() {
         return String(this.value);
@@ -19,9 +19,9 @@ class Count {
 </script>
 <script setup lang="ts">
 // Use the class you write in setup
-const count = new Count();
+const app = new App();
 </script>
 <template>
-    <p>{{ count.text }}</p>
-    <input type="number" v-model="count.text" />
+    <p>{{ app.text }}</p>
+    <input type="number" v-model="app.text" />
 </template>

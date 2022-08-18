@@ -1,9 +1,9 @@
 <script lang="ts">
 import { onMounted } from 'vue';
-import { Setup, PassOnTo } from 'vue-class-setup';
+import { Setup, Define, PassOnTo } from 'vue-class-setup';
 
 @Setup
-class Count {
+class Count extends Define {
     public value = 0;
     public ready = false;
     public get text() {
@@ -23,10 +23,10 @@ class Count {
 
 class Test {
     @PassOnTo(myFunc)
-    public init(name: string) {}
+    public init(name: string) { }
 }
 
-function myFunc (cb: (name: string) => void) {}
+function myFunc(cb: (name: string) => void) { }
 </script>
 <script setup lang="ts">
 const count = new Count();
