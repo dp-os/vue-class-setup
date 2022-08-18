@@ -1,4 +1,4 @@
-## 1.0.9
+## 1.1.0
 - Fix: assemble class cannot be used
 ## 1.0.8
 - feat: Set default props on class
