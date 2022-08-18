@@ -56,6 +56,8 @@ If the component defines `props`, writing the `class` in the `setup` will cause 
 
 
 ### Best practices
+
+```vue
 <script lang="ts">
 import { Setup, Define } from 'vue-class-setup';
 
