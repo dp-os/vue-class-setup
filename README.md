@@ -113,7 +113,7 @@ const app = new App();    // ✅
 
 ```
 
-## PassOnTo
+### PassOnTo
 This `callback` will be called back after the `Test class` instantiation is completed, and the decorated function will be passed in, and the TS can check whether the type is correct
 ```ts
 @Setup
