@@ -92,7 +92,7 @@ defineProps<Props>(); //  ✅
 defineEmits<Emit>();  //  ✅ 
 
 // You should define default values directly on the class
-// ❌ withDefaults({ dest: '--' });
+// ❌ withDefaults(defineProps<Props>(), { dest: '--' });
 // ✅ @Setup
 // ✅ class App extends Define<Props, Emit> {
 // ✅     public readonly dest = '--'
