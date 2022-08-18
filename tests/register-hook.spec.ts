@@ -1,5 +1,5 @@
 import { assert, test } from 'vitest';
-import { Setup, PassOnTo, getCurrentHookContext } from 'vue-class-setup';
+import { Setup, Define, PassOnTo, getCurrentHookContext } from 'vue-class-setup';
 
 function myFunc() {
     const { target, name } = getCurrentHookContext();
@@ -8,7 +8,7 @@ function myFunc() {
 
 test('Register hook', () => {
     @Setup
-    class Count {
+    class Count extends Define {
         public value = 100;
         @PassOnTo(myFunc)
         public add() {
