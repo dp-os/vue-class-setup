@@ -39,8 +39,8 @@ defineEmits<Emit>();  //  ✅
 // ✅ }
 
 // Automatic dependency injection and reactive
-// reactive(new App()); // ❌ 
-const app = new App();  // ✅ 
+// const app = reactive(new App()); // ❌ 
+const app = new App();              // ✅ 
 
 </script>
 <template>

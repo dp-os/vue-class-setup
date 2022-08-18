@@ -56,18 +56,16 @@ If the component defines `props`, writing the `class` in the `setup` will cause 
 
 
 ### Best practices
-
-```vue
 <script lang="ts">
 import { Setup, Define } from 'vue-class-setup';
 
-// 🚀 You can create multiple setup class, Only one is shown here
+// You can create multiple setup class, Only one is shown here
 @Setup
 class App extends Define<Props, Emit> {
-    // 🚀 The default value of the prop can only be initialized in the constructor,
-    // 🚀 and cannot be modified later. It is only read-only
+    // ✨ The default value of the prop can only be initialized in the constructor,
+    // ✨ and cannot be modified later. It is only read-only
     public readonly dest = '--';
-    // 🚀 Automatically convert to vue 'computed'
+    // Automatically convert to vue 'computed'
     public get text() {
         return String(this.value);
     }
@@ -99,8 +97,8 @@ defineEmits<Emit>();  //  ✅
 // ✅ }
 
 // Automatic dependency injection and reactive
-// const app = new App(); // ❌
-const app = new App();    // ✅ 
+// const app = reactive(new App()); // ❌ 
+const app = new App();              // ✅ 
 
 </script>
 <template>
