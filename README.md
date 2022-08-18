@@ -51,42 +51,7 @@ const app = new App();
 
 ```
 
-## PassOnTo
-This `callback` will be called back after the `Test class` instantiation is completed, and the decorated function will be passed in, and the TS can check whether the type is correct
-```ts
-@Setup
-class App extends Define {
-    @PassOnTo(myFunc)
-    public init(name: string) {}
-}
-
-function myFunc (callback: (name: string) => void) {
-    // ...
-}
-```
-
-If `PassOnTo` does not pass in a handler, it is called after `reactive` and `computed` execution are completed, You should avoid watching in the `constructor` because it may not have `reactive`
-
-```ts
-import { Watch } from 'vue';
-
-@Setup
-class App extends Define {
-    public value = 0;
-    @PassOnTo()
-    private setup() {
-        // Safe Watch
-        watch(
-            () => this.value,
-            (value) => {
-                // ...
-            }
-        );
-    }
-}
-```
-
-## Define
+## Setup define
 If the component defines `props`, writing the `class` in the `setup` will cause the `setup` function to create a `class` every time as it executes, which will add costs. So we should avoid writing `class` in `setup` and use `Define` basic class to receive `props` and `emit`. 
 
 **The following examples provide best practices**
@@ -145,6 +110,41 @@ const app = new App();    // ✅
     </button>
 </template>
 
+```
+
+## PassOnTo
+This `callback` will be called back after the `Test class` instantiation is completed, and the decorated function will be passed in, and the TS can check whether the type is correct
+```ts
+@Setup
+class App extends Define {
+    @PassOnTo(myFunc)
+    public init(name: string) {}
+}
+
+function myFunc (callback: (name: string) => void) {
+    // ...
+}
+```
+
+If `PassOnTo` does not pass in a handler, it is called after `reactive` and `computed` execution are completed, You should avoid watching in the `constructor` because it may not have `reactive`
+
+```ts
+import { Watch } from 'vue';
+
+@Setup
+class App extends Define {
+    public value = 0;
+    @PassOnTo()
+    private setup() {
+        // Safe Watch
+        watch(
+            () => this.value,
+            (value) => {
+                // ...
+            }
+        );
+    }
+}
 ```
 
 ## Vue compatible
