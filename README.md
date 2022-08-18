@@ -51,7 +51,7 @@ const app = new App();
 
 ```
 
-## Setup define
+## Setup
 If the component defines `props`, writing the `class` in the `setup` will cause the `setup` function to create a `class` every time as it executes, which will add costs. So we should avoid writing `class` in `setup` and use `Define` basic class to receive `props` and `emit`. 
 
 **The following examples provide best practices**
