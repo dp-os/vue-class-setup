@@ -52,6 +52,7 @@ const app = new App();
 ```
 
 ## Setup
+
 If the component defines `props`, writing the `class` in the `setup` will cause the `setup` function to create a `class` every time as it executes, which will add costs. So we should avoid writing `class` in `setup` and use `Define` basic class to receive `props` and `emit`. 
 
 
@@ -115,6 +116,7 @@ const app = new App();              // ✅
 
 ### PassOnTo
 This `callback` will be called back after the `Test class` instantiation is completed, and the decorated function will be passed in, and the TS can check whether the type is correct
+
 ```ts
 @Setup
 class App extends Define {
