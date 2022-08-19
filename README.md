@@ -32,18 +32,19 @@ yarn add vue-class-setup
 
 ## Quick start
 
+<!-- file:./tests/demo.vue start -->
 ```vue
 <script lang="ts">
 import { onMounted } from 'vue';
-import { Setup, Define, PassOnTo } from 'vue-class-setup';
+import { Setup, Context, PassOnTo } from 'vue-class-setup';
 
 @Setup
-class App extends Define {
+class App extends Context {
     public value = 0;
     public get text() {
         return String(this.value);
     }
-    public set text(text) {
+    public set text(text: string) {
         this.value = Number(text);
     }
     @PassOnTo(onMounted)
@@ -53,23 +54,20 @@ class App extends Define {
 }
 </script>
 <script setup lang="ts">
-// Use the class you write in setup
 const app = new App();
 </script>
 <template>
     <p>{{ app.text }}</p>
-    <input type="number" v-model="app.text" />
 </template>
-
 ```
-
+<!-- file:./tests/demo.vue end -->
 ## Setup
 
 If the component defines `props`, writing the `class` in the `setup` will cause the `setup` function to create a `class` every time as it executes, which will add costs. So we should avoid writing `class` in `setup` and use `Define` basic class to receive `props` and `emit`. 
 
 
 ### Best practices
-
+<!-- file:./tests/base-component-child.vue start -->
 ```vue
 <script lang="ts">
 import { Setup, Define } from 'vue-class-setup';
@@ -123,9 +121,8 @@ const app = new App();              // ✅
         <span class="props-value">{{ app.$props.value }}</span>
     </button>
 </template>
-
 ```
-
+<!-- file:./tests/base-component-child.vue end -->
 ### PassOnTo
 This `callback` will be called back after the `Test class` instantiation is completed, and the decorated function will be passed in, and the TS can check whether the type is correct
 

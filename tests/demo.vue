@@ -1,12 +1,15 @@
 <script lang="ts">
 import { onMounted } from 'vue';
-import { Setup, Define, PassOnTo } from 'vue-class-setup';
+import { Setup, Context, PassOnTo } from 'vue-class-setup';
 
 @Setup
-class Count extends Define {
+class App extends Context {
     public value = 0;
     public get text() {
         return String(this.value);
+    }
+    public set text(text: string) {
+        this.value = Number(text);
     }
     @PassOnTo(onMounted)
     public init() {
@@ -15,8 +18,8 @@ class Count extends Define {
 }
 </script>
 <script setup lang="ts">
-const count = new Count();
+const app = new App();
 </script>
 <template>
-    <p>{{ count.text }}</p>
+    <p>{{ app.text }}</p>
 </template>

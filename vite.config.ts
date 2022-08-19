@@ -3,6 +3,9 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import vue2 from '@vitejs/plugin-vue';
+import { buildDocs } from './script/build-docs';
+
+buildDocs();
 
 export default defineConfig({
     // @ts-ignore
@@ -13,7 +16,13 @@ export default defineConfig({
             reporter: ['lcov', 'html'],
         },
     },
-    plugins: [vue2(), dts()],
+    plugins: [
+        vue2(),
+        dts(),
+        {
+            name: 'build-docs',
+            buildEnd: buildDocs
+        }],
     build: {
         lib: {
             formats: ['cjs', 'es'],
