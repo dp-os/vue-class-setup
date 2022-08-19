@@ -1,6 +1,5 @@
 <script lang="ts">
-import { onMounted } from 'vue';
-import { Setup, Context, PassOnTo } from 'vue-class-setup';
+import { Setup, Context } from 'vue-class-setup';
 
 @Setup
 class App extends Context {
@@ -11,8 +10,7 @@ class App extends Context {
     public set text(text: string) {
         this.value = Number(text);
     }
-    @PassOnTo(onMounted)
-    public init() {
+    public onClick() {
         this.value++;
     }
 }
@@ -21,5 +19,8 @@ class App extends Context {
 const app = new App();
 </script>
 <template>
-    <p>{{ app.text }}</p>
+    <div>
+        <p>{{ app.text }}</p>
+        <button @click="app.onClick()"></button>
+    </div>
 </template>
