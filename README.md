@@ -12,7 +12,7 @@ Using class can help you avoid `ref`, `reactive` , `computed` and `withDefaults`
 
 ## VS vue-class-component and vue-property-decorator
 
-|  List   | vue-class-component \n vue-property-decorator | vue-class-setup |
+|  List   | vue-class-component and vue-property-decorator | vue-class-setup |
 | --- | --- | ----------- |
 |  Vue2 | ✅ | ✅ |
 |  Vue3 | ❌ | ✅ |
