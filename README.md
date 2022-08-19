@@ -16,9 +16,9 @@ Using class can help you avoid `ref`, `reactive` , `computed` and `withDefaults`
 | --- | --- | ----------- |
 |  Vue2 | ✅ | ✅ |
 |  Vue3 | ❌ | ✅ |
-|  props type check | ❌ | ✅ |
-|  emit type check | ❌ | ✅ |
-|  watch type check | ❌ | ✅ |
+|  Props type check | ❌ | ✅ |
+|  Emit type check | ❌ | ✅ |
+|  Watch type check | ❌ | ✅ |
 |  Multiple class instances | ❌ | ✅ |
 |  Class attribute sets the default value of the prop | ❌ | ✅ |
 
