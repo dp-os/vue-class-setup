@@ -10,9 +10,9 @@
 
 Using class can help you avoid `ref`, `reactive` , `computed` and `withDefaults`, and significantly reduce your mental burden and better organize your code. It supports vue2 and vue3 at the same time. After gzip compression, it is only 1KB
 
-## VS vue-class-component and vue-property-decorator
+## VS vue-class-component
 
-|  List   | vue-class-component and vue-property-decorator | vue-class-setup |
+|  List   | vue-class-component | vue-class-setup |
 | --- | --- | ----------- |
 |  Vue2 | ✅ | ✅ |
 |  Vue3 | ❌ | ✅ |
