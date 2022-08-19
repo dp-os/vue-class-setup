@@ -10,6 +10,18 @@
 
 Using class can help you avoid `ref`, `reactive` , `computed` and `withDefaults`, and significantly reduce your mental burden and better organize your code. It supports vue2 and vue3 at the same time. After gzip compression, it is only 1KB
 
+## VS vue-class-component and vue-property-decorator
+
+|     | vue-class-component and vue-property-decorator | vue-class-setup |
+| --- | --- | ----------- |
+|  Vue2 | ✅ | ✅ |
+|  Vue3 | ❌ | ✅ |
+|  props type check | ❌ | ✅ |
+|  emit type check | ❌ | ✅ |
+|  watch type check | ❌ | ✅ |
+|  Multiple class instances | ❌ | ✅ |
+|  Class attribute sets the default value of the prop | ❌ | ✅ |
+
 ## Install
 
 ```bash
