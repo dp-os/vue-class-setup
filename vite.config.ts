@@ -17,8 +17,7 @@ export default defineConfig({
     build: {
         lib: {
             formats: ['cjs', 'es'],
-            entry: resolve(__dirname, 'src/index'),
-            fileName: (format) => `vue-class-setup.${format}.js`,
+            entry: resolve(__dirname, 'src/index')
         },
         minify: false,
         rollupOptions: {

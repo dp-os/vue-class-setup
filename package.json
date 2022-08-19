@@ -1,8 +1,8 @@
 {
     "name": "vue-class-setup",
-    "version": "1.1.1",
-    "main": "dist/vue-class-setup.cjs.js",
-    "module": "dist/vue-class-setup.es.js",
+    "version": "1.1.2",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
     "repository": "git@github.com:fmfe/vue-class-setup.git",
     "author": "<1340641314@qq.com>",
@@ -11,8 +11,8 @@
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/vue-class-setup.es.js",
-            "require": "./dist/vue-class-setup.cjs.js"
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
         },
         "./package.json": "./package.json"
     },
@@ -25,7 +25,7 @@
     "scripts": {
         "lint": "prettier --write .",
         "dev": "vite",
-        "build": "vue-tsc --noEmit && vite build",
+        "build": "vue-tsc --noEmit && vite build --ssr",
         "preview": "vite preview",
         "test": "vitest",
         "coverage": "vitest run --coverage",

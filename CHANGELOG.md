@@ -1,3 +1,5 @@
+## 1.1.2
+- fix: vite ssr build error
 ## 1.1.1
 - feat: Watch decorator
 ## 1.1.0
