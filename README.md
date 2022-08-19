@@ -160,11 +160,11 @@ class App extends Define {
     public value = 0;
     @Watch('value')
     public watchValue(value: number, oldValue: number) {
-
+        // ...
     }
     @Watch('value', { immediate: true })
     public watchImmediateValue(value: number, oldValue: number | undefined) {
-
+        // ...
     }
 }
 ```
