@@ -8,7 +8,7 @@ function onSetup(cb: () => void) {
 function PassOnTo<T extends (...args: any[]) => any>(
     cb: PassOnToCallback<T> = onSetup
 ) {
-    return function name(
+    return function PassOnTo(
         target: object,
         name: TargetName,
         descriptor: TypedPropertyDescriptor<T>

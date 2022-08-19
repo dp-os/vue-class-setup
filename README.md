@@ -139,13 +139,32 @@ class App extends Define {
     public value = 0;
     @PassOnTo()
     private setup() {
-        // Safe Watch
+        // You can safely watch, but it is recommended to use the Watch decorator
         watch(
             () => this.value,
             (value) => {
                 // ...
             }
         );
+    }
+}
+```
+
+### Watch
+It can correctly identify the type
+```ts
+import { Setup, Watch, Define } from 'vue-class-setup';
+
+@Setup
+class App extends Define {
+    public value = 0;
+    @Watch('value')
+    public watchValue(value: number, oldValue: number) {
+
+    }
+    @Watch('value', { immediate: true })
+    public watchImmediateValue(value: number, oldValue: number | undefined) {
+
     }
 }
 ```
