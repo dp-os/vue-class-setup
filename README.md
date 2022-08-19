@@ -37,6 +37,7 @@ yarn add vue-class-setup
 <script lang="ts">
 import { Setup, Context } from 'vue-class-setup';
 
+// Setup and Context must work together
 @Setup
 class App extends Context {
     public value = 0;
