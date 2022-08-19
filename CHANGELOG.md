@@ -1,3 +1,5 @@
+## 1.1.1
+- feat: Watch decorator
 ## 1.1.0
 - Fix: assemble class cannot be used
 ## 1.0.8
