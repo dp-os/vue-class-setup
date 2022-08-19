@@ -1,3 +1,5 @@
+import { getCurrentInstance, type VueInstance } from './vue';
+import { setupReference } from './setup-reference';
 import { TargetName, Target } from './types';
 
 let currentTarget: Target | null = null;
@@ -16,3 +18,29 @@ export function setCurrentHookTarget(target: Target | null) {
 export function setCurrentHookName(name: TargetName | null) {
     currentName = name;
 }
+
+
+export class Context {
+    public static of(Target: object) {
+        const p = Object.getPrototypeOf(Target);
+        if (p === this) {
+            return true;
+        } else if (p === null) {
+            return false
+        }
+        return this.of(p);
+    }
+    public $vm: VueInstance;
+    public constructor() {
+        const vm = getCurrentInstance();
+        this.$vm = vm || { $props: {}, $emit: emit } as any;
+        setupReference.add(this)
+    }
+    public get $props() {
+        return this.$vm.$props;
+    }
+    public get $emit() {
+        return this.$vm.$emit;
+    }
+}
+function emit() { }

@@ -1,5 +1,5 @@
-import { getCurrentInstance, type VueInstance } from './vue';
-import { setupReference } from './setup-reference';
+import { type VueInstance } from './vue';
+import { Context } from './context';
 
 type DeepReadonly<T> = T extends object
     ? T extends Array<any>
@@ -24,7 +24,7 @@ export interface DefineConstructor {
     new <T extends {} = {}, E extends DefaultEmit = DefaultEmit>(...args: unknown[]): DeepReadonly<T> & DefineInstance<T, E>;
 }
 
-export const Define: DefineConstructor = class Define<T extends {} = {}, E extends DefaultEmit = DefaultEmit> {
+export const Define: DefineConstructor = class Define<T extends {} = {}, E extends DefaultEmit = DefaultEmit> extends Context {
     public static of(Target: object) {
         const p = Object.getPrototypeOf(Target);
         if (p === Define) {
@@ -33,16 +33,6 @@ export const Define: DefineConstructor = class Define<T extends {} = {}, E exten
             return false
         }
         return Define.of(p);
-    }
-    public constructor() {
-        const vm = getCurrentInstance();
-        if (vm) {
-            const { $props, $emit } = vm;
-            defineProperty(this, '$props', () => $props);
-            defineProperty(this, '$emit', () => $emit);
-            defineProperty(this, '$vm', () => vm);
-        }
-        setupReference.add(this)
     }
 } as any;
 
