@@ -1,15 +1,12 @@
 <script lang="ts">
-import { Setup, Watch, Define } from 'vue-class-setup';
+import { Setup, Watch, Context } from 'vue-class-setup';
 
 @Setup
-class Count extends Define {
+class App extends Context {
     public value = 0;
     public immediateValue = 0;
-    public add() {
+    public onClick() {
         this.value++;
-    }
-    public setValue(value: number) {
-        this.value = value;
     }
     @Watch('value')
     public watchValue(value: number, oldValue: number) {
@@ -28,11 +25,10 @@ class Count extends Define {
 }
 </script>
 <script setup lang="ts">
-const count = new Count();
-defineExpose<{ count: Count }>();
+const app = new App();
 </script>
 <template>
-    <p class="value">{{ count.value }}</p>
-    <p class="immediate-value">{{ count.immediateValue }}</p>
-    <button @click="count.add()">Add</button>
+    <p class="value">{{ app.value }}</p>
+    <p class="immediate-value">{{ app.immediateValue }}</p>
+    <button @click="app.onClick()">Add</button>
 </template>
