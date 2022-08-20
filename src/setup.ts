@@ -3,7 +3,7 @@ import { TargetName, PassOnToCallback } from './types';
 import { setCurrentHookName, setCurrentHookTarget, Context } from './context';
 import { SETUP_OPTIONS_NAME, SETUP_NAME, SETUP_PROPERTY_DESCRIPTOR } from './config';
 import { initComputed } from './computed';
-import { getOptions, getSetupOptions, setOptions } from './options';
+import { getOptions, getSetupOptions } from './options';
 import { initDefine } from './define';
 import { setupReference } from './setup-reference';
 import { getPropertyDescriptors } from './property-descriptors';

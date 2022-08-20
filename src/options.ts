@@ -4,6 +4,7 @@ import {
     TargetName,
 } from './types';
 import { SETUP_OPTIONS_NAME } from './config';
+import { Context } from './context';
 let currentOptions: TargetConstructorOptions = new Map();
 
 function getCurrentOptions() {
@@ -14,13 +15,8 @@ function resetCurrentOptions() {
     currentOptions = new Map();
 }
 
-export function getOptions(Target: any): TargetConstructorOptions {
-    let options: TargetConstructorOptions = Target[SETUP_OPTIONS_NAME];
-    if (!options) {
-        options = new Map();
-        Target[SETUP_OPTIONS_NAME] = options;
-    }
-    return options;
+export function getOptions(Target: typeof Context): TargetConstructorOptions {
+    return Target[SETUP_OPTIONS_NAME];
 }
 
 export function setOptions(hook: PassOnToCallback, name: TargetName) {
