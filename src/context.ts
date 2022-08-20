@@ -1,7 +1,8 @@
 import { getCurrentInstance, type VueInstance } from './vue';
 import { setupReference } from './setup-reference';
 import { TargetName, Target } from './types';
-import { SETUP_NAME, SETUP_OPTIONS_NAME } from './config';
+import { SETUP_NAME, SETUP_OPTIONS_NAME, SETUP_PROPERTY_DESCRIPTOR } from './config';
+import {createDefineProperty } from './property-descriptors';
 
 let currentTarget: Target | null = null;
 let currentName: TargetName | null = null;
@@ -26,16 +27,18 @@ export function setCurrentHookName(name: TargetName | null) {
 export class Context {
     public static [SETUP_NAME] = false;
     public static [SETUP_OPTIONS_NAME] = new Map();
+    public static [SETUP_PROPERTY_DESCRIPTOR] = new Map<string, PropertyDescriptor>()
     public static inject<T extends new (...args: any) => any>(this: T) {
         const _This = this;
-        const set = getPropertyDescriptors(_This);
-        const list = Array.from(set);
+        const map = _This[SETUP_PROPERTY_DESCRIPTOR] as Map<string, PropertyDescriptor>;
         function use(target: object) {
             const app = new _This();
             const names = Object.getOwnPropertyNames(app);
+            const defineProperty = createDefineProperty(target);
+
             names.forEach(name => {
-                if (set.has(name)) return;
-                Object.defineProperty(target, name, {
+                if (map.has(name)) return;
+                defineProperty(name, {
                     get() {
                         return app[name];
                     },
@@ -44,8 +47,9 @@ export class Context {
                     }
                 })
             });
-            list.forEach(name => {
-                Object.defineProperty(target, name, {
+            map.forEach((value, name) => {
+                
+                defineProperty(name, {
                     get() {
                         return app[name];
                     },
@@ -56,19 +60,12 @@ export class Context {
             })
             return target as InstanceType<T>;
         }
-        let ok = false;
         return {
             created() {
-                if (ok) {
-                    ok = false;
-                    return
-                }
                 use(this);
             },
             setup() {
-                const data = use({});
-                ok = true;
-                return data as InstanceType<T>;;
+                return {} as InstanceType<T>;;
             }
         }
     }
@@ -86,26 +83,3 @@ export class Context {
     }
 }
 function emit() { }
-
-type Descriptor = {
-    [x: string]: TypedPropertyDescriptor<any>;
-} & {
-    [x: string]: PropertyDescriptor;
-};
-
-function getPropertyDescriptors(Target: new (...args: any) => any) {
-    const list: Descriptor[] = [];
-    const set = new Set<string>();
-    while (!Target || Target !== Context) {
-        list.unshift(Object.getOwnPropertyDescriptors(Target.prototype));
-        Target = Object.getPrototypeOf(Target);
-    }
-    list.forEach(item => {
-        Object.keys(item).forEach(key => {
-            if (key[0] === '_' || key === 'constructor') return;
-            set.add(key);
-        })
-    })
-
-    return set;
-}

@@ -9,7 +9,13 @@ interface Props {
 @Setup
 class App extends Define<Props> {
   public value = 0;
-  public onClick() {}
+  public constructor () {
+    super()
+    this.onClick = this.onClick.bind(this)
+  }
+  public onClick() {
+    this.value++;
+  }
 }
 
 export default defineComponent({

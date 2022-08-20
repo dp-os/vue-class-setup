@@ -1,6 +1,8 @@
 import { computed } from 'vue';
 import { Target, TargetName } from './types';
 import { getCurrentHookContext } from './context';
+import { createDefineProperty } from './property-descriptors';
+
 
 function compute(
     target: Target,
@@ -34,4 +36,21 @@ export function onComputed() {
     const { target, name } = getCurrentHookContext();
     const descriptor = getDescriptor(target, name)!;
     compute(target, name, descriptor, 'get');
+}
+
+export function initComputed(target: object, descriptor: Map<string, PropertyDescriptor>) {
+    const defineProperty = createDefineProperty(target);
+    descriptor.forEach((value, key) => {
+        let get = value.get;
+        if (get) {
+            get = get.bind(target);
+            const compute = computed(get);
+            defineProperty(key, {
+                ...value,
+                get() {
+                    return compute.value;
+                }
+            });
+        }
+    });
 }

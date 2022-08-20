@@ -1,5 +1,6 @@
 import { type VueInstance } from './vue';
 import { Context } from './context';
+import { createDefineProperty } from './property-descriptors';
 
 type DeepReadonly<T> = T extends object
     ? T extends Array<any>
@@ -24,10 +25,11 @@ export interface DefineConstructor {
     setup: typeof Context['setup']
     setupOptions: typeof Context['setupOptions']
     setupDefine: boolean;
+    setupPropertyDescriptor: Map<string, PropertyDescriptor>;
     new <T extends {} = {}, E extends DefaultEmit = DefaultEmit>(...args: unknown[]): DeepReadonly<T> & DefineInstance<T, E>;
 }
 
-export const Define: DefineConstructor =  class Define extends Context {
+export const Define: DefineConstructor = class Define extends Context {
     public static setupDefine = true;
 } as any;
 
@@ -36,21 +38,26 @@ export function initDefine(target: object) {
     if (!props) {
         return;
     }
+    const definePropertyProps = createDefineProperty(props);
+    const definePropertyTarget = createDefineProperty(target);
+
     Object.keys(props).forEach(k => {
         if (typeof props[k] === 'undefined' && k in target) {
-            Object.defineProperty(props, k, {
+            definePropertyProps(k, {
                 configurable: true,
                 writable: true,
                 value: target[k]
             });
         }
-        defineProperty(target, k, () => {
-            return props[k];
-        });
+        definePropertyTarget(k, {
+            get() {
+                return props[k];
+            }
+        })
     });
 }
 
-function defineProperty<T>(o: T, p: PropertyKey, get: () => any) {
+function defineProperty2<T>(o: T, p: PropertyKey, get: () => any) {
     Object.defineProperty(o, p, {
         get
     });

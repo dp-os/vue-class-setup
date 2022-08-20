@@ -1,46 +1,35 @@
 import { reactive } from 'vue';
 import { TargetName, PassOnToCallback } from './types';
 import { setCurrentHookName, setCurrentHookTarget, Context } from './context';
-import { SETUP_OPTIONS_NAME, SETUP_NAME } from './config';
-import { onComputed } from './on-computed';
+import { SETUP_OPTIONS_NAME, SETUP_NAME, SETUP_PROPERTY_DESCRIPTOR } from './config';
+import { onComputed, initComputed } from './computed';
 import { getOptions, getSetupOptions, setOptions } from './options';
 import { initDefine } from './define';
 import { setupReference } from './setup-reference';
+import { getPropertyDescriptors } from './property-descriptors';
 
 export type TargetConstructor = {
     inject: typeof Context['inject']
     setup: typeof Context['setup']
     setupOptions: typeof Context['setupOptions']
+    setupPropertyDescriptor: Map<string, PropertyDescriptor>;
     new(...args: any[]): any;
 };
 
-interface Item {
-    name: TargetName;
-    hook: PassOnToCallback;
-}
+
 
 function initHook<T extends object>(target: T) {
     setCurrentHookTarget(target);
-    const set = new Set<TargetName>();
-    const options = getOptions(target.constructor);
-    const special: Item[] = [];
-    const plainArr: Item[] = [];
-    options.forEach((names, hook) => {
-        if (hook !== onComputed) {
-            return names.forEach((name) => {
-                plainArr.push({
-                    hook,
-                    name,
-                });
-            });
+    const Target: TargetConstructor = target.constructor as any;
+    const options = getOptions(Target);
+    const propertyDescriptor = Target.setupPropertyDescriptor;
+
+    // bind this
+    propertyDescriptor.forEach(({ value, writable }, key) => {
+        if (typeof value === 'function' && writable) {
+            target[key] = value.bind(target);
         }
-        names.forEach((name) => {
-            special.push({
-                hook,
-                name,
-            });
-        });
-    });
+    })
 
     // init props
     if (target.constructor['setupDefine']) {
@@ -48,21 +37,17 @@ function initHook<T extends object>(target: T) {
     }
 
     // init computed
-    special.forEach((item) => {
-        initName(item);
-    });
+    initComputed(target, propertyDescriptor);
 
-    // init plain hooks
-    plainArr.forEach((item) => {
-        initName(item);
-    });
+    // init PassOnTo
+    options.forEach((names, hook) => {
+        return names.forEach((name) => {
+            initName(name, hook);
+        });
+    })
     setCurrentHookTarget(null);
 
-    function initName({ name, hook }: Item) {
-        if (!set.has(name) && typeof target[name] === 'function') {
-            target[name] = target[name].bind(target);
-            set.add(name);
-        }
+    function initName(name: TargetName, hook: PassOnToCallback) {
         setCurrentHookName(name);
         hook(target[name]);
         setCurrentHookName(null);
@@ -71,17 +56,10 @@ function initHook<T extends object>(target: T) {
 }
 
 function Setup<T extends TargetConstructor>(Target: T) {
-    const descriptors = Object.getOwnPropertyDescriptors(Target.prototype);
-
-    Object.keys(descriptors).filter((k) => {
-        const descriptor = descriptors[k];
-        if (descriptor.get) {
-            setOptions(onComputed, k);
-        }
-    });
     class Setup extends Target {
         public static [SETUP_OPTIONS_NAME] = getSetupOptions(Target);
         public static [SETUP_NAME] = true;
+        public static [SETUP_PROPERTY_DESCRIPTOR] = getPropertyDescriptors(Target);
         public constructor(...args: any[]) {
             setupReference.count();
             super(...args);

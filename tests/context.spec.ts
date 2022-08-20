@@ -1,9 +1,11 @@
 
 import { test, assert } from 'vitest';
-import { Context } from 'vue-class-setup';
+import { Setup, Context } from 'vue-class-setup';
 
 
 test('Context', () => {
+
+    @Setup
     class Base extends Context {
         public age = 100;
         public get ageText() {
@@ -14,6 +16,7 @@ test('Context', () => {
         }
     };
 
+    @Setup
     class Base2 extends Base {
         public ok = true;
         public num = 100;
