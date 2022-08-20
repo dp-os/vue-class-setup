@@ -196,6 +196,42 @@ const right = new Right();
     <p class="right">{{ right.text }}</p>
 </template>
 ```
+<!-- file:./tests/extend.vue end -->
+### PassOnTo
+This `callback` will be called back after the `Test class` instantiation is completed, and the decorated function will be passed in, and the TS can check whether the type is correct
+
+```ts
+@Setup
+class App extends Define {
+    @PassOnTo(myFunc)
+    public init(name: string) {}
+}
+
+function myFunc (callback: (name: string) => void) {
+    // ...
+}
+```
+
+If `PassOnTo` does not pass in a handler, it is called after `reactive` and `computed` execution are completed, You should avoid watching in the `constructor` because it may not have `reactive`
+
+```ts
+import { Watch } from 'vue';
+
+@Setup
+class App extends Define {
+    public value = 0;
+    @PassOnTo()
+    private setup() {
+        // You can safely watch, but it is recommended to use the Watch decorator
+        watch(
+            () => this.value,
+            (value) => {
+                // ...
+            }
+        );
+    }
+}
+```
 <!-- file:./tests/watch.vue end -->
 ## Vue compatible
 - `getCurrentInstance` returns the proxy object by default    
