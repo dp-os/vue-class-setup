@@ -1,5 +1,5 @@
 ## 1.1.4
-- feat: inject to defineComponent
+- feat: inject to defineComponent and bind this
 ## 1.1.3
 - fix: vite ssr build error
 ## 1.1.2
