@@ -26,7 +26,10 @@ export default defineConfig({
     build: {
         lib: {
             formats: ['cjs', 'es'],
-            entry: resolve(__dirname, 'src/index')
+            entry: resolve(__dirname, 'src/index'),
+            fileName(format) {
+                return `index.${format}.js`
+            }
         },
         minify: false,
         rollupOptions: {

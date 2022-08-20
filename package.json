@@ -29,7 +29,7 @@
     "scripts": {
         "lint": "prettier --write .",
         "dev": "vite",
-        "build": "vue-tsc --noEmit && vite build --ssr && cp dist/index.mjs ./dist/index.es.js",
+        "build": "vue-tsc --noEmit && vite build && cp dist/index.es.js ./dist/index.mjs",
         "preview": "vite preview",
         "test": "vitest",
         "test:all": "./script/test-all.sh",
