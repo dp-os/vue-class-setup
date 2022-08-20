@@ -1,5 +1,10 @@
 import { assert, test } from 'vitest';
-import { Setup, Define, PassOnTo, getCurrentHookContext } from 'vue-class-setup';
+import {
+    Setup,
+    Define,
+    PassOnTo,
+    getCurrentHookContext,
+} from 'vue-class-setup';
 
 function myFunc() {
     const { target, name } = getCurrentHookContext();
@@ -20,11 +25,10 @@ test('Register hook', () => {
     const { add } = count;
     add();
     assert.equal(count.value, 102);
-    
 });
 
 test('error', () => {
     assert.Throw(() => {
         return getCurrentHookContext();
-    }, 'Can only be obtained in hook functions')
-})
+    }, 'Can only be obtained in hook functions');
+});

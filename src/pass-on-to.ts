@@ -5,15 +5,17 @@ function onSetup(cb: () => void) {
     cb();
 }
 
+export type TargetConstructor = new (...arg: any[]) => any;
+
 function PassOnTo<T extends (...args: any[]) => any>(
     cb: PassOnToCallback<T> = onSetup
 ) {
     return function PassOnTo(
-        target: object,
+        Target: object,
         name: TargetName,
         descriptor: TypedPropertyDescriptor<T>
     ) {
-        setOptions(cb as any, name);
+        setOptions(Target as any, cb as any, name);
     };
 }
 

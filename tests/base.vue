@@ -23,10 +23,10 @@ class Count extends Define {
 
 class Test {
     @PassOnTo(myFunc)
-    public init(name: string) { }
+    public init(name: string) {}
 }
 
-function myFunc(cb: (name: string) => void) { }
+function myFunc(cb: (name: string) => void) {}
 </script>
 <script setup lang="ts">
 const count = new Count();

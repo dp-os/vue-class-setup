@@ -7,7 +7,7 @@ const NAME = 'vue-class-setup';
 @Setup
 export class Count extends Define {
     public value = 0;
-    public name = 'props-parent'
+    public name = 'props-parent';
     public add() {
         this.value++;
     }

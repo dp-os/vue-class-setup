@@ -17,8 +17,8 @@ class App extends Context {
     }
 }
 export default defineComponent({
-    ...App.inject()
-})
+    ...App.inject(),
+});
 </script>
 <template>
     <div>

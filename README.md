@@ -11,16 +11,17 @@
 Using class can help you avoid `ref`, `reactive` , `computed` and `withDefaults`, and significantly reduce your mental burden and better organize your code. It supports vue2 and vue3 at the same time. After gzip compression, it is only 2KB
 
 ## VS vue-class-component
+
 **We should deprecate [vue-class-component](https://github.com/vuejs/vue-class-component/issues/569), And use class in setup**
-|  List   | vue-class-component | vue-class-setup |
+| List | vue-class-component | vue-class-setup |
 | --- | --- | ----------- |
-|  Vue2 | ✅ | ✅ |
-|  Vue3 | ❌ | ✅ |
-|  Props type check | ❌ | ✅ |
-|  Emit type check | ❌ | ✅ |
-|  Watch type check | ❌ | ✅ |
-|  Multiple class instances | ❌ | ✅ |
-|  Class attribute sets the default value of the prop | ❌ | ✅ |
+| Vue2 | ✅ | ✅ |
+| Vue3 | ❌ | ✅ |
+| Props type check | ❌ | ✅ |
+| Emit type check | ❌ | ✅ |
+| Watch type check | ❌ | ✅ |
+| Multiple class instances | ❌ | ✅ |
+| Class attribute sets the default value of the prop | ❌ | ✅ |
 
 ## Install
 
@@ -33,6 +34,7 @@ yarn add vue-class-setup
 ## Quick start
 
 <!-- file:./tests/demo.vue start -->
+
 ```vue
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -53,8 +55,8 @@ class App extends Context {
     }
 }
 export default defineComponent({
-    ...App.inject()
-})
+    ...App.inject(),
+});
 </script>
 <template>
     <div>
@@ -63,19 +65,27 @@ export default defineComponent({
     </div>
 </template>
 ```
+
 <!-- file:./tests/demo.vue end -->
+
 `Setup` and `Context` collect dependency information together, and convert it into a Vue program after executing the subclass constructor
+
 ## Setup
 
-If the component defines `props`, writing the `class` in the `setup` will cause the `setup` function to create a `class` every time as it executes, which will add costs. So we should avoid writing `class` in `setup` and use `Define` basic class to receive `props` and `emit`. 
+If the component defines `props`, writing the `class` in the `setup` will cause the `setup` function to create a `class` every time as it executes, which will add costs. So we should avoid writing `class` in `setup` and use `Define` basic class to receive `props` and `emit`.
 
 ### Context VS Define
+
 `Define` extend from `Context`, and `Define` will automatically inject props and emit
+
 ```ts
+
 ```
 
 ### Best practices
+
 <!-- file:./tests/base-component-child.vue start -->
+
 ```vue
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -106,20 +116,23 @@ class App extends Define<Props, Emit> {
  * </template>
  */
 export default defineComponent({
-    ...App.inject()
-})
+    ...App.inject(),
+});
 </script>
 <script lang="ts" setup>
 // Props and Emits need to be exported
-export interface Props { value: number, dest?: string }
+export interface Props {
+    value: number;
+    dest?: string;
+}
 export interface Emit {
     (event: 'click', evt: MouseEvent): void;
 }
 // Variable reception must be used, otherwise Vue compilation error
 // ❌ const props = defineProps<Props>();
 // ❌ const emit = defineEmits<Emit>();
-defineProps<Props>(); //  ✅ 
-defineEmits<Emit>();  //  ✅ 
+defineProps<Props>(); //  ✅
+defineEmits<Emit>(); //  ✅
 
 // You should define default values directly on the class
 // ❌ withDefaults(defineProps<Props>(), { dest: '--' });
@@ -129,8 +142,8 @@ defineEmits<Emit>();  //  ✅
 // ✅ }
 
 // Automatic dependency injection and reactive
-// const app = reactive(new App()); // ❌ 
-// const app = new App();           // ✅ 
+// const app = reactive(new App()); // ❌
+// const app = new App();           // ✅
 </script>
 <template>
     <button class="btn" @click="click($event)">
@@ -140,11 +153,15 @@ defineEmits<Emit>();  //  ✅
     </button>
 </template>
 ```
+
 <!-- file:./tests/base-component-child.vue end -->
 
 ### Multiple class instances
+
 When the business is complex, multiple instances should be split
+
 <!-- file:./tests/extend.vue start -->
+
 ```vue
 <script lang="ts">
 import { onBeforeMount, onMounted } from 'vue';
@@ -200,8 +217,11 @@ const right = new Right();
     <p class="right">{{ right.text }}</p>
 </template>
 ```
+
 <!-- file:./tests/extend.vue end -->
+
 ### PassOnTo
+
 This `callback` will be called back after the `Test class` instantiation is completed, and the decorated function will be passed in, and the TS can check whether the type is correct
 
 ```ts
@@ -211,7 +231,7 @@ class App extends Define {
     public init(name: string) {}
 }
 
-function myFunc (callback: (name: string) => void) {
+function myFunc(callback: (name: string) => void) {
     // ...
 }
 ```
@@ -236,9 +256,13 @@ class App extends Define {
     }
 }
 ```
+
 ### Watch
+
 It can correctly identify the type
+
 <!-- file:./tests/watch.vue start -->
+
 ```vue
 <script lang="ts">
 import { Setup, Watch, Context } from 'vue-class-setup';
@@ -275,16 +299,23 @@ const app = new App();
     <button @click="app.onClick()">Add</button>
 </template>
 ```
+
 <!-- file:./tests/watch.vue end -->
+
 ## Vue compatible
-- `getCurrentInstance` returns the proxy object by default    
-- `VueInstance` It is not easy to get a Vue instance object type compatible with vue2 and vue3. We make it easy
+
+-   `getCurrentInstance` returns the proxy object by default
+-   `VueInstance` It is not easy to get a Vue instance object type compatible with vue2 and vue3. We make it easy
 
 ```ts
-import { isVue2, isVue3, getCurrentInstance, type VueInstance } from 'vue-class-setup';
+import {
+    isVue2,
+    isVue3,
+    getCurrentInstance,
+    type VueInstance,
+} from 'vue-class-setup';
 
 // isVue2 -> boolean
 // isVue3 -> boolean
 // getCurrentInstance -> VueInstance
-
 ```

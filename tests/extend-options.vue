@@ -24,8 +24,8 @@ class App extends Base {
 }
 
 export default defineComponent({
-    ...App.inject()
-})
+    ...App.inject(),
+});
 </script>
 <template>
     <p>{{ value }}</p>

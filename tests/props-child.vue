@@ -1,6 +1,6 @@
 <script lang="ts">
 import { type Count } from './props-parent.vue';
-import { Setup, Define } from 'vue-class-setup'
+import { Setup, Define } from 'vue-class-setup';
 
 @Setup
 class Child<T, T2> extends Define<Props, Emits> {
@@ -21,11 +21,11 @@ class App extends Define<Props, Emits> {
         this.$emit('add');
     }
 }
-
 </script>
 <script lang="ts" setup>
-
-export interface Props { count: Count }
+export interface Props {
+    count: Count;
+}
 
 export interface Emits {
     (event: 'add'): void;
@@ -35,7 +35,6 @@ defineProps<Props>();
 defineEmits<Emits>();
 
 const app = new App();
-
 </script>
 <template>
     <div>

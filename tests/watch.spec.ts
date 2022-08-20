@@ -12,5 +12,4 @@ test('Watch', async () => {
 
     assert.equal(wrapper.find('.value').text(), '1');
     assert.equal(wrapper.find('.immediate-value').text(), '11');
-
 });

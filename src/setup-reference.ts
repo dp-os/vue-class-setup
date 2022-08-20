@@ -1,4 +1,3 @@
-
 class SetupReference {
     private _count = 0;
     public map = new Map<object, number>();
@@ -6,11 +5,11 @@ class SetupReference {
         this._count++;
     }
     public add(target: object) {
-        this.map.set(target, this._count)
+        this.map.set(target, this._count);
         this._count = 0;
     }
     public reduce(target: object) {
-        const { map }  = this;
+        const { map } = this;
         let count = map.get(target)!;
 
         count--;

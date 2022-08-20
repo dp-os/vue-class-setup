@@ -21,15 +21,16 @@ export default defineConfig({
         dts(),
         {
             name: 'build-docs',
-            buildEnd: buildDocs
-        }],
+            buildEnd: buildDocs,
+        },
+    ],
     build: {
         lib: {
             formats: ['cjs', 'es'],
             entry: resolve(__dirname, 'src/index'),
             fileName(format) {
-                return `index.${format}.js`
-            }
+                return `index.${format}.js`;
+            },
         },
         minify: false,
         rollupOptions: {

@@ -27,20 +27,23 @@ class App extends Define<Props, Emit> {
  * </template>
  */
 export default defineComponent({
-    ...App.inject()
-})
+    ...App.inject(),
+});
 </script>
 <script lang="ts" setup>
 // Props and Emits need to be exported
-export interface Props { value: number, dest?: string }
+export interface Props {
+    value: number;
+    dest?: string;
+}
 export interface Emit {
     (event: 'click', evt: MouseEvent): void;
 }
 // Variable reception must be used, otherwise Vue compilation error
 // ❌ const props = defineProps<Props>();
 // ❌ const emit = defineEmits<Emit>();
-defineProps<Props>(); //  ✅ 
-defineEmits<Emit>();  //  ✅ 
+defineProps<Props>(); //  ✅
+defineEmits<Emit>(); //  ✅
 
 // You should define default values directly on the class
 // ❌ withDefaults(defineProps<Props>(), { dest: '--' });
@@ -50,8 +53,8 @@ defineEmits<Emit>();  //  ✅
 // ✅ }
 
 // Automatic dependency injection and reactive
-// const app = reactive(new App()); // ❌ 
-// const app = new App();           // ✅ 
+// const app = reactive(new App()); // ❌
+// const app = new App();           // ✅
 </script>
 <template>
     <button class="btn" @click="click($event)">

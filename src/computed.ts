@@ -1,7 +1,10 @@
 import { computed } from 'vue';
 import { createDefineProperty } from './property-descriptors';
 
-export function initComputed(target: object, descriptor: Map<string, PropertyDescriptor>) {
+export function initComputed(
+    target: object,
+    descriptor: Map<string, PropertyDescriptor>
+) {
     const defineProperty = createDefineProperty(target);
     descriptor.forEach((value, key) => {
         let get = value.get;
@@ -12,7 +15,7 @@ export function initComputed(target: object, descriptor: Map<string, PropertyDes
                 ...value,
                 get() {
                     return compute.value;
-                }
+                },
             });
         }
     });

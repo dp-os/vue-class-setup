@@ -1,8 +1,12 @@
 import { getCurrentInstance, type VueInstance } from './vue';
 import { setupReference } from './setup-reference';
 import { TargetName, Target } from './types';
-import { SETUP_NAME, SETUP_OPTIONS_NAME, SETUP_PROPERTY_DESCRIPTOR } from './config';
-import {createDefineProperty } from './property-descriptors';
+import {
+    SETUP_NAME,
+    SETUP_OPTIONS_NAME,
+    SETUP_PROPERTY_DESCRIPTOR,
+} from './config';
+import { createDefineProperty } from './property-descriptors';
 
 let currentTarget: Target | null = null;
 let currentName: TargetName | null = null;
@@ -21,22 +25,25 @@ export function setCurrentHookName(name: TargetName | null) {
     currentName = name;
 }
 
-
-
-
 export class Context {
     public static [SETUP_NAME] = false;
     public static [SETUP_OPTIONS_NAME] = new Map();
-    public static [SETUP_PROPERTY_DESCRIPTOR] = new Map<string, PropertyDescriptor>()
+    public static [SETUP_PROPERTY_DESCRIPTOR] = new Map<
+        string,
+        PropertyDescriptor
+    >();
     public static inject<T extends new (...args: any) => any>(this: T) {
         const _This = this;
-        const map = _This[SETUP_PROPERTY_DESCRIPTOR] as Map<string, PropertyDescriptor>;
+        const map = _This[SETUP_PROPERTY_DESCRIPTOR] as Map<
+            string,
+            PropertyDescriptor
+        >;
         function use(target: object) {
             const app = new _This();
             const names = Object.getOwnPropertyNames(app);
             const defineProperty = createDefineProperty(target);
 
-            names.forEach(name => {
+            names.forEach((name) => {
                 if (map.has(name)) return;
                 defineProperty(name, {
                     get() {
@@ -44,20 +51,19 @@ export class Context {
                     },
                     set(val) {
                         app[name] = val;
-                    }
-                })
+                    },
+                });
             });
             map.forEach((value, name) => {
-                
                 defineProperty(name, {
                     get() {
                         return app[name];
                     },
                     set(val) {
                         app[name] = val;
-                    }
-                })
-            })
+                    },
+                });
+            });
             return target as InstanceType<T>;
         }
         return {
@@ -65,15 +71,15 @@ export class Context {
                 use(this);
             },
             setup() {
-                return {} as InstanceType<T>;;
-            }
-        }
+                return {} as InstanceType<T>;
+            },
+        };
     }
     public $vm: VueInstance;
     public constructor() {
         const vm = getCurrentInstance();
-        this.$vm = vm || { $props: {}, $emit: emit } as any;
-        setupReference.add(this)
+        this.$vm = vm || ({ $props: {}, $emit: emit } as any);
+        setupReference.add(this);
     }
     public get $props() {
         return this.$vm.$props;
@@ -82,4 +88,4 @@ export class Context {
         return this.$vm.$emit;
     }
 }
-function emit() { }
+function emit() {}

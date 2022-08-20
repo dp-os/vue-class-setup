@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Setup, Define } from 'vue-class-setup'
+import { Setup, Define } from 'vue-class-setup';
 
 @Setup
 class App extends Define {
@@ -7,10 +7,9 @@ class App extends Define {
     public dest: string | undefined = undefined;
     public onClick() {
         this.value++;
-        this.dest = 'clicked'
+        this.dest = 'clicked';
     }
 }
-
 </script>
 <script lang="ts" setup>
 import BaseComponentChild from './base-component-child.vue';
@@ -19,5 +18,9 @@ const app = new App();
 </script>
 
 <template>
-    <BaseComponentChild :value="app.value" :dest="app.dest" @click="app.onClick()" />
+    <BaseComponentChild
+        :value="app.value"
+        :dest="app.dest"
+        @click="app.onClick()"
+    />
 </template>
