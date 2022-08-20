@@ -137,79 +137,63 @@ defineEmits<Emit>();  //  ✅
 </template>
 ```
 <!-- file:./tests/base-component-child.vue end -->
-### PassOnTo
-This `callback` will be called back after the `Test class` instantiation is completed, and the decorated function will be passed in, and the TS can check whether the type is correct
 
-```ts
-@Setup
-class App extends Define {
-    @PassOnTo(myFunc)
-    public init(name: string) {}
-}
-
-function myFunc (callback: (name: string) => void) {
-    // ...
-}
-```
-
-If `PassOnTo` does not pass in a handler, it is called after `reactive` and `computed` execution are completed, You should avoid watching in the `constructor` because it may not have `reactive`
-
-```ts
-import { Watch } from 'vue';
-
-@Setup
-class App extends Define {
-    public value = 0;
-    @PassOnTo()
-    private setup() {
-        // You can safely watch, but it is recommended to use the Watch decorator
-        watch(
-            () => this.value,
-            (value) => {
-                // ...
-            }
-        );
-    }
-}
-```
-
-### Watch
-It can correctly identify the type
-<!-- file:./tests/watch.vue start -->
+### Multiple class instances
+When the business is complex, multiple instances should be split
+<!-- file:./tests/extend.vue start -->
 ```vue
 <script lang="ts">
-import { Setup, Watch, Context } from 'vue-class-setup';
+import { onBeforeMount, onMounted } from 'vue';
+import { Setup, Define, PassOnTo } from 'vue-class-setup';
 
 @Setup
-class App extends Context {
+class Base extends Define {
     public value = 0;
-    public immediateValue = 0;
-    public onClick() {
+    public get text() {
+        return String(this.value);
+    }
+    @PassOnTo(onBeforeMount)
+    public init() {
         this.value++;
     }
-    @Watch('value')
-    public watchValue(value: number, oldValue: number) {
-        if (value > 100) {
-            this.value = 100;
-        }
+}
+
+@Setup
+class Left extends Base {
+    public left = 0;
+    public get text() {
+        return String(`value:${this.value}`);
     }
-    @Watch('value', { immediate: true })
-    public watchImmediateValue(value: number, oldValue: number | undefined) {
-        if (typeof oldValue === 'undefined') {
-            this.immediateValue = 10;
-        } else {
-            this.immediateValue++;
-        }
+    public init() {
+        super.init();
+        this.value++;
+    }
+    @PassOnTo(onMounted)
+    public initLeft() {
+        this.left++;
+    }
+}
+
+@Setup
+class Right extends Base {
+    public right = 0;
+    public init() {
+        super.init();
+        this.value++;
+    }
+    @PassOnTo(onMounted)
+    public initLeft() {
+        this.right++;
     }
 }
 </script>
 <script setup lang="ts">
-const app = new App();
+const left = new Left();
+const right = new Right();
 </script>
 <template>
-    <p class="value">{{ app.value }}</p>
-    <p class="immediate-value">{{ app.immediateValue }}</p>
-    <button @click="app.onClick()">Add</button>
+    <p class="left">{{ left.text }}</p>
+    <p class="right">{{ right.text }}</p>
 </template>
 ```
 <!-- file:./tests/watch.vue end -->
