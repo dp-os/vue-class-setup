@@ -35,30 +35,32 @@ yarn add vue-class-setup
 <!-- file:./tests/demo.vue start -->
 ```vue
 <script lang="ts">
+import { defineComponent } from 'vue';
 import { Setup, Context } from 'vue-class-setup';
 
 // Setup and Context must work together
 @Setup
 class App extends Context {
-    public value = 0;
+    public _value = 0;
     public get text() {
-        return String(this.value);
+        return String(this._value);
     }
     public set text(text: string) {
-        this.value = Number(text);
+        this._value = Number(text);
     }
     public onClick() {
-        this.value++;
+        this._value++;
     }
 }
-</script>
-<script setup lang="ts">
-const app = new App();
+export default defineComponent({
+    ...App.inject()
+})
 </script>
 <template>
     <div>
-        <p>{{ app.text }}</p>
-        <button @click="app.onClick()"></button>
+        {{ _value }}
+        <p>{{ text }}</p>
+        <button @click="onClick()"></button>
     </div>
 </template>
 ```

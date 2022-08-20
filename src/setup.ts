@@ -4,7 +4,7 @@ import { setCurrentHookName, setCurrentHookTarget, Context } from './context';
 import { SETUP_OPTIONS_NAME, SETUP_NAME } from './config';
 import { onComputed } from './on-computed';
 import { getOptions, getSetupOptions, setOptions } from './options';
-import { initDefine, Define } from './define';
+import { initDefine } from './define';
 import { setupReference } from './setup-reference';
 
 export type TargetConstructor = {

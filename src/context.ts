@@ -30,36 +30,45 @@ export class Context {
         const _This = this;
         const set = getPropertyDescriptors(_This);
         const list = Array.from(set);
+        function use(target: object) {
+            const app = new _This();
+            const names = Object.getOwnPropertyNames(app);
+            names.forEach(name => {
+                if (set.has(name)) return;
+                Object.defineProperty(target, name, {
+                    get() {
+                        return app[name];
+                    },
+                    set(val) {
+                        app[name] = val;
+                    }
+                })
+            });
+            list.forEach(name => {
+                Object.defineProperty(target, name, {
+                    get() {
+                        return app[name];
+                    },
+                    set(val) {
+                        app[name] = val;
+                    }
+                })
+            })
+            return target as InstanceType<T>;
+        }
+        let ok = false;
         return {
             created() {
-                const app = new _This();
-                const names = Object.getOwnPropertyNames(app);
-                names.forEach(name => {
-                    if (set.has(name)) return;
-                    Object.defineProperty(this, name, {
-                        get() {
-                            return app[name];
-                        },
-                        set(val) {
-                            app[name] = val;
-                        }
-                    })
-                });
-                list.forEach(name => {
-                    Object.defineProperty(this, name, {
-                        get() {
-                            return app[name];
-                        },
-                        set(val) {
-                            app[name] = val;
-                        }
-                    })
-                })
-
-                return app;
+                if (ok) {
+                    ok = false;
+                    return
+                }
+                use(this);
             },
-            get setup() {
-                return this.created;
+            setup() {
+                const data = use({});
+                ok = true;
+                return data as InstanceType<T>;;
             }
         }
     }
