@@ -77,6 +77,7 @@ If the component defines `props`, writing the `class` in the `setup` will cause 
 import { defineComponent } from 'vue';
 import { Setup, Define } from 'vue-class-setup';
 
+
 // You can create multiple setup class, Only one is shown here
 @Setup
 class App extends Define<Props, Emit> {
@@ -92,18 +93,26 @@ class App extends Define<Props, Emit> {
     }
 }
 
+/**
+ * You can directly call the injection method here
+ * or manually inject in the setup function
+ * <script lang="ts" setup>
+ *   const app = new App();
+ * <\/script>
+ * <template>
+ *  <div>{{ app.text }}</div>
+ * </template>
+ */
 export default defineComponent({
     ...App.inject()
 })
 </script>
 <script lang="ts" setup>
-
 // Props and Emits need to be exported
 export interface Props { value: number, dest?: string }
 export interface Emit {
     (event: 'click', evt: MouseEvent): void;
 }
-
 // Variable reception must be used, otherwise Vue compilation error
 // ❌ const props = defineProps<Props>();
 // ❌ const emit = defineEmits<Emit>();
