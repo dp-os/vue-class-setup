@@ -41,7 +41,7 @@ import { Setup, Context } from 'vue-class-setup';
 // Setup and Context must work together
 @Setup
 class App extends Context {
-    public _value = 0;
+    private _value = 0;
     public get text() {
         return String(this._value);
     }
@@ -58,7 +58,6 @@ export default defineComponent({
 </script>
 <template>
     <div>
-        {{ _value }}
         <p>{{ text }}</p>
         <button @click="onClick()"></button>
     </div>
