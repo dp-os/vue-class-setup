@@ -12,7 +12,7 @@ export function getPropertyDescriptors(Target: new (...args: any) => any) {
 
     list.forEach(item => {
         Object.keys(item).forEach(key => {
-            if (key[0] === '_' || whitelist.includes(key)) {
+            if (whitelist.includes(key)) {
                 delete item[key];
                 return
             }

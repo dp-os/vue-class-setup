@@ -1,6 +1,7 @@
 import { type VueInstance } from './vue';
 import { Context } from './context';
 import { createDefineProperty } from './property-descriptors';
+import { type TargetConstructor } from './setup';
 
 type DeepReadonly<T> = T extends object
     ? T extends Array<any>
@@ -33,11 +34,8 @@ export const Define: DefineConstructor = class Define extends Context {
     public static setupDefine = true;
 } as any;
 
-export function initDefine(target: object) {
+export function initDefine(target: InstanceType<TargetConstructor>) {
     const props = target['$props'];
-    if (!props) {
-        return;
-    }
     const definePropertyProps = createDefineProperty(props);
     const definePropertyTarget = createDefineProperty(target);
 
@@ -54,11 +52,5 @@ export function initDefine(target: object) {
                 return props[k];
             }
         })
-    });
-}
-
-function defineProperty2<T>(o: T, p: PropertyKey, get: () => any) {
-    Object.defineProperty(o, p, {
-        get
     });
 }

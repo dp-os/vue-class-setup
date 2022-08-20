@@ -42,7 +42,9 @@ function initHook<T extends object>(target: T) {
     // init PassOnTo
     options.forEach((names, hook) => {
         return names.forEach((name) => {
-            initName(name, hook);
+            if (name[0] !== '_') {
+                initName(name, hook);
+            }
         });
     })
     setCurrentHookTarget(null);
