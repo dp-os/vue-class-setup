@@ -30,22 +30,21 @@ export function setOptions(hook: PassOnToCallback, name: TargetName) {
 }
 
 export function getSetupOptions(Target: any) {
-    const currentOptions = getCurrentOptions();
-    const options = getOptions(Target);
-    const temp = currentOptions;
-    options.forEach((names, hook) => {
-        const newNames = [...names];
-        const tempName = temp.get(hook);
-        if (tempName) {
-            tempName.forEach((name) => {
-                if (!newNames.includes(name)) {
-                    newNames.push(name);
+    const child = getCurrentOptions();
+    const parent = getOptions(Target);
+    parent.forEach((names, hook) => {
+        const parentNames = [...names];
+        const childNames = child.get(hook);
+        if (childNames) {
+            childNames.forEach((name) => {
+                if (!parentNames.includes(name)) {
+                    parentNames.push(name);
                 }
             });
         }
-        temp.set(hook, newNames);
+        child.set(hook, parentNames);
     });
     resetCurrentOptions();
 
-    return temp;
+    return child;
 }
