@@ -1,11 +1,18 @@
 import { reactive } from 'vue';
-import { TargetName, TargetConstructor, PassOnToCallback } from './types';
-import { setCurrentHookName, setCurrentHookTarget } from './context';
+import { TargetName, PassOnToCallback } from './types';
+import { setCurrentHookName, setCurrentHookTarget, Context } from './context';
 import { SETUP_OPTIONS_NAME, SETUP_NAME } from './config';
 import { onComputed } from './on-computed';
 import { getOptions, getSetupOptions, setOptions } from './options';
-import { initProps } from './define';
+import { initDefine, Define } from './define';
 import { setupReference } from './setup-reference';
+
+export type TargetConstructor = {
+    inject: typeof Context['inject']
+    setup: typeof Context['setup']
+    setupOptions: typeof Context['setupOptions']
+    new(...args: any[]): any;
+};
 
 interface Item {
     name: TargetName;
@@ -36,7 +43,9 @@ function initHook<T extends object>(target: T) {
     });
 
     // init props
-    initProps(target);
+    if (target.constructor['setupDefine']) {
+        initDefine(target);
+    }
 
     // init computed
     special.forEach((item) => {
@@ -82,7 +91,6 @@ function Setup<T extends TargetConstructor>(Target: T) {
             }
         }
     }
-
     return Setup;
 }
 

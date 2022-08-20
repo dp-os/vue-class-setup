@@ -3,7 +3,7 @@ import { type Count } from './props-parent.vue';
 import { Setup, Define } from 'vue-class-setup'
 
 @Setup
-class Child extends Define<Props, Emits> {
+class Child<T, T2> extends Define<Props, Emits> {
     public name = 'child';
     get text() {
         return 'child:' + this.count.value;

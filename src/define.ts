@@ -17,36 +17,35 @@ interface DefineInstance<T, E> {
     readonly $vm: VueInstance;
 }
 
-type DefaultEmit = (...args: any[]) => void;
+type DefaultEmit = (...args: any[]) => void
 
 export interface DefineConstructor {
-    of(Target: object): void;
+    inject: typeof Context['inject']
+    setup: typeof Context['setup']
+    setupOptions: typeof Context['setupOptions']
+    setupDefine: boolean;
     new <T extends {} = {}, E extends DefaultEmit = DefaultEmit>(...args: unknown[]): DeepReadonly<T> & DefineInstance<T, E>;
 }
 
-export const Define: DefineConstructor = class Define<T extends {} = {}, E extends DefaultEmit = DefaultEmit> extends Context {
-    public static of(Target: object) {
-        const p = Object.getPrototypeOf(Target);
-        if (p === Define) {
-            return true;
-        } else if (p === null) {
-            return false
-        }
-        return Define.of(p);
-    }
+export const Define: DefineConstructor =  class Define extends Context {
+    public static setupDefine = true;
 } as any;
 
-
-
-export function initProps(target: object) {
+export function initDefine(target: object) {
     const props = target['$props'];
     if (!props) {
         return;
     }
     Object.keys(props).forEach(k => {
-        let defaultValue = target[k];
+        if (typeof props[k] === 'undefined' && k in target) {
+            Object.defineProperty(props, k, {
+                configurable: true,
+                writable: true,
+                value: target[k]
+            });
+        }
         defineProperty(target, k, () => {
-            return props[k] ?? defaultValue;
+            return props[k];
         });
     });
 }

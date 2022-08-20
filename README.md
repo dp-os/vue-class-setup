@@ -62,8 +62,8 @@ const app = new App();
     </div>
 </template>
 ```
-`Setup` and `Context` collect dependency information together, and convert it into a Vue program after executing the subclass constructor
 <!-- file:./tests/demo.vue end -->
+`Setup` and `Context` collect dependency information together, and convert it into a Vue program after executing the subclass constructor
 ## Setup
 
 If the component defines `props`, writing the `class` in the `setup` will cause the `setup` function to create a `class` every time as it executes, which will add costs. So we should avoid writing `class` in `setup` and use `Define` basic class to receive `props` and `emit`. 
@@ -73,6 +73,7 @@ If the component defines `props`, writing the `class` in the `setup` will cause 
 <!-- file:./tests/base-component-child.vue start -->
 ```vue
 <script lang="ts">
+import { defineComponent } from 'vue';
 import { Setup, Define } from 'vue-class-setup';
 
 // You can create multiple setup class, Only one is shown here
@@ -90,6 +91,9 @@ class App extends Define<Props, Emit> {
     }
 }
 
+export default defineComponent({
+    ...App.inject()
+})
 </script>
 <script lang="ts" setup>
 
@@ -114,14 +118,14 @@ defineEmits<Emit>();  //  ✅
 
 // Automatic dependency injection and reactive
 // const app = reactive(new App()); // ❌ 
-const app = new App();              // ✅ 
+// const app = new App();           // ✅ 
 
 </script>
 <template>
-    <button class="btn" @click="app.click($event)">
-        <span class="text">{{ app.text }}</span>
-        <span class="props-dest">{{ app.dest }}</span>
-        <span class="props-value">{{ app.$props.value }}</span>
+    <button class="btn" @click="click($event)">
+        <span class="text">{{ text }}</span>
+        <span class="props-dest">{{ dest }}</span>
+        <span class="props-value">{{ $props.value }}</span>
     </button>
 </template>
 ```

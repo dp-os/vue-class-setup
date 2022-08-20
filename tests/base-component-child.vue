@@ -1,4 +1,5 @@
 <script lang="ts">
+import { defineComponent } from 'vue';
 import { Setup, Define } from 'vue-class-setup';
 
 // You can create multiple setup class, Only one is shown here
@@ -16,6 +17,9 @@ class App extends Define<Props, Emit> {
     }
 }
 
+export default defineComponent({
+    ...App.inject()
+})
 </script>
 <script lang="ts" setup>
 
@@ -40,13 +44,13 @@ defineEmits<Emit>();  //  ✅
 
 // Automatic dependency injection and reactive
 // const app = reactive(new App()); // ❌ 
-const app = new App();              // ✅ 
+// const app = new App();           // ✅ 
 
 </script>
 <template>
-    <button class="btn" @click="app.click($event)">
-        <span class="text">{{ app.text }}</span>
-        <span class="props-dest">{{ app.dest }}</span>
-        <span class="props-value">{{ app.$props.value }}</span>
+    <button class="btn" @click="click($event)">
+        <span class="text">{{ text }}</span>
+        <span class="props-dest">{{ dest }}</span>
+        <span class="props-value">{{ $props.value }}</span>
     </button>
 </template>
