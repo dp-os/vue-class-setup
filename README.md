@@ -144,10 +144,10 @@ When the business is complex, multiple instances should be split
 ```vue
 <script lang="ts">
 import { onBeforeMount, onMounted } from 'vue';
-import { Setup, Define, PassOnTo } from 'vue-class-setup';
+import { Setup, Context, PassOnTo } from 'vue-class-setup';
 
 @Setup
-class Base extends Define {
+class Base extends Context {
     public value = 0;
     public get text() {
         return String(this.value);
