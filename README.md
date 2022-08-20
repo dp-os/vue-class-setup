@@ -77,7 +77,6 @@ If the component defines `props`, writing the `class` in the `setup` will cause 
 import { defineComponent } from 'vue';
 import { Setup, Define } from 'vue-class-setup';
 
-
 // You can create multiple setup class, Only one is shown here
 @Setup
 class App extends Define<Props, Emit> {
@@ -92,15 +91,14 @@ class App extends Define<Props, Emit> {
         this.$emit('click', evt);
     }
 }
-
 /**
  * You can directly call the injection method here
  * or manually inject in the setup function
  * <script lang="ts" setup>
- *   const app = new App();
+ *      const app = new App();
  * <\/script>
  * <template>
- *  <div>{{ app.text }}</div>
+ *      <div>{{ app.text }}</div>
  * </template>
  */
 export default defineComponent({
@@ -129,7 +127,6 @@ defineEmits<Emit>();  //  ✅
 // Automatic dependency injection and reactive
 // const app = reactive(new App()); // ❌ 
 // const app = new App();           // ✅ 
-
 </script>
 <template>
     <button class="btn" @click="click($event)">

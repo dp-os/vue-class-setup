@@ -2,7 +2,6 @@
 import { defineComponent } from 'vue';
 import { Setup, Define } from 'vue-class-setup';
 
-
 // You can create multiple setup class, Only one is shown here
 @Setup
 class App extends Define<Props, Emit> {
@@ -53,7 +52,6 @@ defineEmits<Emit>();  //  ✅
 // Automatic dependency injection and reactive
 // const app = reactive(new App()); // ❌ 
 // const app = new App();           // ✅ 
-
 </script>
 <template>
     <button class="btn" @click="click($event)">
