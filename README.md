@@ -62,7 +62,7 @@ const app = new App();
     </div>
 </template>
 ```
-`Setup` and `Context` collect dependency information together and convert it into a Vue feature program after the subclass constructor is executed
+`Setup` and `Context` collect dependency information together, and convert it into a Vue program after executing the subclass constructor
 <!-- file:./tests/demo.vue end -->
 ## Setup
 
