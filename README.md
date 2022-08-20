@@ -17,6 +17,7 @@ Using class can help you avoid `ref`, `reactive` , `computed` and `withDefaults`
 | --- | --- | ----------- |
 | Vue2 | ✅ | ✅ |
 | Vue3 | ❌ | ✅ |
+| Method bind this | ✅ | ✅ |
 | Props type check | ❌ | ✅ |
 | Emit type check | ❌ | ✅ |
 | Watch type check | ❌ | ✅ |
