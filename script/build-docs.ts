@@ -18,9 +18,13 @@ export function buildDocs() {
                     const ext = filename.match(/\.([A-z]+)$/);
                     if (ext) {
                         fileText =
-                            '```' + (ext[1] || '') + '\n' + fileText + '```';
+                            '\n```' +
+                            (ext[1] || '') +
+                            '\n' +
+                            fileText +
+                            '```\n';
                     } else {
-                        fileText = '```\n' + fileText + '```';
+                        fileText = '\n```\n' + fileText + '```\n';
                     }
                     newList.push(fileText);
                 }
