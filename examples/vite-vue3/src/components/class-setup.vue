@@ -4,12 +4,12 @@ import { Setup, Context } from 'vue-class-setup';
 
 @Setup
 class App extends Context {
-    public list: string[] = []
+    public list: string[] = [];
     public input = '';
-    public get disabled () {
+    public get disabled() {
         return !this.input;
     }
-    public add () {
+    public add() {
         this.list.push(this.input);
         this.input = '';
     }
@@ -22,8 +22,8 @@ class App extends Context {
 }
 
 export default defineComponent({
-    ...App.inject()
-})
+    ...App.inject(),
+});
 </script>
 <template>
     <div class="content">
@@ -34,10 +34,11 @@ export default defineComponent({
         <button v-if="list.length" class="btn" @click="delAll">Del all</button>
         <ul v-if="list.length">
             <li v-for="(text, index) in list">
-                {{ text }} <button class="btn" @click="delIndex(index)">Del</button>
+                {{ text }}
+                <button class="btn" @click="delIndex(index)">Del</button>
             </li>
         </ul>
-        <p v-else> This is empty</p>
+        <p v-else>This is empty</p>
     </div>
 </template>
 <style scoped>

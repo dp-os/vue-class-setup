@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 
 const list = ref<string[]>([]);
 const input = ref<string>('');
-const disabled = computed(() => !input.value)
+const disabled = computed(() => !input.value);
 
 function add() {
     list.value.push(input.value);
@@ -15,8 +15,6 @@ function delIndex(index: number) {
 function delAll() {
     list.value = [];
 }
-
-
 </script>
 <template>
     <div class="content">
@@ -27,10 +25,11 @@ function delAll() {
         <button v-if="list.length" class="btn" @click="delAll">Del all</button>
         <ul v-if="list.length">
             <li v-for="(text, index) in list">
-                {{ text }} <button class="btn" @click="delIndex(index)">Del</button>
+                {{ text }}
+                <button class="btn" @click="delIndex(index)">Del</button>
             </li>
         </ul>
-        <p v-else> This is empty</p>
+        <p v-else>This is empty</p>
     </div>
 </template>
 <style scoped>

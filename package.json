@@ -1,6 +1,6 @@
 {
     "name": "vue-class-setup",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "main": "dist/index.js",
     "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
@@ -39,7 +39,7 @@
         "test:all": "./script/test-all.sh",
         "coverage": "vitest run --coverage",
         "coveralls": "coveralls < coverage/lcov.info",
-        "release": "yarn test:all && yarn publish --registry=https://registry.npmjs.org"
+        "release": "yarn test:all && npm publish --registry=https://registry.npmjs.org"
     },
     "peerDependencies": {
         "vue": ">=2.7.8 || >=3.0.0"
