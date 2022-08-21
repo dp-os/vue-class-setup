@@ -81,7 +81,7 @@ If the component defines `props`, writing the `class` in the `setup` will cause 
 
 ### Context VS Define
 
-`Define` extend from `Context`, and `Define` will automatically inject props and emit, when encapsulating public classes, you may not want to inject props and emit
+`Define` extend from `Context`, and `Define` will automatically inject `$props` and `$emit`, when encapsulating public classes, you may not want to inject props and emit
 
 ### Best practices
 
