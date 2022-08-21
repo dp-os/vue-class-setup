@@ -13,7 +13,7 @@ Using class can help you avoid `ref`, `reactive` , `computed` and `withDefaults`
 ## [function](./examples/vite-vue3/src/components/native.vue) vs [class](./examples/vite-vue3/src/components/class-setup.vue)
 ![function vs class](./docs/compare.png)
 
-## VS vue-class-component
+## vue-class-component vs vue-class-setup
 
 **We should deprecate [vue-class-component](https://github.com/vuejs/vue-class-component/issues/569), And use class in setup**
 | List | vue-class-component | vue-class-setup |
