@@ -16,7 +16,7 @@ Using class can help you avoid `ref`, `reactive` , `computed` and `withDefaults`
 
 ## vue-class-component vs vue-class-setup
 
-**We should deprecate [vue-class-component](https://github.com/vuejs/vue-class-component/issues/569), And use class in setup**
+**We should deprecate [vue-class-component](https://github.com/vuejs/vue-class-component/issues/569), and use class in setup**
 | List | vue-class-component | vue-class-setup |
 | --- | --- | ----------- |
 | Vue2 | ✅ | ✅ |
