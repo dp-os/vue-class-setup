@@ -80,8 +80,7 @@ export default defineComponent({
 If the component defines `props`, writing the `class` in the `setup` will cause the `setup` function to create a `class` every time as it executes, which will add costs. So we should avoid writing `class` in `setup` and use `Define` basic class to receive `props` and `emit`.
 
 ### Context VS Define
-
-`Define` extend from `Context`, and `Define` will automatically inject `$props` and `$emit`, when encapsulating public classes, you may not want to inject props and emit
+`Context` automatic injection `$vm`, `Define` extend from `Context`, and `Define` will automatically inject `$props` and `$emit`, when encapsulating public classes, you may not want to inject props and emit
 
 ### Best practices
 
