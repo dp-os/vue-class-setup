@@ -1,6 +1,11 @@
+## 1.1.7
+
+-   docs: Optimize document picture capitalization
+
 ## 1.1.6
 
 -   fix: Improve unit testing and boundary treatment
+
 ## 1.1.5
 
 -   feat: inject to defineComponent and bind this
