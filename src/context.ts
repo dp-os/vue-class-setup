@@ -1,3 +1,4 @@
+import { watch } from 'vue';
 import { getCurrentInstance, type VueInstance } from './vue';
 import { setupReference } from './setup-reference';
 import { TargetName, Target } from './types';
@@ -42,7 +43,41 @@ export class Context {
             const app = new _This();
             const names = Object.getOwnPropertyNames(app);
             const defineProperty = createDefineProperty(target);
-
+            // Watch default props
+            watch(
+                () => {
+                    const props = target['$props'];
+                    if (!props) return {};
+                    const data: Record<string, any> = {};
+                    Object.keys(props).forEach((key) => {
+                        if (props[key] !== app[key]) {
+                            data[key] = app[key];
+                        }
+                    });
+                    return data;
+                },
+                (defaultProps) => {
+                    const props = target['$props'];
+                    if (!props) {
+                        return;
+                    }
+                    const definePropertyProps = createDefineProperty(props);
+                    Object.keys(defaultProps).forEach((key) => {
+                        const descriptor = Object.getOwnPropertyDescriptor(
+                            props,
+                            key
+                        );
+                        definePropertyProps(key, {
+                            ...descriptor,
+                            value: defaultProps[key],
+                        });
+                    });
+                },
+                {
+                    deep: true,
+                    immediate: true,
+                }
+            );
             names.forEach((name) => {
                 if (map.has(name)) return;
                 defineProperty(name, {
@@ -78,14 +113,14 @@ export class Context {
     public $vm: VueInstance;
     public constructor() {
         const vm = getCurrentInstance();
-        this.$vm = vm || ({ $props: {}, $emit: emit } as any);
+        this.$vm = vm ?? ({ $props: {}, $emit: emit } as any);
         setupReference.add(this);
     }
     public get $props() {
-        return this.$vm.$props;
+        return this.$vm.$props ?? {};
     }
     public get $emit() {
-        return this.$vm.$emit;
+        return this.$vm.$emit ?? emit;
     }
 }
 function emit() {}

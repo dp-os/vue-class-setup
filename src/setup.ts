@@ -35,7 +35,7 @@ function initHook<T extends object>(target: T) {
 
     // init props
     if (target.constructor['setupDefine']) {
-        initDefine(target);
+        initDefine(target as any);
     }
 
     // init computed
