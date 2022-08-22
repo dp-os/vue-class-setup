@@ -68,7 +68,7 @@ export function initDefine(target: InstanceType<DefineConstructor>) {
                 let value = props[k];
 
                 if (typeof value === 'boolean') {
-                    if (!hasValue(target.$vm, k)) {
+                    if (!hasDefaultValue(target.$vm, k)) {
                         value = target.$defaultProps[k];
                     }
                 } else if (isNull(value)) {
@@ -80,7 +80,7 @@ export function initDefine(target: InstanceType<DefineConstructor>) {
     });
 }
 
-function hasValue(vm: VueInstance, key: string): boolean {
+function hasDefaultValue(vm: VueInstance, key: string): boolean {
     let props: Record<string, any> | null = null;
     if (isVue2) {
         props = vm.$options && vm.$options['propsData'];
@@ -88,11 +88,21 @@ function hasValue(vm: VueInstance, key: string): boolean {
         props = vm.$ && vm.$.vnode && vm.$.vnode.props;
     }
     if (props) {
-        return !isNull(props[key]);
+        return !isNull(props[key] || props[kebabCase(key)]);
     }
     return false;
 }
 
 function isNull(value: unknown) {
     return typeof value === 'undefined' || value === null;
+}
+
+const KEBAB_REGEX = /[A-Z]/g;
+
+function kebabCase(str: string) {
+    return str
+        .replace(KEBAB_REGEX, (match) => {
+            return '-' + match.toLowerCase();
+        })
+        .replace(/^-/, '');
 }

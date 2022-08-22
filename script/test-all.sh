@@ -2,6 +2,7 @@
 
 rm -rf node_modules
 yarn install
+yarn lint
 yarn run build
 yarn run coverage
 

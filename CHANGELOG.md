@@ -1,6 +1,12 @@
+## 1.1.9
+
+-   fix: props name style is kebab case type error
+-   fix: not found: Error: Can't resolve 'vue-class-setup'
+
 ## 1.1.8
 
 -   fix: Set props default error
+
 ## 1.1.7
 
 -   docs: Optimize document picture capitalization
