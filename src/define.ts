@@ -16,6 +16,7 @@ interface DefineInstance<T, E> {
     readonly $props: T;
     readonly $emit: E;
     readonly $vm: VueInstance;
+    readonly $defaultProps: DeepReadonly<Partial<T>>
 }
 
 type DefaultEmit = (...args: any[]) => void;
@@ -42,6 +43,15 @@ export interface DefineConstructor {
 
 export const Define: DefineConstructor = class Define extends Context {
     public static setupDefine = true;
+    public $defaultProps: Record<string ,any> = {};
+    public constructor() {
+        super();
+        const defineProperty = createDefineProperty(this);
+        defineProperty('$defaultProps', {
+            enumerable: false,
+            writable: false
+        })
+    }
 } as any;
 
 export function initDefine(target: InstanceType<DefineConstructor>) {
@@ -49,16 +59,20 @@ export function initDefine(target: InstanceType<DefineConstructor>) {
     const props = target.$props;
 
     Object.keys(props).forEach((k) => {
-        const defaultValue = target[k];
+        if (k in target) {
+            // @ts-ignore
+            target.$defaultProps[k] = target[k];
+        }
         definePropertyTarget(k, {
             get() {
                 let value = props[k];
+
                 if (typeof value === 'boolean') {
                     if (!hasValue(target.$vm, k)) {
-                        value = defaultValue;
+                        value = target.$defaultProps[k];
                     }
                 } else if (isNull(value)) {
-                    value = defaultValue;
+                    value = target.$defaultProps[k];
                 }
                 return value;
             },

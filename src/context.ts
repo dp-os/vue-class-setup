@@ -8,6 +8,7 @@ import {
     SETUP_PROPERTY_DESCRIPTOR,
 } from './config';
 import { createDefineProperty } from './property-descriptors';
+import { DefineConstructor } from './define';
 
 let currentTarget: Target | null = null;
 let currentName: TargetName | null = null;
@@ -40,44 +41,47 @@ export class Context {
             PropertyDescriptor
         >;
         function use(target: object) {
-            const app = new _This();
+            const app = new _This() as InstanceType<DefineConstructor>;
             const names = Object.getOwnPropertyNames(app);
             const defineProperty = createDefineProperty(target);
             // Watch default props
-            watch(
-                () => {
-                    const props = target['$props'];
-                    if (!props) return {};
-                    const data: Record<string, any> = {};
-                    Object.keys(props).forEach((key) => {
-                        if (props[key] !== app[key]) {
-                            data[key] = app[key];
-                        }
-                    });
-                    return data;
-                },
-                (defaultProps) => {
-                    const props = target['$props'];
-                    if (!props) {
-                        return;
-                    }
-                    const definePropertyProps = createDefineProperty(props);
-                    Object.keys(defaultProps).forEach((key) => {
-                        const descriptor = Object.getOwnPropertyDescriptor(
-                            props,
-                            key
-                        );
-                        definePropertyProps(key, {
-                            ...descriptor,
-                            value: defaultProps[key],
+            const keys = Object.keys(app.$defaultProps || {});
+            if (keys.length) {
+                watch(
+                    () => {
+                        const props = target['$props'];
+                        if (!props) return {};
+                        const data: Record<string, any> = {};
+                        keys.forEach((key) => {
+                            if (props[key] !== app[key]) {
+                                data[key] = app[key];
+                            }
                         });
-                    });
-                },
-                {
-                    deep: true,
-                    immediate: true,
-                }
-            );
+                        return data;
+                    },
+                    (defaultProps) => {
+                        const props = target['$props'];
+                        if (!props) {
+                            return;
+                        }
+                        const definePropertyProps = createDefineProperty(props);
+                        Object.keys(defaultProps).forEach((key) => {
+                            const descriptor = Object.getOwnPropertyDescriptor(
+                                props,
+                                key
+                            );
+                            definePropertyProps(key, {
+                                ...descriptor,
+                                value: defaultProps[key],
+                            });
+                        });
+                    },
+                    {
+                        immediate: true,
+                    }
+                );
+            }
+
             names.forEach((name) => {
                 if (map.has(name)) return;
                 defineProperty(name, {
@@ -123,4 +127,4 @@ export class Context {
         return this.$vm.$emit ?? emit;
     }
 }
-function emit() {}
+function emit() { }

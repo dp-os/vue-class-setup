@@ -9,7 +9,7 @@ test('Props-bind', async () => {
     assert.equal(wrapper.find('.name').text(), 'vue-class-setup');
     assert.equal(wrapper.find('.age').text(), '1');
     assert.equal(wrapper.find('.ok1').text(), 'true');
-    assert.equal(wrapper.find('.ok2').text(), '');
+    assert.equal(wrapper.find('.ok2').text(), 'false');
 
     await wrapper.find('button').trigger('click');
 
@@ -25,5 +25,5 @@ test('Props-bind', async () => {
     assert.equal(wrapper.find('.name').text(), 'vue-class-setup');
     assert.equal(wrapper.find('.age').text(), '1');
     assert.equal(wrapper.find('.ok1').text(), 'true');
-    assert.equal(wrapper.find('.ok2').text(), '');
+    assert.equal(wrapper.find('.ok2').text(), 'false');
 });
