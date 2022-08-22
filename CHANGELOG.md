@@ -1,3 +1,6 @@
+## 1.1.8
+
+-   fix: Set props default error
 ## 1.1.7
 
 -   docs: Optimize document picture capitalization
@@ -8,15 +11,15 @@
 
 ## 1.1.5
 
--   feat: inject to defineComponent and bind this
+-   feat: Inject to defineComponent and bind this
 
 ## 1.1.3
 
--   fix: vite ssr build error
+-   fix: Vite ssr build error
 
 ## 1.1.2
 
--   fix: vite ssr build error
+-   fix: Vite ssr build error
 
 ## 1.1.1
 
@@ -24,7 +27,7 @@
 
 ## 1.1.0
 
--   Fix: assemble class cannot be used
+-   Fix: Assemble class cannot be used
 
 ## 1.0.8
 
@@ -66,7 +69,7 @@
 
 ## 0.1.4
 
--   fix: export path error
+-   fix: Export path error
 
 ## 0.1.3
 
