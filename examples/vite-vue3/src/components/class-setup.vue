@@ -1,9 +1,15 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Setup, Context } from 'vue-class-setup';
+import { Setup, Define } from 'vue-class-setup';
+
+interface Props {
+    title?: string;
+}
 
 @Setup
-class App extends Context {
+class App extends Define<Props> {
+    // Define default props
+    public readonly title = 'vue-class-setup';
     public list: string[] = [];
     public input = '';
     public get disabled() {
@@ -25,8 +31,12 @@ export default defineComponent({
     ...App.inject(),
 });
 </script>
+<script lang="ts" setup>
+defineProps<Props>();
+</script>
 <template>
     <div class="content">
+        <h2>{{ title }}</h2>
         <div>
             <input v-model="input" />
             <button class="btn" :disabled="disabled" @click="add">Add</button>

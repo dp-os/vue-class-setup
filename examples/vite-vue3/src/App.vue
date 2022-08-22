@@ -4,9 +4,7 @@ import Native from './components/native.vue';
 </script>
 
 <template>
-    <h2>vue-class-setup</h2>
     <ClassSetup />
-    <h2>Native</h2>
     <Native />
 </template>
 <style scoped>

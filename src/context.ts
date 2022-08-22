@@ -127,4 +127,4 @@ export class Context {
         return this.$vm.$emit ?? emit;
     }
 }
-function emit() { }
+function emit() {}

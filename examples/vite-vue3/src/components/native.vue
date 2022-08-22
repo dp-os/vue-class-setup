@@ -1,6 +1,13 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 
+interface Props {
+    title?: string;
+}
+withDefaults(defineProps<Props>(), {
+    title: 'vue-native',
+});
+
 const list = ref<string[]>([]);
 const input = ref<string>('');
 const disabled = computed(() => !input.value);
@@ -18,6 +25,7 @@ function delAll() {
 </script>
 <template>
     <div class="content">
+        <h2>{{ title }}</h2>
         <div>
             <input v-model="input" />
             <button class="btn" :disabled="disabled" @click="add">Add</button>

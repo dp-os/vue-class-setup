@@ -16,7 +16,7 @@ interface DefineInstance<T, E> {
     readonly $props: T;
     readonly $emit: E;
     readonly $vm: VueInstance;
-    readonly $defaultProps: DeepReadonly<Partial<T>>
+    readonly $defaultProps: DeepReadonly<Partial<T>>;
 }
 
 type DefaultEmit = (...args: any[]) => void;
@@ -43,14 +43,14 @@ export interface DefineConstructor {
 
 export const Define: DefineConstructor = class Define extends Context {
     public static setupDefine = true;
-    public $defaultProps: Record<string ,any> = {};
+    public $defaultProps: Record<string, any> = {};
     public constructor() {
         super();
         const defineProperty = createDefineProperty(this);
         defineProperty('$defaultProps', {
             enumerable: false,
-            writable: false
-        })
+            writable: false,
+        });
     }
 } as any;
 
