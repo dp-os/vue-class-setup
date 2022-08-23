@@ -1,3 +1,7 @@
+## 1.2.0
+
+-   fix: Set default props error on Vue2
+
 ## 1.1.9
 
 -   fix: props name style is kebab case type error
