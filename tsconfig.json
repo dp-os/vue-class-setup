@@ -17,5 +17,5 @@
             "vue-class-setup": ["./src/index.ts"]
         }
     },
-    "exclude": ["coverage", "node_modules", "examples"]
+    "exclude": ["coverage", "node_modules", "examples", "node_modules_back"]
 }

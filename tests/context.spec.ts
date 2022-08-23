@@ -22,7 +22,7 @@ test('Context', () => {
         }
     }
     const base2 = {} as Base2;
-    Base2.inject().created.call(base2);
+    Base2.inject().created!.call(base2);
     assert.equal(base2.age, 100);
     assert.equal(base2.ageText, '100');
     assert.isTrue(base2.ok);

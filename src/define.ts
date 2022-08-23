@@ -1,6 +1,7 @@
 import { type VueInstance, isVue2 } from './vue';
 import { Context } from './context';
 import { createDefineProperty } from './property-descriptors';
+import { SETUP_SETUP_DEFINE } from './config';
 
 type DeepReadonly<T> = T extends object
     ? T extends Array<any>
@@ -40,6 +41,9 @@ export interface DefineConstructor {
         ...args: any[]
     ): DefineInstanceType<T, E>;
 }
+function GET_TRUE() {
+    return true;
+}
 
 export const Define: DefineConstructor = class Define extends Context {
     public static setupDefine = true;
@@ -50,6 +54,9 @@ export const Define: DefineConstructor = class Define extends Context {
         defineProperty('$defaultProps', {
             enumerable: false,
             writable: false,
+        });
+        defineProperty(SETUP_SETUP_DEFINE, {
+            get: GET_TRUE,
         });
     }
 } as any;

@@ -5,6 +5,7 @@ import {
     SETUP_OPTIONS_NAME,
     SETUP_NAME,
     SETUP_PROPERTY_DESCRIPTOR,
+    SETUP_SETUP_DEFINE,
 } from './config';
 import { initComputed } from './computed';
 import { getOptions, getSetupOptions } from './options';
@@ -34,7 +35,7 @@ function initHook<T extends object>(target: T) {
     });
 
     // init props
-    if (target.constructor['setupDefine']) {
+    if (target[SETUP_SETUP_DEFINE]) {
         initDefine(target as any);
     }
 
