@@ -14,6 +14,7 @@ import { setupReference } from './setup-reference';
 import { getPropertyDescriptors } from './property-descriptors';
 
 export type TargetConstructor = {
+    use: typeof Context['use'];
     inject: typeof Context['inject'];
     setup: typeof Context['setup'];
     setupOptions: typeof Context['setupOptions'];

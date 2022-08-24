@@ -33,6 +33,7 @@ type DefineInstanceType<
 
 export interface DefineConstructor {
     inject: typeof Context['inject'];
+    use: typeof Context['use'];
     setup: typeof Context['setup'];
     setupOptions: typeof Context['setupOptions'];
     setupDefine: boolean;

@@ -1,6 +1,6 @@
 {
     "name": "vue-class-setup",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "main": "dist/index.cjs.js",
     "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
@@ -56,6 +56,6 @@
         "vite-plugin-dts": "^1.4.0",
         "vitest": "^0.20.2",
         "vue": "^3.2.37",
-        "vue-tsc": "^0.39.4"
+        "vue-tsc": "^0.40.1"
     }
 }

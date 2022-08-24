@@ -18,7 +18,13 @@ export default defineConfig({
     },
     plugins: [
         vue2(),
-        dts(),
+        dts({
+            afterDiagnostic(list) {
+                if (list.length) {
+                    process.exit(1);
+                }
+            }
+        }),
         {
             name: 'build-docs',
             buildEnd: buildDocs,
