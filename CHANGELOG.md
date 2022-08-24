@@ -1,3 +1,7 @@
+## 1.2.1
+
+-   feat: App.use
+
 ## 1.2.0
 
 -   fix: Set default props error on Vue2

@@ -69,22 +69,29 @@ export function initDefine(target: InstanceType<DefineConstructor>) {
         if (k in target) {
             // @ts-ignore
             target.$defaultProps[k] = target[k];
-        }
-        definePropertyTarget(k, {
-            get() {
-                let value = props[k];
-
-                if (typeof value === 'boolean') {
-                    if (!hasDefaultValue(target.$vm, k)) {
-                        value = target.$defaultProps[k];
+            const defaultProps = target.$defaultProps;
+            definePropertyTarget(k, {
+                get() {
+                    let value = props[k];
+                    if (typeof value === 'boolean') {
+                        if (!hasDefaultValue(target.$vm, k)) {
+                            value = defaultProps[k];
+                        }
+                    } else if (isNull(value)) {
+                        value = defaultProps[k];
                     }
-                } else if (isNull(value)) {
-                    value = target.$defaultProps[k];
-                }
-                return value;
-            },
-        });
+                    return value;
+                },
+            });
+        } else {
+            definePropertyTarget(k, {
+                get() {
+                    return props[k];
+                },
+            });
+        }
     });
+    // console.log('>>>>>>1111', target['ok2'], props);
 }
 
 function hasDefaultValue(vm: VueInstance, key: string): boolean {
