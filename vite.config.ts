@@ -23,7 +23,7 @@ export default defineConfig({
                 if (list.length) {
                     process.exit(1);
                 }
-            }
+            },
         }),
         {
             name: 'build-docs',

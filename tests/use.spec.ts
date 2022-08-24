@@ -17,5 +17,5 @@ test('Use', async () => {
     await wrapper.vm.$nextTick();
 
     assert.equal(wrapper.find('.text').text(), '2');
-    assert.equal(wrapper.find('.text-eq').text(), 'true'); 
+    assert.equal(wrapper.find('.text-eq').text(), 'true');
 });
