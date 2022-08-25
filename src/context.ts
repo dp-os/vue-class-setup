@@ -27,7 +27,13 @@ export function setCurrentHookName(name: TargetName | null) {
     currentName = name;
 }
 
-const WHITE_LIST: string[] = [SETUP_SETUP_DEFINE, SETUP_SETUP_DEFINE, '$vm', '$emit', '$props'];
+const WHITE_LIST: string[] = [
+    SETUP_SETUP_DEFINE,
+    SETUP_SETUP_DEFINE,
+    '$vm',
+    '$emit',
+    '$props',
+];
 
 function use(target: VueInstance, _This: any) {
     let use: Map<any, InstanceType<DefineConstructor>>;

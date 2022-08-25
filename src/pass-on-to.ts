@@ -13,7 +13,11 @@ function PassOnTo<T extends (...args: any[]) => any>(
     return function PassOnTo(
         Target: object,
         name: TargetName,
-        descriptor: TypedPropertyDescriptor<T>
+        descriptor: TypedPropertyDescriptor<
+            (
+                ...args: Parameters<T>
+            ) => ReturnType<T> extends void ? any : ReturnType<T>
+        >
     ) {
         setOptions(Target as any, cb as any, name);
     };

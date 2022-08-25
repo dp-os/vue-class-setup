@@ -1,3 +1,7 @@
+## 1.2.2
+
+-   fix: `@PassOnTo(onServerPrefetch)` type error on Vue2
+
 ## 1.2.1
 
 -   feat: App.use
