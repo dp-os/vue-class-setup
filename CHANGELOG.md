@@ -1,3 +1,7 @@
+## 1.2.3
+
+-   fix: props default value error on Vue3
+
 ## 1.2.2
 
 -   fix: `@PassOnTo(onServerPrefetch)` type error on Vue2

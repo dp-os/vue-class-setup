@@ -1,4 +1,5 @@
-import { getCurrentInstance, type VueInstance, isVue2 } from './vue';
+import { watch } from 'vue';
+import { getCurrentInstance, type VueInstance, isVue3 } from './vue';
 import { setupReference } from './setup-reference';
 import { TargetName, Target } from './types';
 import {
@@ -34,6 +35,44 @@ const WHITE_LIST: string[] = [
     '$emit',
     '$props',
 ];
+function initProps(target: VueInstance, app: InstanceType<DefineConstructor>) {
+    const keys = Object.keys(app.$defaultProps || {});
+    if (keys.length) {
+        watch(
+            () => {
+                const props = target['$props'];
+                if (!props) return {};
+                const data: Record<string, any> = {};
+                keys.forEach((key) => {
+                    if (props[key] !== app[key]) {
+                        data[key] = app[key];
+                    }
+                });
+                return data;
+            },
+            (defaultProps) => {
+                const props = target['$props'];
+                if (!props) {
+                    return;
+                }
+                const definePropertyProps = createDefineProperty(props);
+                Object.keys(defaultProps).forEach((key) => {
+                    const descriptor = Object.getOwnPropertyDescriptor(
+                        props,
+                        key
+                    );
+                    definePropertyProps(key, {
+                        ...descriptor,
+                        value: defaultProps[key],
+                    });
+                });
+            },
+            {
+                immediate: true,
+            }
+        );
+    }
+}
 
 function use(target: VueInstance, _This: any) {
     let use: Map<any, InstanceType<DefineConstructor>>;
@@ -50,6 +89,10 @@ function use(target: VueInstance, _This: any) {
     app = new _This() as InstanceType<DefineConstructor>;
 
     use.set(_This, app);
+    // Watch default props
+    if (isVue3) {
+        initProps(target, app);
+    }
 
     const names = Object.getOwnPropertyNames(app);
     const defineProperty = createDefineProperty(target);
@@ -105,28 +148,7 @@ export class Context {
             },
             created() {
                 const vm = this as any as VueInstance;
-                const app = use(vm, _This);
-                if (!vm.$options || isVue2) {
-                    return;
-                }
-                const render = vm.$options.render as Function | undefined;
-                if (app[SETUP_SETUP_DEFINE] && render) {
-                    const proxyRender = (...args: any[]) => {
-                        const props = vm.$.props;
-                        for (let i = 0; i < args.length; i++) {
-                            if (args[i] === props) {
-                                args[i] = app;
-                                break;
-                            }
-                        }
-                        return render.apply(this, args);
-                    };
-                    vm.$options.render = proxyRender;
-
-                    if (vm.$) {
-                        (vm as any).$.render = proxyRender;
-                    }
-                }
+                use(vm, _This);
             },
         };
     }
