@@ -93,7 +93,6 @@ export function initDefine(target: InstanceType<DefineConstructor>) {
             });
         }
     });
-    // console.log('>>>>>>1111', target['ok2'], props);
 }
 
 function hasDefaultValue(vm: VueInstance, key: string): boolean {
