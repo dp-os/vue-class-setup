@@ -1,3 +1,7 @@
+## 1.2.4
+
+-   feat: `DefaultProps` and `DefaultEmit` exports
+
 ## 1.2.3
 
 -   fix: props default value error on Vue3

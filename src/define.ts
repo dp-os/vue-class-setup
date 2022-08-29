@@ -20,14 +20,15 @@ interface DefineInstance<T, E> {
     readonly $defaultProps: DeepReadonly<Partial<T>>;
 }
 
-type DefaultEmit = (...args: any[]) => void;
+export type DefaultProps = Record<string, any>;
+export type DefaultEmit = (...args: any[]) => void;
 
 // type RequiredBooleanAttr<T extends {}> = {
 //     [K in keyof T]-?: boolean extends T[K] ? T[K] : T[K];
 // };
 
 type DefineInstanceType<
-    T extends {},
+    T extends DefaultProps,
     E extends DefaultEmit = DefaultEmit
 > = DeepReadonly<T> & DefineInstance<T, E>;
 
