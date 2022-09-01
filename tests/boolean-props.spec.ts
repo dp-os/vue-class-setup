@@ -27,7 +27,7 @@ test('Base', async () => {
         boolean3: true,
         boolean5: '',
         boolean6: '',
-        'showIcon': '',
+        showIcon: '',
         age1: 100,
         age2: 10,
     });

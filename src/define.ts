@@ -104,7 +104,7 @@ function hasDefaultValue(vm: VueInstance, key: string): boolean {
     }
     if (props) {
         const value = props[key];
-        return !isNull(isNull(value) ?  props[kebabCase(key)] : value);
+        return !isNull(isNull(value) ? props[kebabCase(key)] : value);
     }
     return false;
 }
