@@ -1,3 +1,6 @@
+## 1.2.5
+
+-   fix: Default Boolean value error
 ## 1.2.4
 
 -   feat: `DefaultProps` and `DefaultEmit` exports

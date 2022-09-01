@@ -103,7 +103,8 @@ function hasDefaultValue(vm: VueInstance, key: string): boolean {
         props = vm.$ && vm.$.vnode && vm.$.vnode.props;
     }
     if (props) {
-        return !isNull(props[key] || props[kebabCase(key)]);
+        const value = props[key];
+        return !isNull(isNull(value) ?  props[kebabCase(key)] : value);
     }
     return false;
 }
