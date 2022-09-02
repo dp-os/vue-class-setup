@@ -35,44 +35,6 @@ const WHITE_LIST: string[] = [
     '$emit',
     '$props',
 ];
-function initProps(vm: VueInstance, app: InstanceType<DefineConstructor>) {
-    const keys = Object.keys(app.$defaultProps || {});
-    if (keys.length) {
-        watch(
-            () => {
-                const props = vm['$props'];
-                if (!props) return {};
-                const data: Record<string, any> = {};
-                keys.forEach((key) => {
-                    if (props[key] !== app[key]) {
-                        data[key] = app[key];
-                    }
-                });
-                return data;
-            },
-            (defaultProps) => {
-                const props = vm['$props'];
-                if (!props) {
-                    return;
-                }
-                const definePropertyProps = createDefineProperty(props);
-                Object.keys(defaultProps).forEach((key) => {
-                    const descriptor = Object.getOwnPropertyDescriptor(
-                        props,
-                        key
-                    );
-                    definePropertyProps(key, {
-                        ...descriptor,
-                        value: defaultProps[key],
-                    });
-                });
-            },
-            {
-                immediate: true,
-            }
-        );
-    }
-}
 
 function use(vm: VueInstance, _This: any) {
     let use: Map<any, InstanceType<DefineConstructor>>;
@@ -92,18 +54,54 @@ function use(vm: VueInstance, _This: any) {
     return app;
 }
 
+function proxyVue3Props(app: InstanceType<DefineConstructor>, vm: VueInstance) {
+    const render = vm.$options?.render as Function | undefined;
+    if (app[SETUP_SETUP_DEFINE] && render) {
+        const keys = Object.keys(app.$defaultProps);
+        if (!keys.length) return;
+        const proxyRender = (...args: any[]) => {
+            const props = vm.$props;
+            const defaultProps = app.$defaultProps;
+            const arr: { key: string; pd: PropertyDescriptor }[] = [];
+            const dpp = createDefineProperty(props);
+            // Set default Props
+            keys.forEach((key) => {
+                const value = app[key];
+                if (props[key] !== value) {
+                    const pd = Object.getOwnPropertyDescriptor(props, key);
+                    if (!pd) return;
+                    dpp(key, { ...pd, value });
+                    arr.push({
+                        key,
+                        pd,
+                    });
+                }
+            });
+            const res = render.apply(vm, args);
+            arr.forEach((item) => {
+                dpp(item.key, item.pd);
+            });
+            // Resume default props
+            return res;
+        };
+        vm.$options.render = proxyRender;
+
+        if (vm.$) {
+            (vm as any).$.render = proxyRender;
+        }
+    }
+}
+
 function initInject(app: InstanceType<DefineConstructor>, vm: VueInstance) {
-    // Watch default props
     if (isVue3) {
-        initProps(vm, app);
+        proxyVue3Props(app, vm);
     }
 
     const names = Object.getOwnPropertyNames(app);
     const defineProperty = createDefineProperty(vm);
-    const propertyDescriptor = app.constructor[SETUP_PROPERTY_DESCRIPTOR] as Map<
-        string,
-        PropertyDescriptor
-    >;
+    const propertyDescriptor = app.constructor[
+        SETUP_PROPERTY_DESCRIPTOR
+    ] as Map<string, PropertyDescriptor>;
     names.forEach((name) => {
         if (propertyDescriptor.has(name) || WHITE_LIST.includes(name)) return;
         defineProperty(name, {
@@ -152,7 +150,7 @@ export class Context {
             created() {
                 const vm = this as any as VueInstance;
                 const app = use(vm, _This);
-                initInject(app, vm)
+                initInject(app, vm);
             },
         };
     }

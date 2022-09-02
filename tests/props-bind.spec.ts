@@ -11,6 +11,7 @@ test('Props-bind', async () => {
     assert.equal(wrapper.find('.ok1').text(), 'true');
     assert.equal(wrapper.find('.ok2').text(), 'false');
 
+    // code = 1
     await wrapper.find('button').trigger('click');
 
     assert.equal(wrapper.find('.code').text(), '1');
@@ -19,6 +20,7 @@ test('Props-bind', async () => {
     assert.equal(wrapper.find('.ok1').text(), 'false');
     assert.equal(wrapper.find('.ok2').text(), 'true');
 
+    // code = 2
     await wrapper.find('button').trigger('click');
 
     assert.equal(wrapper.find('.code').text(), '2');

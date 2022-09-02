@@ -1,3 +1,7 @@
+## 1.2.6
+
+-   fix: Vue3 optimization settings default props
+
 ## 1.2.5
 
 -   fix: Default Boolean value error
