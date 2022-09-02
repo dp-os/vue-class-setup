@@ -1,6 +1,6 @@
 ## 1.2.6
 
--   fix: Vue3 optimization settings default props
+-   fix: Vue3 optimization set default props
 
 ## 1.2.5
 
