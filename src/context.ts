@@ -35,12 +35,12 @@ const WHITE_LIST: string[] = [
     '$emit',
     '$props',
 ];
-function initProps(target: VueInstance, app: InstanceType<DefineConstructor>) {
+function initProps(vm: VueInstance, app: InstanceType<DefineConstructor>) {
     const keys = Object.keys(app.$defaultProps || {});
     if (keys.length) {
         watch(
             () => {
-                const props = target['$props'];
+                const props = vm['$props'];
                 if (!props) return {};
                 const data: Record<string, any> = {};
                 keys.forEach((key) => {
@@ -51,7 +51,7 @@ function initProps(target: VueInstance, app: InstanceType<DefineConstructor>) {
                 return data;
             },
             (defaultProps) => {
-                const props = target['$props'];
+                const props = vm['$props'];
                 if (!props) {
                     return;
                 }
@@ -74,13 +74,13 @@ function initProps(target: VueInstance, app: InstanceType<DefineConstructor>) {
     }
 }
 
-function use(target: VueInstance, _This: any) {
+function use(vm: VueInstance, _This: any) {
     let use: Map<any, InstanceType<DefineConstructor>>;
-    if (target[SETUP_USE]) {
-        use = target[SETUP_USE];
+    if (vm[SETUP_USE]) {
+        use = vm[SETUP_USE];
     } else {
         use = new Map();
-        target[SETUP_USE] = use;
+        vm[SETUP_USE] = use;
     }
     let app = use.get(_This)!;
     if (app) {
@@ -89,14 +89,18 @@ function use(target: VueInstance, _This: any) {
     app = new _This() as InstanceType<DefineConstructor>;
 
     use.set(_This, app);
+    return app;
+}
+
+function initInject(app: InstanceType<DefineConstructor>, vm: VueInstance) {
     // Watch default props
     if (isVue3) {
-        initProps(target, app);
+        initProps(vm, app);
     }
 
     const names = Object.getOwnPropertyNames(app);
-    const defineProperty = createDefineProperty(target);
-    const propertyDescriptor = _This[SETUP_PROPERTY_DESCRIPTOR] as Map<
+    const defineProperty = createDefineProperty(vm);
+    const propertyDescriptor = app.constructor[SETUP_PROPERTY_DESCRIPTOR] as Map<
         string,
         PropertyDescriptor
     >;
@@ -122,7 +126,6 @@ function use(target: VueInstance, _This: any) {
             },
         });
     });
-    return app;
 }
 
 export class Context {
@@ -148,7 +151,8 @@ export class Context {
             },
             created() {
                 const vm = this as any as VueInstance;
-                use(vm, _This);
+                const app = use(vm, _This);
+                initInject(app, vm)
             },
         };
     }
