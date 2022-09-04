@@ -1,4 +1,3 @@
-import { watch } from 'vue';
 import { getCurrentInstance, type VueInstance, isVue3 } from './vue';
 import { setupReference } from './setup-reference';
 import { TargetName, Target } from './types';
