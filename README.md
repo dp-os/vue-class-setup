@@ -60,6 +60,7 @@ class App extends Context {
     }
 }
 export default defineComponent({
+    // Inject setup
     ...App.inject(),
 });
 </script>
