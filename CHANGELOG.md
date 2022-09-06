@@ -1,3 +1,7 @@
+## 1.2.7
+
+-   chore: Update keywords
+
 ## 1.2.6
 
 -   fix: Vue3 optimization set default props

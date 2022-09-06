@@ -1,6 +1,6 @@
 {
     "name": "vue-class-setup",
-    "version": "1.2.6",
+    "version": "1.2.7",
     "main": "dist/index.cjs.js",
     "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
@@ -28,7 +28,9 @@
     "keywords": [
         "vue-class",
         "vue-class-component",
-        "vue-property-decorator"
+        "vue-property-decorator",
+        "vue-class-composition",
+        "vue-class-composition-api"
     ],
     "scripts": {
         "lint": "prettier --write .",
