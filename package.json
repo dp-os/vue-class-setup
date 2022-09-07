@@ -41,7 +41,7 @@
         "test:all": "./script/test-all.sh",
         "coverage": "vitest run --coverage",
         "coveralls": "coveralls < coverage/lcov.info",
-        "release": "yarn test:all && npm publish --registry=https://registry.npmjs.org"
+        "release": "yarn test:all"
     },
     "peerDependencies": {
         "vue": ">=2.7.8 || >=3.0.0"

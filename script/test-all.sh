@@ -1,5 +1,3 @@
-#! /bin/bash
-
 rm -rf node_modules
 rm -rf node_modules_back
 yarn install
