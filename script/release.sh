@@ -1,6 +1,6 @@
 #! /bin/bash
 set -e
-version=`node -e "console.log(require('./package.json').version)"`
+version=v`node -e "console.log(require('./package.json').version)"`
 
 npm publish --registry=https://registry.npmjs.org
 
