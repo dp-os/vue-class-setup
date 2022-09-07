@@ -1,6 +1,6 @@
 {
     "name": "vue-class-setup",
-    "version": "1.2.9",
+    "version": "1.2.8-beta",
     "main": "dist/index.cjs.js",
     "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
@@ -41,7 +41,7 @@
         "test:all": "./script/test-all.sh",
         "coverage": "vitest run --coverage",
         "coveralls": "coveralls < coverage/lcov.info",
-        "release": "yarn test:all"
+        "release": "yarn test:all && ./script/release.sh"
     },
     "peerDependencies": {
         "vue": ">=2.7.8 || >=3.0.0"
