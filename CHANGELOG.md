@@ -1,3 +1,7 @@
+## 1.3.0
+
+-   Same as `1.2.9`
+
 ## 1.2.9
 
 -   feat: `Context` Support props and emit generics
