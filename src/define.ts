@@ -1,5 +1,5 @@
 import { type VueInstance, isVue2 } from './vue';
-import { Context } from './context';
+import { Context, DefaultProps, DefaultEmit } from './context';
 import { createDefineProperty } from './property-descriptors';
 import { SETUP_SETUP_DEFINE } from './config';
 
@@ -19,13 +19,6 @@ interface DefineInstance<T, E> {
     readonly $vm: VueInstance;
     readonly $defaultProps: DeepReadonly<Partial<T>>;
 }
-
-export type DefaultProps = Record<string, any>;
-export type DefaultEmit = (...args: any[]) => void;
-
-// type RequiredBooleanAttr<T extends {}> = {
-//     [K in keyof T]-?: boolean extends T[K] ? T[K] : T[K];
-// };
 
 type DefineInstanceType<
     T extends DefaultProps,

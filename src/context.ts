@@ -125,7 +125,10 @@ function initInject(app: InstanceType<DefineConstructor>, vm: VueInstance) {
     });
 }
 
-export class Context {
+export type DefaultProps = Record<string, any>;
+export type DefaultEmit = (...args: any[]) => void;
+
+export class Context<T extends {} = {}, E extends DefaultEmit = DefaultEmit> {
     public static [SETUP_NAME] = false;
     public static [SETUP_OPTIONS_NAME] = new Map();
     public static [SETUP_PROPERTY_DESCRIPTOR] = new Map<
@@ -154,15 +157,15 @@ export class Context {
         };
     }
     public $vm: VueInstance;
-    public $emit: VueInstance['$emit'];
+    public $emit: E;
     public constructor() {
         const vm = getCurrentInstance();
         this.$vm = vm ?? ({ $props: {}, $emit: emit } as any);
-        this.$emit = this.$vm.$emit.bind(this.$vm);
+        this.$emit = this.$vm.$emit.bind(this.$vm) as E;
         setupReference.add(this);
     }
     public get $props() {
-        return this.$vm.$props ?? {};
+        return (this.$vm.$props ?? {}) as T;
     }
 }
 function emit() {}

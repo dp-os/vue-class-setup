@@ -1,3 +1,7 @@
+## 1.2.9
+
+-   feat: `Context` Support props and emit generics
+
 ## 1.2.8
 
 -   fix: `$vm` return Vue instance on Vue2
