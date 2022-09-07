@@ -1,3 +1,7 @@
+## 1.2.8
+
+-   fix: `$vm` return Vue instance on Vue2
+
 ## 1.2.7
 
 -   chore: Update keywords
