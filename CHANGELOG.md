@@ -1,4 +1,4 @@
-## 1.3.1
+## 1.3.2
 
 -   fix: Vue3 SSR default error
 
