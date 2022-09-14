@@ -41,7 +41,11 @@ function use(vm: VueInstance, _This: any) {
         use = vm[SETUP_USE];
     } else {
         use = new Map();
-        vm[SETUP_USE] = use;
+        Object.defineProperty(vm, SETUP_USE, {
+            get() {
+                return use;
+            },
+        });
     }
     let app = use.get(_This)!;
     if (app) {
@@ -54,13 +58,20 @@ function use(vm: VueInstance, _This: any) {
 }
 
 function proxyVue3Props(app: InstanceType<DefineConstructor>, vm: VueInstance) {
-    const render = vm.$options?.render as Function | undefined;
+    interface Item {
+        ssrRender?: Function;
+        render?: Function;
+    }
+    if (!vm.$) {
+        return;
+    }
+    const item = vm.$ as Item;
+    const render = item.ssrRender || item.render;
     if (app[SETUP_SETUP_DEFINE] && render) {
         const keys = Object.keys(app.$defaultProps);
         if (!keys.length) return;
         const proxyRender = (...args: any[]) => {
             const props = vm.$props;
-            const defaultProps = app.$defaultProps;
             const arr: { key: string; pd: PropertyDescriptor }[] = [];
             const dpp = createDefineProperty(props);
             // Set default Props
@@ -83,10 +94,11 @@ function proxyVue3Props(app: InstanceType<DefineConstructor>, vm: VueInstance) {
             // Resume default props
             return res;
         };
-        vm.$options.render = proxyRender;
 
-        if (vm.$) {
-            (vm as any).$.render = proxyRender;
+        if (item.ssrRender) {
+            item.ssrRender = proxyRender;
+        } else if (item.render) {
+            item.render = proxyRender;
         }
     }
 }

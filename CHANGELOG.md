@@ -1,3 +1,7 @@
+## 1.3.1
+
+-   fix: Vue3 SSR default error
+
 ## 1.3.0
 
 -   Same as `1.2.9`
