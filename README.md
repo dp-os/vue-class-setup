@@ -10,10 +10,6 @@
 
 Using class can help you avoid `ref`, `reactive` , `computed` and `withDefaults`, and significantly reduce your mental burden and better organize your code. It supports vue2 and vue3 at the same time. After gzip compression, it is only 1KB
 
-## [function](https://github.com/fmfe/vue-class-setup/blob/main/examples/vite-vue3/src/components/native.vue) vs [class](https://github.com/fmfe/vue-class-setup/blob/main/examples/vite-vue3/src/components/class-setup.vue)
-
-![function vs class](./docs/compare.png)
-
 ## vue-class-component vs vue-class-setup
 
 **We should deprecate [vue-class-component](https://github.com/vuejs/vue-class-component/issues/569), and use class in setup**
