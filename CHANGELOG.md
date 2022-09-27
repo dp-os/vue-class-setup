@@ -1,3 +1,7 @@
+## 1.3.4
+
+-   docs: modify README.md
+
 ## 1.3.3
 
 -   fix: Vue3 SSR default error
