@@ -14,8 +14,6 @@ export function getCurrentInstance(): VueInstance | null {
 type Instance = NonNullable<NonNullable<ReturnType<typeof get>>['proxy']>;
 
 type VueModule = typeof import('vue');
-type Vue = VueModule extends { default: unknown }
-    ? VueModule['default']
-    : never;
+type Vue = VueModule extends { default: infer V } ? V : never;
 
 export type VueInstance = Vue extends never ? Instance : InstanceType<Vue>;
