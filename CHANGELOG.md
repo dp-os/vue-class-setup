@@ -1,3 +1,7 @@
+## 1.3.7
+
+-   types: fix `VueInstance` type error
+
 ## 1.3.6
 
 -   types: fix `VueInstance` type error

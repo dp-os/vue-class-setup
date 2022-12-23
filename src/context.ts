@@ -27,13 +27,7 @@ export function setCurrentHookName(name: TargetName | null) {
     currentName = name;
 }
 
-const WHITE_LIST: string[] = [
-    SETUP_SETUP_DEFINE,
-    SETUP_SETUP_DEFINE,
-    '$vm',
-    '$emit',
-    '$props',
-];
+const WHITE_LIST: string[] = [SETUP_SETUP_DEFINE, '$vm', '$emit', '$props'];
 
 function use(vm: VueInstance, _This: any) {
     let use: Map<any, InstanceType<DefineConstructor>>;
@@ -159,7 +153,7 @@ export class Context<T extends {} = {}, E extends DefaultEmit = DefaultEmit> {
 
         return {
             setup() {
-                return {} as InstanceType<T>;
+                return {} as Omit<InstanceType<T>, '$vm'>;
             },
             created() {
                 const vm = this as any as VueInstance;
