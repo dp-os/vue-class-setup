@@ -3,27 +3,17 @@ import { Context, DefaultProps, DefaultEmit } from './context';
 import { createDefineProperty } from './property-descriptors';
 import { SETUP_SETUP_DEFINE } from './config';
 
-type DeepReadonly<T> = T extends object
-    ? T extends Array<any>
-        ? T
-        : T extends Function
-        ? T
-        : {
-              readonly [P in keyof T]: DeepReadonly<T[P]>;
-          }
-    : T;
-
 interface DefineInstance<T, E> {
     readonly $props: T;
     readonly $emit: E;
     readonly $vm: VueInstance;
-    readonly $defaultProps: DeepReadonly<Partial<T>>;
+    readonly $defaultProps: Readonly<Partial<T>>;
 }
 
 type DefineInstanceType<
     T extends DefaultProps,
     E extends DefaultEmit = DefaultEmit
-> = DeepReadonly<T> & DefineInstance<T, E>;
+> = Readonly<T> & DefineInstance<T, E>;
 
 export interface DefineConstructor {
     inject: typeof Context['inject'];

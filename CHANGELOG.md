@@ -1,3 +1,7 @@
+## 1.3.8
+
+-   types: fix `DeepReadonly` to `Readonly`
+
 ## 1.3.7
 
 -   types: fix `VueInstance` type error
