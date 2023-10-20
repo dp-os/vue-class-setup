@@ -151,15 +151,18 @@ export class Context<T extends {} = {}, E extends DefaultEmit = DefaultEmit> {
     public static inject<T extends new (...args: any) => any>(this: T) {
         const _This = this;
 
-        return {
-            setup() {
-                return {} as Omit<InstanceType<T>, '$vm'>;
-            },
+        const options: any = {
             created() {
                 const vm = this as any as VueInstance;
                 const app = use(vm, _This);
                 initInject(app, vm);
             },
+        };
+
+        return options as {
+            setup?: () => Omit<InstanceType<T>, '$vm'>;
+            data?: () => Omit<InstanceType<T>, '$vm'>;
+            created(): void;
         };
     }
     public $vm: VueInstance;

@@ -1,3 +1,7 @@
+## 1.3.9
+
+-   fix: Type failure
+
 ## 1.3.8
 
 -   types: fix `DeepReadonly` to `Readonly`
