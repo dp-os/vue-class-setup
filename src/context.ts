@@ -160,8 +160,8 @@ export class Context<T extends {} = {}, E extends DefaultEmit = DefaultEmit> {
         };
 
         return options as {
-            setup?: () => Omit<InstanceType<T>, '$vm'>;
-            data?: () => Omit<InstanceType<T>, '$vm'>;
+            setup: () => Omit<InstanceType<T>, '$vm'>;
+            data: () => Omit<InstanceType<T>, '$vm'>;
             created(): void;
         };
     }
