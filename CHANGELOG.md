@@ -1,3 +1,11 @@
+## 1.4.1
+
+-   fix: Type failure
+
+## 1.4.0
+
+-   fix: Type failure
+
 ## 1.3.9
 
 -   fix: Type failure
