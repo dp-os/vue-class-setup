@@ -25,8 +25,11 @@ test('Base', async () => {
     wrapper.setProps({
         boolean1: false,
         boolean3: true,
+        // @ts-ignore
         boolean5: '',
+        // @ts-ignore
         boolean6: '',
+        // @ts-ignore
         showIcon: '',
         age1: 100,
         age2: 10,
@@ -47,6 +50,7 @@ test('Base', async () => {
     wrapper.setProps({
         boolean1: true,
         boolean4: false,
+        // @ts-ignore
         age1: null,
     });
     await wrapper.vm.$nextTick();

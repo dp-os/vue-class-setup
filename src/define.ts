@@ -16,10 +16,10 @@ type DefineInstanceType<
 > = Readonly<T> & DefineInstance<T, E>;
 
 export interface DefineConstructor {
-    inject: typeof Context['inject'];
-    use: typeof Context['use'];
-    setup: typeof Context['setup'];
-    setupOptions: typeof Context['setupOptions'];
+    inject: (typeof Context)['inject'];
+    use: (typeof Context)['use'];
+    setup: (typeof Context)['setup'];
+    setupOptions: (typeof Context)['setupOptions'];
     setupDefine: boolean;
     setupPropertyDescriptor: Map<string, PropertyDescriptor>;
     new <T extends {} = {}, E extends DefaultEmit = DefaultEmit>(

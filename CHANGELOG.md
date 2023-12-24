@@ -1,3 +1,7 @@
+## 1.4.2
+
+-   fix: Type failure
+
 ## 1.4.1
 
 -   fix: Type failure
