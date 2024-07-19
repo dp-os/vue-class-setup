@@ -1,5 +1,5 @@
 import { getCurrentInstance, type VueInstance, isVue3 } from './vue';
-import { setupReference } from './setup-reference';
+import { bindTarget } from './setup-reference';
 import { TargetName, Target } from './types';
 import {
     SETUP_NAME,
@@ -170,7 +170,7 @@ export class Context<T extends {} = {}, E extends DefaultEmit = DefaultEmit> {
         const vm = getCurrentInstance();
         this.$vm = vm ?? ({ $props: {}, $emit: emit } as any);
         this.$emit = this.$vm.$emit.bind(this.$vm) as E;
-        setupReference.add(this);
+        bindTarget(this);
     }
     public get $props() {
         return (this.$vm.$props ?? {}) as T;
