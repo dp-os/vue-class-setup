@@ -1,6 +1,7 @@
 ## 1.4.3
 
--   fix:  memory leak caused by unused `@Setup` decorator
+-   fix: memory leak caused by unused `@Setup` decorator
+
 ## 1.4.2
 
 -   fix: Type failure

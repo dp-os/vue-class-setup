@@ -1,8 +1,7 @@
-
 let count = 0;
 let isOpen = false;
 
-export function add () {
+export function add() {
     if (isOpen) {
         count = 1;
     } else {
@@ -18,15 +17,15 @@ export function popTarget(target: object): boolean {
     if (typeof count === 'number') {
         count--;
         if (count) {
-            weakMap.set(target, count)
+            weakMap.set(target, count);
             return false;
         } else {
             weakMap.delete(target);
-            isOpen = false
+            isOpen = false;
             return true;
         }
     }
-    return false
+    return false;
 }
 
 export function bindTarget(target: object) {
@@ -34,6 +33,6 @@ export function bindTarget(target: object) {
         weakMap.set(target, count);
         count = 0;
     } else {
-        console.warn(`The instance did not use the '@Setup' decorator`)
+        console.warn(`The instance did not use the '@Setup' decorator`);
     }
 }
