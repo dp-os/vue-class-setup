@@ -10,7 +10,7 @@ import {
 import { initComputed } from './computed';
 import { getOptions, getSetupOptions } from './options';
 import { initDefine } from './define';
-import { add, popTarget } from './setup-reference';
+import { addCount, unBindTarget } from './setup-reference';
 import { getPropertyDescriptors } from './property-descriptors';
 
 export type TargetConstructor = {
@@ -68,9 +68,9 @@ function Setup<T extends TargetConstructor>(Target: T) {
         public static [SETUP_PROPERTY_DESCRIPTOR] =
             getPropertyDescriptors(Target);
         public constructor(...args: any[]) {
-            add();
+            addCount();
             super(...args);
-            if (popTarget(this)) {
+            if (unBindTarget(this)) {
                 // Vue3 needs to return, vue2 does not need to return
                 return initHook(reactive(this));
             }

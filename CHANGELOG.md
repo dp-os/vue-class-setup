@@ -1,3 +1,7 @@
+## 1.4.4
+
+-   fix: multiple inheritance unbinding object errors
+
 ## 1.4.3
 
 -   fix: memory leak caused by unused `@Setup` decorator
