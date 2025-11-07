@@ -350,8 +350,8 @@ defineExpose({
 
 ## Vue compatible
 
--   `getCurrentInstance` returns the proxy object by default
--   `VueInstance` It is not easy to get a Vue instance object type compatible with vue2 and vue3. We make it easy
+- `getCurrentInstance` returns the proxy object by default
+- `VueInstance` It is not easy to get a Vue instance object type compatible with vue2 and vue3. We make it easy
 
 ```ts
 import {

@@ -1,14 +1,13 @@
 /// <reference types="vitest" />
 import { resolve } from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import dts from 'vite-plugin-dts';
-import vue2 from '@vitejs/plugin-vue';
+import vue from '@vitejs/plugin-vue';
 import { buildDocs } from './script/build-docs';
 
 buildDocs();
 
 export default defineConfig({
-    // @ts-ignore
     test: {
         globals: true,
         environment: 'happy-dom',
@@ -17,7 +16,7 @@ export default defineConfig({
         },
     },
     plugins: [
-        vue2(),
+        vue(),
         dts({
             afterDiagnostic(list) {
                 if (list.length) {

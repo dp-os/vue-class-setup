@@ -12,7 +12,7 @@ interface DefineInstance<T, E> {
 
 type DefineInstanceType<
     T extends DefaultProps,
-    E extends DefaultEmit = DefaultEmit
+    E extends DefaultEmit = DefaultEmit,
 > = Readonly<T> & DefineInstance<T, E>;
 
 export interface DefineConstructor {
